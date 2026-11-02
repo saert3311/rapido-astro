@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@theme {
+  /* Calibrated Neutral Slate/Zinc Base + Single Emerald Accent (<80% saturation) */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F4F6F8;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #F1F5F9;
+  --color-surface-container: #E8EEF3;
+  --color-surface-container-high: #E2E8F0;
+  --color-surface-dark: #111820;
+  --color-surface-variant: #CBD5E1;
+
+  --color-on-surface: #111820;
+  --color-on-background: #111820;
+  --color-secondary: #334155;
+  --color-text-muted: #526071;
+  --color-border-subtle: #E2E8F0;
+
+  --color-primary: #059652;
+  --color-primary-hover: #047842;
+  --color-primary-fixed: #6EE7B7;
+  --color-on-primary: #FFFFFF;
+  --color-mint-wash: #ECFDF5;
+
+  --color-error: #BA1A1A;
+  --color-on-error: #FFFFFF;
+
+  /* Spacing tokens */
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-sm: 1rem;
+  --spacing-margin: 1.5rem;
+  --spacing-margin-lg: 4.5rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+
+  /* Deterministic Typography System (Anti-Slop: Outfit + Plus Jakarta Sans + JetBrains Mono) */
+  --font-display: "Outfit", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Semantic aliases for project compatibility */
+  --font-headline-hero: var(--font-display);
+  --font-headline-hero-mobile: var(--font-display);
+  --font-headline-lg: var(--font-display);
+  --font-headline-lg-mobile: var(--font-display);
+  --font-headline-md: var(--font-display);
+  --font-headline-sm: var(--font-display);
+  --font-label-button: var(--font-sans);
+  --font-label-badge: var(--font-mono);
+  --font-body-regular: var(--font-sans);
+  --font-body-lead: var(--font-sans);
+  --font-body-sm: var(--font-sans);
+
+  --text-headline-hero: 3.35rem;
+  --text-headline-hero--line-height: 1.04;
+  --text-headline-hero--letter-spacing: -0.035em;
+  --text-headline-hero--font-weight: 700;
+
+  --text-headline-hero-mobile: 2.25rem;
+  --text-headline-hero-mobile--line-height: 1.08;
+  --text-headline-hero-mobile--letter-spacing: -0.03em;
+  --text-headline-hero-mobile--font-weight: 700;
+
+  --text-headline-lg: 2.25rem;
+  --text-headline-lg--line-height: 1.12;
+  --text-headline-lg--letter-spacing: -0.025em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-headline-lg-mobile: 1.75rem;
+  --text-headline-lg-mobile--line-height: 1.18;
+  --text-headline-lg-mobile--letter-spacing: -0.02em;
+  --text-headline-lg-mobile--font-weight: 700;
+
+  --text-headline-md: 1.25rem;
+  --text-headline-md--line-height: 1.28;
+  --text-headline-md--letter-spacing: -0.015em;
+  --text-headline-md--font-weight: 600;
+
+  --text-headline-sm: 1.0625rem;
+  --text-headline-sm--line-height: 1.35;
+  --text-headline-sm--font-weight: 600;
+
+  --text-body-lead: 1.125rem;
+  --text-body-lead--line-height: 1.65;
+  --text-body-lead--font-weight: 400;
+
+  --text-body-regular: 1rem;
+  --text-body-regular--line-height: 1.65;
+  --text-body-regular--font-weight: 400;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+  --text-body-sm--font-weight: 400;
+
+  --text-label-button: 0.9375rem;
+  --text-label-button--line-height: 1.25;
+  --text-label-button--font-weight: 600;
+
+  --text-label-badge: 0.75rem;
+  --text-label-badge--line-height: 1.2;
+  --text-label-badge--letter-spacing: 0.05em;
+  --text-label-badge--font-weight: 600;
+}
+
+/* Opt-in globally for intrinsic keyword animations (animate-to-intrinsic-sizes) */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+    font-family: var(--font-sans);
+    color: var(--color-on-surface);
+    background-color: var(--color-surface);
+  }
+
+  /* Targeted balanced wrapping for short multi-line headings (improve-text-layout-and-legibility) */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+  }
+
+  /* Pretty line-breaking for body paragraphs and list items to prevent orphaned words */
+  p,
+  li,
+  blockquote {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Native details summary reset & smooth intrinsic disclosure animation */
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition: block-size 0.28s cubic-bezier(0.22, 1, 0.36, 1), content-visibility 0.28s allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+/* Liquid Glass Refraction surface */
+.liquid-glass {
+  background: rgba(17, 24, 32, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 16px 32px -12px rgba(17, 24, 32, 0.35);
+}
+
+.liquid-glass-light {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 36px -14px rgba(17, 24, 32, 0.08);
+}
+
+/* Tinted diffusion shadow for Bento 2.0 surfaces */
+.diffusion-card {
+  box-shadow: 0 20px 40px -15px rgba(17, 24, 32, 0.05), 0 1px 2px 0 rgba(17, 24, 32, 0.03);
+}
+
+/* Staggered entry cascade (transform & opacity only) */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-item {
+  animation: reveal-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--index, 0) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content,
+  .stagger-item {
+    animation: none !important;
+    transition: none !important;
+  }
+}
