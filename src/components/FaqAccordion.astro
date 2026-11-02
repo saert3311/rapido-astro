@@ -1,0 +1,61 @@
+---
+export interface FaqItem {
+  question: string;
+  answer: string;
+  icon?: string;
+}
+
+interface Props {
+  badge: string;
+  title: string;
+  subtitle: string;
+  items: FaqItem[];
+  groupName?: string;
+}
+
+const { badge, title, subtitle, items, groupName = 'faq-accordion' } = Astro.props;
+---
+
+<div class="max-w-[840px] mx-auto px-margin">
+  <div class="text-center mb-space-xl">
+    <span class="inline-block font-label-badge text-label-badge text-primary uppercase tracking-widest bg-mint-wash px-3 py-1 rounded">
+      {badge}
+    </span>
+    <h2 class="mt-2 font-headline-lg text-headline-lg-mobile md:text-headline-lg text-surface-dark">
+      {title}
+    </h2>
+    <p class="font-body-regular text-body-regular text-text-muted mt-2 max-w-xl mx-auto">
+      {subtitle}
+    </p>
+  </div>
+
+  <div class="space-y-3">
+    {items.map((item, idx) => (
+      <details
+        name={groupName}
+        open={idx === 0}
+        class="group rounded-lg bg-surface-container-lowest border border-border-subtle open:border-primary/40 transition-colors overflow-hidden"
+      >
+        <summary class="flex items-center justify-between gap-space-md px-space-lg py-4 cursor-pointer list-none select-none font-headline-sm text-headline-sm text-surface-dark hover:text-primary group-open:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary">
+          <span class="flex items-center gap-3 text-left">
+            {item.icon && (
+              <span class="w-8 h-8 rounded-md bg-mint-wash text-primary flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">{item.icon}</span>
+              </span>
+            )}
+            <span>{item.question}</span>
+          </span>
+          <span
+            class="material-symbols-outlined text-[22px] text-secondary group-open:text-primary group-open:rotate-180 transition-transform duration-200 shrink-0"
+            aria-hidden="true"
+          >
+            expand_more
+          </span>
+        </summary>
+        <div class="px-space-lg pb-5 pt-1 font-body-regular text-sm md:text-base text-text-muted leading-relaxed border-t border-border-subtle/50">
+          <p set:html={item.answer} />
+        </div>
+      </details>
+    ))}
+  </div>
+</div>
