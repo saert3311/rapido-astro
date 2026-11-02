@@ -1,0 +1,379 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StoreLocator from '../components/StoreLocator.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+
+const inspectionSteps = [
+  {
+    index: '01',
+    icon: 'inventory_2',
+    title: 'Apertura Libre en Sala',
+    metric: 'SIN CAJAS CERRADAS',
+    description: 'En Rápido Pack Valencia puedes abrir el embalaje, revisar todos los accesorios incluidos y comprobar el estado estético real.',
+  },
+  {
+    index: '02',
+    icon: 'power',
+    title: 'Banco de Prueba con Enchufe',
+    metric: 'TEST ELÉCTRICO',
+    description: 'Disponemos de mesas con tomas de corriente para que conectes y pongas en marcha cualquier artículo antes de pasar por caja.',
+  },
+  {
+    index: '03',
+    icon: 'autorenew',
+    title: 'Mercancía Todas las Semanas',
+    metric: 'ROTACIÓN CONTINUA',
+    description: 'Recibimos nuevos lotes todas las semanas con productos de segunda mano seleccionada, devoluciones revisadas y excedentes de marcas.',
+  },
+  {
+    index: '04',
+    icon: 'sell',
+    title: 'Etiquetado de Oportunidad',
+    metric: 'HASTA -70% PVP',
+    description: 'El descuento se aplica directamente según el estado del artículo y su embalaje para que te lleves el mejor precio en el acto.',
+  },
+];
+
+const outletFaqs = [
+  {
+    icon: 'fact_check',
+    question: '¿Qué diferencia hay entre los artículos de segunda mano y los de outlet en Rápido Pack Valencia?',
+    answer: 'En nuestra tienda de Alfafar encontrarás tanto <strong>excedentes de stock y cajas abiertas sin uso</strong> como <strong>productos de segunda mano y reacondicionados</strong>. En todos los casos puedes abrirlos y probarlos personalmente en nuestras mesas con enchufe antes de decidir.',
+  },
+  {
+    icon: 'calendar_month',
+    question: '¿Con qué frecuencia llegan nuevos productos de segunda mano y outlet?',
+    answer: 'Renovamos las estanterías con <strong>mercancía nueva todas las semanas</strong>. Como cada lote incluye unidades únicas de tecnología, hogar y bricolaje, el inventario cambia continuamente a lo largo de la semana.',
+  },
+  {
+    icon: 'power',
+    question: '¿Cómo puedo comprobar que un artículo de segunda mano funciona correctamente?',
+    answer: 'Contamos con una <strong>zona de prueba equipada con enchufes</strong> en el propio local de Rápido Pack Valencia. Puedes enchufar pequeños electrodomésticos, herramientas o dispositivos electrónicos y verificar su funcionamiento con total tranquilidad.',
+  },
+  {
+    icon: 'storefront',
+    question: '¿Publicáis un listado online de cada unidad de segunda mano?',
+    answer: 'No. Al tratarse de unidades individuales con alta rotación semanal, la venta es <strong>100% presencial en Carrer del Comte Ronrée, 8 (Alfafar)</strong> por orden de llegada.',
+  },
+];
+---
+
+<Layout
+  title="Outlet y Segunda Mano · Rápido Pack Valencia — Productos Revisados en Alfafar"
+  description="Catálogo presencial de productos de segunda mano verificados y outlet de primeras marcas en Rápido Pack Valencia (Alfafar). Mercancía nueva todas las semanas y mesas de prueba con enchufe."
+  currentPage="outlet"
+>
+  <div class="flex flex-col w-full">
+    <!-- 1. Asymmetric 7/5 Split Hero -->
+    <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <!-- Left Editorial Column (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col items-start text-left">
+            <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span>SEGUNDA MANO VERIFICADA Y OUTLET · TODAS LAS SEMANAS</span>
+            </div>
+
+            <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tighter leading-[1.04] text-surface-dark" style="--index: 1;">
+              Productos de <span class="text-primary">segunda mano y outlet</span> que compruebas antes de pagar.
+            </h1>
+
+            <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
+              En <strong class="text-surface-dark font-semibold">Rápido Pack Valencia</strong> seleccionamos artículos de segunda mano, reacondicionados y liquidaciones de primeras marcas con entrada de mercancía nueva todas las semanas. Abre la caja, conéctalo en nuestras mesas de prueba y llévatelo al instante.
+            </p>
+
+            <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 3;">
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="#lineas-producto"
+              >
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">category</span>
+                <span>Ver Líneas de Producto</span>
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="#ubicacion"
+              >
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">near_me</span>
+                <span>Visitar Tienda en Alfafar</span>
+              </a>
+            </div>
+
+            <!-- Telemetry Strip -->
+            <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
+              <div class="flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">Semanal</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Entrada de nuevos lotes</span>
+              </div>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">-70% PVP</span>
+                <span class="font-sans text-xs text-text-muted mt-1">En 2ª mano y liquidación</span>
+              </div>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">100% Test</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Mesas con enchufe en sala</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Visual Showcase Column (5 Cols) -->
+          <div class="lg:col-span-5 stagger-item" style="--index: 2;">
+            <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
+              <img
+                class="w-full h-full object-cover"
+                alt="Exposición de productos de segunda mano revisados y pequeño electrodoméstico de outlet en Rápido Pack Valencia"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Q6qjd7S5aQoOiAWHM_ltBs3Sw9i1qTDShJsUG4KBsC5IjdyrE46ewPpRn-qTPqFzKN78n2IJo4hn7yOacEXYD1UC7uEix_ltNBnPuscLQdwh48O4jxQdmMUXZC9jbr3JCWC1T9C5n48U26IstvGl8S5GhNqA578rurb7R8WTm9OR8M9PIqWGX3RB08DXEBvDKHDccwMVpxWN8oNB9Yo3I6iPMgIKI5i0OILwJOef"
+                fetchpriority="high"
+                width="640"
+                height="720"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/85 via-surface-dark/15 to-transparent"></div>
+
+              <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                <div class="liquid-glass px-3.5 py-2 rounded-xl flex items-center gap-2 text-on-primary text-xs font-mono">
+                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">verified</span>
+                  <span>2ª MANO Y OUTLET REVISADO</span>
+                </div>
+                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold">
+                  Alfafar · Valencia
+                </span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-center justify-between gap-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">fact_check</span>
+                  </div>
+                  <div>
+                    <p class="font-display text-sm font-bold text-white leading-snug">
+                      Revisión presencial sin sorpresas
+                    </p>
+                    <p class="font-sans text-xs text-surface-variant mt-0.5">
+                      Inspecciona estado, piezas y funcionamiento eléctrico en tienda.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. De-Boxed Hairline Ledger: Protocolo de Compra Transparente -->
+    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              01 // Garantía de Inspección Presencial
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Cómo funciona la sección de segunda mano y outlet en Rápido Pack Valencia.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            A diferencia de las plataformas de segunda mano entre particulares, aquí tocas, enchufas y verificas cada artículo en nuestro local antes de comprarlo.
+          </p>
+        </div>
+
+        <div class="border-t border-b border-border-subtle divide-y md:divide-y-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:divide-x divide-border-subtle bg-surface-container-lowest">
+          {inspectionSteps.map((step) => (
+            <article class="p-6 sm:p-8 flex flex-col justify-between group hover:bg-mint-wash/35 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="font-mono text-xs font-semibold text-text-muted group-hover:text-primary transition-colors">
+                    /{step.index}
+                  </span>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded bg-surface-alt group-hover:bg-mint-wash font-mono text-[11px] font-semibold text-primary transition-colors">
+                    {step.metric}
+                  </span>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-mint-wash text-primary flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{step.icon}</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-surface-dark mb-2.5">
+                  {step.title}
+                </h3>
+                <p class="font-sans text-sm text-text-muted leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Asymmetric 7/5 Bento Grid: Categorías de Segunda Mano y Outlet -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="lineas-producto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              02 // Categorías en Sala
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Qué encontrarás cada semana en nuestro espacio Outlet y Segunda Mano.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Recibimos mercancía nueva todas las semanas. Cada lote combina unidades de segunda mano verificada, artículos reacondicionados y liquidaciones de primeras marcas.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Dominant Flagship Tile (7 Cols) -->
+          <article class="lg:col-span-7 rounded-3xl bg-surface-dark text-on-primary p-6 sm:p-9 flex flex-col justify-between relative overflow-hidden diffusion-card border border-surface-dark">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[15px]" aria-hidden="true">recycling</span>
+                  <span>Segunda Mano y Reacondicionados</span>
+                </span>
+                <span class="font-mono text-xs text-primary-fixed bg-white/10 px-3 py-1.5 rounded-full">
+                  Nuevos lotes todas las semanas
+                </span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Segunda Mano Seleccionada y Liquidaciones de Marca en Rápido Pack Valencia
+              </h3>
+              <p class="mt-3 font-sans text-sm sm:text-base text-surface-variant leading-relaxed max-w-[58ch]">
+                Damos una segunda vida a productos de tecnología, electrodomésticos y equipamiento doméstico procedentes de devoluciones logísticas y liquidaciones europeas, revisados en nuestra tienda de Alfafar.
+              </p>
+            </div>
+
+            <div class="my-6 rounded-2xl overflow-hidden border border-white/10 aspect-[16/9] relative">
+              <img
+                class="w-full h-full object-cover"
+                alt="Pasillos de Rápido Pack Valencia con lotes semanales de segunda mano y outlet"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaHzGlsNBhqI6dGEVjkag7N1ER9cekBn4iZpAeZEsarx0HY1TUmZvSnExkeK2wgGNFaCWhiUbKgTnecRDWV7ko6l8i8FmFRAla0T7t3OJEQFM8JopoIc5gKYPzvMaVZouAGK2_adK_LF-c-X705yPIBs_yWPYzLV_SuVDLkkhNQNemMGMerfAUXM-Wyv2HC9IXInbHlROll0_lVyNYiDdfINcHbFGstPSSjkfwfr8Z"
+                loading="lazy"
+                decoding="async"
+                width="680"
+                height="380"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-white">
+                <span class="liquid-glass px-3 py-1.5 rounded-lg">Rápido Pack Valencia · Alfafar</span>
+                <span class="liquid-glass px-3 py-1.5 rounded-lg text-primary-fixed">Venta 100% presencial</span>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-primary-fixed block font-semibold">CAJA ABIERTA / OUTLET</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Excedentes y embalaje deteriorado</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-white block font-semibold">SEGUNDA MANO</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Unidades revisadas a precio reducido</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-white block font-semibold">PRUEBA IN SITU</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Verificación eléctrica en mesa</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Column (5 Cols): Stacked Secondary Bento Tiles -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold">
+                    <span class="material-symbols-outlined text-[15px]" aria-hidden="true">coffee_maker</span>
+                    <span>HOGAR Y COCINA</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-muted font-semibold">2ª MANO Y OUTLET</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                  <div class="sm:col-span-7">
+                    <h3 class="font-display text-xl font-bold text-surface-dark">
+                      Pequeño Electrodoméstico
+                    </h3>
+                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
+                      Cafeteras, freidoras de aire, aspiradores, batidoras y climatización que puedes enchufar y probar en tienda.
+                    </p>
+                  </div>
+                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
+                    <img
+                      class="w-full h-full object-cover"
+                      alt="Pequeño electrodoméstico de segunda mano y outlet en Rápido Pack Valencia"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF9qXGJUeSsSOKet9svtf0RfLhCz1GwKHQOBcWjaYORdiKCUwmT9EaGrrYG2qXK1qvW8PctUS13qoTCQbJjk-o9VFuSEJ-s_27duCla7OiO209-2BdzvG-nB3Nf8LRDWuXzVSVDw0FpOZw8c8mSKqVxA0OiUn0-qyMMwF67xYVsAMbvuMBn1z2xdMnUPfIFs28Ct7QqUtVdF02kUOKCPbVR6NTZCRJLSHWtNkEBXf1"
+                      loading="lazy"
+                      decoding="async"
+                      width="240"
+                      height="160"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
+                <span>Renovación de stock todas las semanas</span>
+                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">power</span>
+              </div>
+            </article>
+
+            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest border border-border-subtle text-surface-dark font-mono text-xs font-semibold">
+                    <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">handyman</span>
+                    <span>ELECTRÓNICA Y BRICOLAJE</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-muted font-semibold">LOTES SEMANALES</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                  <div class="sm:col-span-7">
+                    <h3 class="font-display text-xl font-bold text-surface-dark">
+                      Tecnología, Herramientas y Ocio
+                    </h3>
+                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
+                      Auriculares, periféricos, herramientas eléctricas, jardín y artículos deportivos de segunda mano y liquidación.
+                    </p>
+                  </div>
+                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
+                    <img
+                      class="w-full h-full object-cover"
+                      alt="Herramientas y electrónica de segunda mano en Rápido Pack Valencia"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuChww7rAfkFGRSpjGXAb-TvEqExKoIksWmlPuFRAxqv8s6QUXMWC4RiNA97QsRSGUmWZIw2udXf7osybslqZPHE4NcMoPLNfDoDmQls_vfLEMqie3wc04npDB_I5gvtBZqC5p0fy6JwEbJvz-z_AbzE9KhS8STZInVQyhA9flNZWPrifRK4CQB3jIOfpPn5vJNLc6ZvaNlCL-1ABdLFtgUAXKtsaLoZhpV5ONE2jm0w"
+                      loading="lazy"
+                      decoding="async"
+                      width="240"
+                      height="160"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
+                <span>Unidades únicas disponibles en tienda</span>
+                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">sync</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Ubicación y Horarios -->
+    <StoreLocator />
+
+    <!-- 5. Preguntas Frecuentes sobre Segunda Mano y Outlet -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-t border-border-subtle">
+      <FaqAccordion
+        badge="04 // Dudas sobre Segunda Mano y Outlet"
+        title="Preguntas frecuentes antes de visitar Rápido Pack Valencia"
+        subtitle="Todo lo que necesitas saber sobre cómo revisamos y probamos nuestros artículos de segunda mano y liquidación."
+        items={outletFaqs}
+        groupName="outlet-faq"
+      />
+    </section>
+  </div>
+</Layout>

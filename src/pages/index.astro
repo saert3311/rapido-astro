@@ -7,16 +7,16 @@ const ledgerFeatures = [
   {
     index: '01',
     icon: 'local_shipping',
-    title: 'Descarga Cada Lunes · 09:30',
-    metric: 'LOTE SEMANAL',
-    description: 'Cada lunes a primera hora abrimos con palés recién descargados de primeras marcas y liquidaciones.',
+    title: 'Mercancía Todas las Semanas',
+    metric: 'LOTES SEMANALES',
+    description: 'Todas las semanas renovamos nuestras estanterías con nuevos lotes de outlet, primeras marcas y segunda mano.',
   },
   {
     index: '02',
     icon: 'sell',
-    title: 'Descuento Directo en Tienda',
+    title: 'Outlet y Segunda Mano',
     metric: 'HASTA -70% PVP',
-    description: 'Precios de liquidación real sobre PVP en pequeño electrodoméstico, periféricos, hogar y bricolaje.',
+    description: 'Descuentos directos sobre PVP en pequeño electrodoméstico, tecnología, hogar, bricolaje y segunda mano verificada.',
   },
   {
     index: '03',
@@ -39,71 +39,71 @@ const carriers = ['Amazon Hub Counter', 'InPost', 'GLS ParcelShop', 'SEUR Pickup
 const homeFaqs = [
   {
     icon: 'calendar_month',
-    question: '¿Qué día entra mercancía nueva en Rápido Pack?',
-    answer: 'Todos los lunes abrimos a las <strong>09:30 horas</strong> con la nueva descarga de lotes de outlet y primeras marcas listas en estanterías. Es el momento preferido por nuestros clientes habituales para encontrar las mejores oportunidades de la semana.',
+    question: '¿Cuándo entra mercancía nueva en Rápido Pack Valencia?',
+    answer: 'Recibimos y reponemos <strong>mercancía nueva todas las semanas</strong> con lotes de outlet de primeras marcas y productos de segunda mano revisados listos en estanterías.',
   },
   {
     icon: 'schedule',
-    question: '¿Dónde estáis exactamente y cuál es el horario?',
+    question: '¿Dónde está Rápido Pack Valencia y cuál es el horario?',
     answer: 'Estamos en <strong>Carrer del Comte Ronrée, 8, 46910 Alfafar (Valencia)</strong>. Nuestro horario ininterrumpido es de <strong>lunes a viernes de 09:30 a 20:00</strong> y los <strong>sábados de 10:00 a 15:00</strong>. Los domingos permanecemos cerrados.',
   },
   {
     icon: 'fact_check',
-    question: '¿Puedo ver y comprobar los productos antes de comprar?',
+    question: '¿Puedo comprobar los productos de segunda mano y outlet antes de comprar?',
     answer: 'Sí. Esa es nuestra principal ventaja frente a la compra online a ciegas. En el local puedes abrir las cajas, revisar el estado estético y probar los aparatos eléctricos en nuestra zona de enchufes antes de pasar por caja.',
   },
   {
     icon: 'storefront',
     question: '¿Hacéis envíos online o tenéis catálogo web?',
-    answer: 'Vendemos exclusivamente en persona en nuestra tienda física de Alfafar. Como el inventario rota a diario y cada unidad es única por orden de llegada, priorizamos ofrecerte el precio más bajo directamente en tienda.',
+    answer: 'Vendemos exclusivamente en persona en nuestra tienda física de Rápido Pack Valencia en Alfafar. Como el inventario de outlet y segunda mano rota todas las semanas y cada unidad es única por orden de llegada, ofrecemos el mejor precio directamente en tienda.',
   },
 ];
 ---
 
-<Layout title="Rápido Pack · Alfafar, Valencia — Tienda Outlet y Punto de Paquetería" currentPage="home">
+<Layout title="Rápido Pack Valencia · Alfafar — Tienda Outlet, Segunda Mano y Punto de Paquetería" currentPage="home">
   <div class="flex flex-col w-full">
     <!-- 1. Asymmetric Split-Screen Hero (Rule 3: Anti-Center Bias, DESIGN_VARIANCE: 8) -->
-    <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-5rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
+    <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <!-- Left Editorial Column (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-start text-left">
             <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
               <span class="w-2 h-2 rounded-full bg-primary"></span>
-              <span>REPOSICIÓN CADA LUNES 09:30 · ALFAFAR, VALENCIA</span>
+              <span>MERCANCÍA NUEVA TODAS LAS SEMANAS · ALFAFAR, VALENCIA</span>
             </div>
 
             <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold tracking-tighter leading-[1.03] text-surface-dark" style="--index: 1;">
-              Liquidaciones de primeras marcas que <span class="text-primary">pruebas en persona</span> antes de pagar.
+              Outlet de primeras marcas y <span class="text-primary">segunda mano</span> que pruebas en persona.
             </h1>
 
             <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
-              Tienda física Outlet y punto oficial de paquetería en Carrer del Comte Ronrée, 8. Tecnología, pequeño electrodoméstico y bricolaje con hasta un <strong class="text-surface-dark font-semibold">70% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
+              Bienvenido a <strong class="text-surface-dark font-semibold">Rápido Pack Valencia</strong> en Carrer del Comte Ronrée, 8. Artículos de outlet, productos de segunda mano revisados y punto oficial de paquetería con hasta un <strong class="text-surface-dark font-semibold">70% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
             </p>
 
             <!-- Tactile Action Row -->
             <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 3;">
               <a
                 class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                href="#ubicacion"
+                href="/outlet"
               >
-                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
-                <span>Ver Ubicación y Horarios</span>
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
+                <span>Explorar Outlet y 2ª Mano</span>
               </a>
               <a
-                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-mono text-sm font-semibold rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                href="tel:685119511"
+                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="#ubicacion"
               >
-                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">call</span>
-                <span class="tabular-nums">685 11 95 11</span>
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">near_me</span>
+                <span>Ubicación y Horarios</span>
               </a>
             </div>
 
             <!-- Architectural Telemetry Strip (No Card Boxes — Rule 4) -->
             <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
               <div class="flex flex-col">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">Lun 09:30</span>
-                <span class="font-sans text-xs text-text-muted mt-1">Apertura de nuevo lote</span>
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">Semanal</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Nuevos lotes en tienda</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
                 <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">5.0 ★</span>
@@ -121,7 +121,7 @@ const homeFaqs = [
             <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
               <img
                 class="w-full h-full object-cover"
-                alt="Interior de la tienda física de liquidaciones Rápido Pack en Alfafar, Valencia, con estanterías organizadas de tecnología y hogar"
+                alt="Interior de la tienda física Rápido Pack Valencia en Alfafar con estanterías organizadas de tecnología, segunda mano y hogar"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
                 fetchpriority="high"
                 width="640"
@@ -169,14 +169,14 @@ const homeFaqs = [
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
           <div class="lg:col-span-7">
             <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-              01 // Operativa de Tienda Física
+              01 // Operativa de Rápido Pack Valencia
             </span>
             <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
               Compra transparente en local y hub logístico en un solo paso.
             </h2>
           </div>
           <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
-            Sin compras a ciegas ni esperas de mensajería. Ven a revisar las liquidaciones de la semana y aprovecha para recoger o devolver tus paquetes online aparcando en la puerta.
+            Sin compras a ciegas ni esperas de mensajería. Ven a revisar nuestras oportunidades de segunda mano y outlet todas las semanas y aprovecha para gestionar tus paquetes online.
           </p>
         </div>
 
@@ -211,7 +211,7 @@ const homeFaqs = [
         <div class="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 rounded-2xl bg-surface-container-lowest border border-border-subtle">
           <div class="flex items-center gap-2.5 text-xs font-mono font-semibold text-surface-dark uppercase tracking-wider">
             <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">inventory</span>
-            <span>Operadores Oficiales en Rápido Pack:</span>
+            <span>Operadores Oficiales en Rápido Pack Valencia:</span>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             {carriers.map((carrier) => (
@@ -224,50 +224,59 @@ const homeFaqs = [
       </div>
     </section>
 
-    <!-- 3. Asymmetric Bento 2.0 Grid (Replaces Banned 3-Column Equal Cards — Section 7 & 9) -->
-    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="lunes-de-stock">
+    <!-- 3. Asymmetric Bento 2.0 Grid (Weekly Stock & Dedicated 2nd-Hand / Outlet Showcase) -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="stock-semanal">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
           <div class="lg:col-span-7">
             <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-              02 // Rotación Semanal de Inventario
+              02 // Rotación Semanal y Segunda Mano
             </span>
             <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-              Lunes de Reposición Total y líneas de producto en tienda.
+              Mercancía nueva todas las semanas y sección dedicada de segunda mano.
             </h2>
           </div>
-          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
-            Cada semana renovamos las estanterías por completo. Las unidades más buscadas de primeras marcas se asignan por orden de llegada desde el lunes a las 09:30 h.
-          </p>
+          <div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-between gap-3">
+            <p class="font-sans text-base text-text-muted leading-relaxed">
+              Todas las semanas renovamos las estanterías con lotes de liquidación y artículos de segunda mano revisados listos para probar.
+            </p>
+            <a
+              href="/outlet"
+              class="inline-flex items-center gap-2 font-mono text-xs font-semibold text-primary hover:text-primary-hover uppercase tracking-wider group"
+            >
+              <span>Ir a la página de Outlet y Segunda Mano</span>
+              <span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
         </div>
 
         <!-- Asymmetric 7 / 5 Bento Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          <!-- Dominant Flagship Tile (7 Cols): Lunes de Reposición Total -->
+          <!-- Dominant Flagship Tile (7 Cols): Renovación Semanal + Segunda Mano -->
           <article class="lg:col-span-7 rounded-3xl bg-surface-dark text-on-primary p-6 sm:p-9 flex flex-col justify-between relative overflow-hidden diffusion-card border border-surface-dark">
             <div>
               <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
                 <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider">
                   <span class="material-symbols-outlined text-[15px]" aria-hidden="true">bolt</span>
-                  <span>Día Clave · Mayor Variedad</span>
+                  <span>Renovación Todas las Semanas</span>
                 </span>
-                <span id="monday-countdown-pill" class="font-mono text-xs text-primary-fixed bg-white/10 px-3 py-1.5 rounded-full tabular-nums">
-                  Apertura Lunes · 09:30 h
+                <span class="font-mono text-xs text-primary-fixed bg-white/10 px-3 py-1.5 rounded-full">
+                  Outlet y 2ª Mano en Sala
                 </span>
               </div>
 
               <h3 class="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Lunes de Reposición Total en Estanterías
+                Nuevos Lotes Semanales y Artículos de Segunda Mano Verificados
               </h3>
               <p class="mt-3 font-sans text-sm sm:text-base text-surface-variant leading-relaxed max-w-[58ch]">
-                Todos los lunes a las 09:30 h abrimos las puertas con nuevos lotes recién clasificados. Si buscas primeras marcas de electrónica o pequeño electrodoméstico al mayor descuento, acudir el lunes por la mañana te garantiza acceso prioritario.
+                En Rápido Pack Valencia incorporamos mercancía nueva todas las semanas: desde liquidaciones de primeras marcas hasta productos de segunda mano revisados a precios de oportunidad.
               </p>
             </div>
 
             <div class="my-6 rounded-2xl overflow-hidden border border-white/10 aspect-[16/9] relative">
               <img
                 class="w-full h-full object-cover"
-                alt="Estanterías de Rápido Pack con lotes de liquidación listos para el lunes por la mañana"
+                alt="Estanterías de Rápido Pack Valencia con lotes semanales de liquidación y segunda mano"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaHzGlsNBhqI6dGEVjkag7N1ER9cekBn4iZpAeZEsarx0HY1TUmZvSnExkeK2wgGNFaCWhiUbKgTnecRDWV7ko6l8i8FmFRAla0T7t3OJEQFM8JopoIc5gKYPzvMaVZouAGK2_adK_LF-c-X705yPIBs_yWPYzLV_SuVDLkkhNQNemMGMerfAUXM-Wyv2HC9IXInbHlROll0_lVyNYiDdfINcHbFGstPSSjkfwfr8Z"
                 loading="lazy"
                 decoding="async"
@@ -277,23 +286,25 @@ const homeFaqs = [
               <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"></div>
               <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-white">
                 <span class="liquid-glass px-3 py-1.5 rounded-lg">Stock 100% presencial en Alfafar</span>
-                <span class="liquid-glass px-3 py-1.5 rounded-lg text-primary-fixed">Sin reservas online</span>
+                <a href="/outlet" class="liquid-glass px-3 py-1.5 rounded-lg text-primary-fixed hover:text-white transition-colors">
+                  Ver sección Segunda Mano →
+                </a>
               </div>
             </div>
 
             <!-- Weekly Drop Progression Bar -->
             <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
               <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-primary-fixed block font-semibold">LUNES 09:30</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">100% del lote nuevo en sala</span>
+                <span class="text-primary-fixed block font-semibold">TODAS LAS SEMANAS</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Entrada continua de nuevos lotes</span>
               </div>
               <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-white block font-semibold">MAR – VIE</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">Reposición continua de pasillos</span>
+                <span class="text-white block font-semibold">SEGUNDA MANO</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Artículos revisados y probados</span>
               </div>
               <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-white block font-semibold">SÁB 10:00–15:00</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">Liquidación de últimas unidades</span>
+                <span class="text-white block font-semibold">PRUEBA EN MESA</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Tomas eléctricas para verificar</span>
               </div>
             </div>
           </article>
@@ -317,13 +328,13 @@ const homeFaqs = [
                       Tecnología y Hogar
                     </h3>
                     <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
-                      Auriculares, cafeteras, aspiradores, freidoras de aire y periféricos revisados con descuento directo sobre PVP.
+                      Auriculares, cafeteras, aspiradores, freidoras de aire y periféricos de outlet y segunda mano revisada.
                     </p>
                   </div>
                   <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
                     <img
                       class="w-full h-full object-cover"
-                      alt="Electrónica de consumo, auriculares, freidoras de aire y aspiradores en exposición"
+                      alt="Electrónica de consumo, auriculares, freidoras de aire y aspiradores en Rápido Pack Valencia"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Q6qjd7S5aQoOiAWHM_ltBs3Sw9i1qTDShJsUG4KBsC5IjdyrE46ewPpRn-qTPqFzKN78n2IJo4hn7yOacEXYD1UC7uEix_ltNBnPuscLQdwh48O4jxQdmMUXZC9jbr3JCWC1T9C5n48U26IstvGl8S5GhNqA578rurb7R8WTm9OR8M9PIqWGX3RB08DXEBvDKHDccwMVpxWN8oNB9Yo3I6iPMgIKI5i0OILwJOef"
                       loading="lazy"
                       decoding="async"
@@ -335,35 +346,35 @@ const homeFaqs = [
               </div>
 
               <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
-                <span>Comprobación eléctrica antes de pagar</span>
+                <a href="/outlet" class="hover:text-primary transition-colors font-semibold">Ver productos en Outlet →</a>
                 <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">power</span>
               </div>
             </article>
 
-            <!-- Tile 3: Herramientas, Bricolaje y Ocio -->
+            <!-- Tile 3: Herramientas, Bricolaje y Segunda Mano -->
             <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
               <div>
                 <div class="flex items-center justify-between gap-2 mb-4">
                   <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest border border-border-subtle text-surface-dark font-mono text-xs font-semibold">
                     <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">handyman</span>
-                    <span>OPORTUNIDADES</span>
+                    <span>2ª MANO Y OPORTUNIDADES</span>
                   </span>
-                  <span class="font-mono text-xs text-text-muted font-semibold">LOTES VARIABLES</span>
+                  <span class="font-mono text-xs text-text-muted font-semibold">LOTES SEMANALES</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
                   <div class="sm:col-span-7">
                     <h3 class="font-display text-xl font-bold text-surface-dark">
-                      Herramientas y Ocio
+                      Herramientas y Segunda Mano
                     </h3>
                     <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
-                      Equipamiento de bricolaje, jardín, deporte y menaje del hogar que se renueva cada 7 días según lote recibido.
+                      Equipamiento de bricolaje, jardín, deporte y artículos de segunda mano que se renuevan todas las semanas.
                     </p>
                   </div>
                   <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
                     <img
                       class="w-full h-full object-cover"
-                      alt="Herramientas de bricolaje, accesorios deportivos y menaje en tienda de liquidación"
+                      alt="Herramientas de bricolaje, accesorios deportivos y artículos de segunda mano en Rápido Pack Valencia"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuChww7rAfkFGRSpjGXAb-TvEqExKoIksWmlPuFRAxqv8s6QUXMWC4RiNA97QsRSGUmWZIw2udXf7osybslqZPHE4NcMoPLNfDoDmQls_vfLEMqie3wc04npDB_I5gvtBZqC5p0fy6JwEbJvz-z_AbzE9KhS8STZInVQyhA9flNZWPrifRK4CQB3jIOfpPn5vJNLc6ZvaNlCL-1ABdLFtgUAXKtsaLoZhpV5ONE2jm0w"
                       loading="lazy"
                       decoding="async"
@@ -375,7 +386,7 @@ const homeFaqs = [
               </div>
 
               <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
-                <span>Unidades únicas por orden de llegada</span>
+                <a href="/outlet" class="hover:text-primary transition-colors font-semibold">Detalles de Segunda Mano →</a>
                 <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">sync</span>
               </div>
             </article>
@@ -391,8 +402,8 @@ const homeFaqs = [
     <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-t border-border-subtle">
       <FaqAccordion
         badge="04 // Preguntas Frecuentes"
-        title="Resolvemos tus dudas antes de venir"
-        subtitle="Todo lo que necesitas saber sobre el funcionamiento de nuestra tienda física y punto de paquetería en Alfafar."
+        title="Resolvemos tus dudas antes de venir a Rápido Pack Valencia"
+        subtitle="Todo lo que necesitas saber sobre el funcionamiento de nuestra tienda de outlet, segunda mano y punto de paquetería en Alfafar."
         items={homeFaqs}
         groupName="home-faq"
       />
@@ -404,25 +415,23 @@ const homeFaqs = [
         <div class="max-w-2xl text-left">
           <span class="inline-flex items-center gap-2 font-mono text-xs text-primary-fixed uppercase tracking-wider bg-white/10 px-3 py-1.5 rounded-full">
             <span class="w-2 h-2 rounded-full bg-primary-fixed" aria-hidden="true"></span>
-            Próxima Descarga Semanal · Lunes 09:30 h
+            Mercancía Nueva Todas las Semanas
           </span>
           <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Descubre las oportunidades de esta semana en tienda
+            Descubre las oportunidades de esta semana en Rápido Pack Valencia
           </h2>
           <p class="mt-2 font-sans text-base text-surface-variant">
-            Acércate a Carrer del Comte Ronrée, 8 en Alfafar y comprueba en persona nuestro stock de primeras marcas.
+            Acércate a Carrer del Comte Ronrée, 8 en Alfafar y comprueba en persona nuestro stock de segunda mano y primeras marcas.
           </p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3.5 w-full lg:w-auto shrink-0">
           <a
             class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
-            href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
-            rel="noopener noreferrer"
-            target="_blank"
+            href="/outlet"
           >
-            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
-            <span>Cómo Llegar en Coche</span>
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
+            <span>Ver Outlet y Segunda Mano</span>
           </a>
           <a
             class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/15 font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
@@ -445,41 +454,10 @@ const homeFaqs = [
       >
         <span class="flex items-center gap-2">
           <span class="material-symbols-outlined text-[20px]" aria-hidden="true">navigation</span>
-          <span>Cómo llegar a Rápido Pack</span>
+          <span>Cómo llegar a Rápido Pack Valencia</span>
         </span>
         <span class="font-mono text-xs bg-surface-dark/25 px-2.5 py-1 rounded-md">V-31 · 8 min</span>
       </a>
     </div>
   </div>
 </Layout>
-
-<script is:inline>
-  (() => {
-    const pill = document.getElementById('monday-countdown-pill');
-    if (!pill) return;
-    try {
-      const now = new Date();
-      const parts = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/Madrid',
-        weekday: 'short',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }).formatToParts(now);
-      const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
-      const dayMap = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 };
-      const d = dayMap[map.weekday] ?? 1;
-      const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
-
-      if (d === 1 && mins >= 9 * 60 + 30 && mins < 20 * 60) {
-        pill.textContent = 'HOY LUNES · LOTE NUEVO EN SALA';
-      } else {
-        const daysUntilMon = d === 1 && mins < 9 * 60 + 30 ? 0 : (8 - d) % 7 || 7;
-        pill.textContent =
-          daysUntilMon === 0
-            ? 'Hoy 09:30 h · Apertura de lote'
-            : `Próximo lote en ${daysUntilMon} ${daysUntilMon === 1 ? 'día' : 'días'} · Lun 09:30`;
-      }
-    } catch {}
-  })();
-</script>
