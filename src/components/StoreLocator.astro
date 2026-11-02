@@ -7,7 +7,7 @@ interface Props {
 
 const {
   badge = '03 // Ubicación y Acceso Directo',
-  title = 'Visítanos en Alfafar (Valencia)',
+  title = 'Visita Rápido Pack Valencia en Alfafar',
   subtitle = 'Situados en el eje comercial de Alfafar con acceso directo desde la V-31 (Pista de Silla) y aparcamiento gratuito en la misma puerta.',
 } = Astro.props;
 ---
@@ -80,28 +80,24 @@ const {
               <p class="font-mono text-xs uppercase tracking-wider text-text-muted font-semibold">
                 Horario Comercial Ininterrumpido
               </p>
-              <span data-store-live-badge class="font-mono text-[11px] font-semibold text-primary bg-mint-wash px-2.5 py-0.5 rounded-full">
-                Horario Valencia
+              <span class="font-mono text-[11px] font-semibold text-primary bg-mint-wash px-2.5 py-0.5 rounded-full">
+                Stock nuevo cada semana
               </span>
             </div>
 
             <div class="divide-y divide-border-subtle border-t border-b border-border-subtle">
-              <div data-day-row="mon" class="flex items-center justify-between py-3 px-2 rounded-sm bg-mint-wash/50 text-surface-dark text-sm">
+              <div class="flex items-center justify-between py-3 px-2 rounded-sm bg-mint-wash/50 text-surface-dark text-sm">
                 <div class="flex items-center gap-2 font-semibold text-primary">
-                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">inventory_2</span>
-                  <span>Lunes (Reposición Total)</span>
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">storefront</span>
+                  <span>Lunes a Viernes</span>
                 </div>
                 <span class="font-mono font-semibold text-primary tabular-nums">09:30 – 20:00</span>
               </div>
-              <div data-day-row="tue-fri" class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
-                <span class="font-medium">Martes a Viernes</span>
-                <span class="font-mono font-semibold tabular-nums">09:30 – 20:00</span>
-              </div>
-              <div data-day-row="sat" class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
+              <div class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
                 <span class="font-medium">Sábados</span>
                 <span class="font-mono font-semibold tabular-nums">10:00 – 15:00</span>
               </div>
-              <div data-day-row="sun" class="flex items-center justify-between py-3 px-2 text-text-muted text-sm">
+              <div class="flex items-center justify-between py-3 px-2 text-text-muted text-sm">
                 <span>Domingos</span>
                 <span class="font-mono font-semibold text-error">Cerrado</span>
               </div>
@@ -125,7 +121,7 @@ const {
         <div class="w-full h-full min-h-[420px] rounded-2xl relative overflow-hidden bg-surface-container flex flex-col justify-between p-4 sm:p-5">
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHcHHryPs96Yr_U5zIZHCmdfyw-btQQmxlW1_DLl9r-BeINGVl6YDjbmTATQrEhG2p-IVbTp6nzC6tw4ZtL2HMHMpp1LHn5Y9Z0KxbSMgu9vaAxi3J1Rbbk23ucMUr-pgzwYfKpN0xfaK4SBIWTWSUns5l-1ejbTu1tE-06wft09dNKYuzFokUcyk6hdsch4Jke3m3bbwe34igSez6hmplWbU_KGUrPxtCy8CTPwCk"
-            alt="Mapa de situación de Rápido Pack en Carrer del Comte Ronrée 8, Alfafar"
+            alt="Mapa de situación de Rápido Pack Valencia en Carrer del Comte Ronrée 8, Alfafar"
             decoding="async"
             width="700"
             height="460"
@@ -151,7 +147,7 @@ const {
           <!-- Center Marker -->
           <div class="relative z-10 my-auto mx-auto flex flex-col items-center pointer-events-none">
             <div class="liquid-glass text-on-primary font-mono text-xs font-semibold px-3.5 py-1.5 rounded-lg mb-2 flex items-center gap-1.5">
-              <span>Rápido Pack</span>
+              <span>Rápido Pack Valencia</span>
               <span class="material-symbols-outlined text-primary-fixed text-[14px]" aria-hidden="true">verified</span>
             </div>
             <div class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg ring-4 ring-surface-container-lowest">

@@ -1,15 +1,13 @@
 ---
 interface Props {
-  currentPage?: 'home' | 'contacto';
+  currentPage?: 'home' | 'outlet' | 'contacto';
 }
 
 const { currentPage = 'home' } = Astro.props;
 
 const navLinks = [
   { label: 'Inicio', href: '/', active: currentPage === 'home' },
-  { label: 'Ventajas', href: currentPage === 'home' ? '#como-funciona' : '/#como-funciona', active: false },
-  { label: 'Lunes de Stock', href: currentPage === 'home' ? '#lunes-de-stock' : '/#lunes-de-stock', active: false },
-  { label: 'Ubicación', href: currentPage === 'home' ? '#ubicacion' : '/#ubicacion', active: false },
+  { label: 'Outlet', href: '/outlet', active: currentPage === 'outlet' },
   { label: 'Contacto', href: '/contacto', active: currentPage === 'contacto' },
 ];
 ---
@@ -21,38 +19,27 @@ const navLinks = [
   Saltar al contenido principal
 </a>
 
-<header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/90 backdrop-blur-md border-b border-border-subtle/80 shadow-[inset_0_-1px_0_rgba(17,24,32,0.04)]">
-  <div class="h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-space-md">
-    <div class="flex items-center gap-4">
+<header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[inset_0_-1px_0_rgba(17,24,32,0.04)]">
+  <div class="h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-5">
       <a
-        class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm"
+        class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-md py-1"
         href="/"
+        aria-label="Rápido Pack Valencia — Ir a Inicio"
       >
-        <div
-          class="w-10 h-10 rounded-lg bg-surface-dark text-on-primary flex items-center justify-center border border-surface-dark shadow-sm group-hover:bg-primary transition-colors duration-200 shrink-0"
-          aria-hidden="true"
-        >
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-            <path d="m3.3 7 8.7 5 8.7-5" />
-            <path d="M12 22V12" />
-            <path class="text-primary-fixed group-hover:text-white transition-colors" d="m15 14 3-1.8" stroke-width="2.4" />
-          </svg>
-        </div>
-        <div class="flex flex-col text-left whitespace-nowrap">
-          <span class="font-display text-xl leading-none text-surface-dark font-bold tracking-tight group-hover:text-primary transition-colors">
-            RápidoPack<span class="text-primary">.</span>
-          </span>
-          <span class="font-mono text-[11px] text-text-muted font-medium tracking-wider uppercase mt-1">
-            Alfafar · Valencia
-          </span>
-        </div>
+        <img
+          src="/logo-rapido-pack-valencia.png"
+          alt="Rápido Pack Valencia"
+          width="206"
+          height="144"
+          class="h-16 sm:h-[72px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+        />
       </a>
 
       <!-- Live Store Status Indicator (Valencia Time) -->
       <div
         id="header-live-status"
-        class="hidden xl:inline-flex items-center gap-2 pl-4 border-l border-border-subtle text-xs font-mono text-text-muted whitespace-nowrap"
+        class="hidden lg:inline-flex items-center gap-2 pl-5 border-l border-border-subtle text-xs font-mono text-text-muted whitespace-nowrap"
         aria-live="polite"
       >
         <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
@@ -60,13 +47,13 @@ const navLinks = [
       </div>
     </div>
 
-    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-1 lg:gap-1.5 whitespace-nowrap">
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-2 whitespace-nowrap">
       {navLinks.map((link) => (
         <a
           href={link.href}
           aria-current={link.active ? 'page' : undefined}
           class:list={[
-            'px-3 py-2 rounded-md font-label-button text-sm whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+            'px-4 py-2.5 rounded-lg font-label-button text-sm whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             link.active
               ? 'bg-mint-wash text-primary font-semibold'
               : 'text-secondary hover:text-surface-dark hover:bg-surface-alt',
@@ -79,7 +66,7 @@ const navLinks = [
 
     <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
       <a
-        class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border-subtle hover:border-primary/40 text-surface-dark font-mono text-xs font-semibold whitespace-nowrap transition-all active:scale-[0.98]"
+        class="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-border-subtle hover:border-primary/40 text-surface-dark font-mono text-xs font-semibold whitespace-nowrap transition-all active:scale-[0.98]"
         href="tel:685119511"
       >
         <span class="material-symbols-outlined text-[16px] text-primary leading-none" aria-hidden="true">call</span>
@@ -100,10 +87,10 @@ const navLinks = [
       <details class="md:hidden relative group">
         <summary
           aria-label="Abrir menú de navegación"
-          class="list-none flex items-center justify-center w-10 h-10 rounded-lg border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
+          class="list-none flex items-center justify-center w-11 h-11 rounded-lg border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
         >
-          <span class="material-symbols-outlined text-[22px] group-open:!hidden" aria-hidden="true">menu</span>
-          <span class="material-symbols-outlined text-[22px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
+          <span class="material-symbols-outlined text-[24px] group-open:!hidden" aria-hidden="true">menu</span>
+          <span class="material-symbols-outlined text-[24px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
         </summary>
         <nav
           aria-label="Navegación móvil"
@@ -167,7 +154,7 @@ const navLinks = [
 
       const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
       const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
-      const day = map.weekday; // Mon..Sun
+      const day = map.weekday;
 
       let isOpen = false;
       let label = 'Cerrado · Abre Lunes 09:30';
@@ -188,16 +175,14 @@ const navLinks = [
         } else if (mins < 10 * 60) {
           label = 'Abre hoy a las 10:00';
         } else {
-          label = 'Lunes Reposición · 09:30';
+          label = 'Cerrado · Abre Lunes 09:30';
         }
       }
 
       dot.className = isOpen
-        ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15'
-        : 'w-2 h-2 rounded-full bg-amber-500';
+        ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15 shrink-0'
+        : 'w-2 h-2 rounded-full bg-amber-500 shrink-0';
       text.textContent = label;
-    } catch {
-      // Fallback remains static schedule
-    }
+    } catch {}
   })();
 </script>
