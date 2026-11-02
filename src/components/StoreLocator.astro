@@ -6,110 +6,111 @@ interface Props {
 }
 
 const {
-  badge = 'Visita Directa',
-  title = 'Ubicación y Horarios del Local',
-  subtitle = 'Estamos en el corazón comercial de Alfafar. Fácil aparcamiento gratuito y acceso directo por la V-31 desde Valencia capital.',
+  badge = '03 // Ubicación y Acceso Directo',
+  title = 'Visítanos en Alfafar (Valencia)',
+  subtitle = 'Situados en el eje comercial de Alfafar con acceso directo desde la V-31 (Pista de Silla) y aparcamiento gratuito en la misma puerta.',
 } = Astro.props;
 ---
 
-<section class="w-full bg-surface-alt py-margin-lg section-deferred" id="ubicacion">
-  <div class="max-w-[1200px] mx-auto px-margin">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
+<section class="w-full bg-surface-alt py-16 lg:py-24" id="ubicacion">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
       <div class="max-w-2xl">
-        <span class="inline-block font-label-badge text-label-badge text-primary uppercase tracking-widest bg-mint-wash px-3 py-1 rounded">
+        <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
           {badge}
         </span>
-        <h2 class="mt-2 font-headline-lg text-headline-lg-mobile md:text-headline-lg text-surface-dark">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
           {title}
         </h2>
-        <p class="font-body-regular text-body-regular text-text-muted mt-2">
+        <p class="font-sans text-base text-text-muted mt-2">
           {subtitle}
         </p>
       </div>
-      <div class="flex flex-wrap items-center gap-2 shrink-0">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-md font-body-sm text-xs text-surface-dark font-medium">
+      <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+        <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
           <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">directions_car</span>
-          8 min desde Valencia (V-31)
+          <span>8 min Valencia (V-31)</span>
         </span>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-md font-body-sm text-xs text-surface-dark font-medium">
+        <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
           <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">local_parking</span>
-          Aparcamiento libre en puerta
+          <span>Parking gratuito</span>
         </span>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
       <!-- Left Column: Store Details & Schedule (5 Cols) -->
-      <div class="lg:col-span-5 bg-surface-container-lowest rounded-lg p-space-lg sm:p-space-xl border border-border-subtle border-l-4 border-l-primary flex flex-col justify-between">
+      <div class="lg:col-span-5 bg-surface-container-lowest rounded-3xl p-6 sm:p-8 border border-border-subtle diffusion-card flex flex-col justify-between">
         <div>
-          <div class="flex items-start justify-between gap-space-sm mb-space-md">
+          <div class="flex items-start justify-between gap-4 pb-5 border-b border-border-subtle">
             <div>
-              <span class="font-label-badge text-xs font-semibold text-primary uppercase tracking-wider">
-                Tienda Física Oficial
+              <span class="font-mono text-xs font-semibold text-primary uppercase tracking-wider">
+                Tienda Física & Hub Paquetería
               </span>
-              <h3 class="font-headline-md text-headline-md text-surface-dark mt-0.5">
+              <h3 class="font-display text-2xl font-bold text-surface-dark mt-1">
                 Rápido Pack Valencia
               </h3>
             </div>
-            <div class="inline-flex items-center gap-1 bg-mint-wash px-2.5 py-1 rounded text-primary font-label-badge text-xs shrink-0">
+            <div class="inline-flex items-center gap-1.5 bg-mint-wash px-3 py-1.5 rounded-full text-primary font-mono text-xs font-semibold shrink-0">
               <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
-              <span>5.0 Google</span>
+              <span>5.0</span>
             </div>
           </div>
 
-          <address class="not-italic p-space-md rounded-md bg-surface-alt border border-border-subtle mb-space-md flex items-start gap-space-sm">
-            <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
-            <div>
-              <p class="font-headline-sm text-sm text-surface-dark font-semibold">Carrer del Comte Ronrée, 8</p>
-              <p class="font-body-sm text-xs text-text-muted mt-0.5">46910 Alfafar, Valencia (Comunidad Valenciana)</p>
+          <address class="not-italic py-5 border-b border-border-subtle flex items-start justify-between gap-4">
+            <div class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
+              <div>
+                <p class="font-display text-base text-surface-dark font-bold">Carrer del Comte Ronrée, 8</p>
+                <p class="font-mono text-xs text-text-muted mt-0.5">46910 Alfafar · Valencia</p>
+              </div>
             </div>
+            <a
+              href="tel:685119511"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-alt hover:bg-mint-wash text-surface-dark hover:text-primary font-mono text-xs font-semibold transition-colors shrink-0"
+            >
+              <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">call</span>
+              <span>685 11 95 11</span>
+            </a>
           </address>
 
-          <div class="space-y-1.5 mb-space-lg">
-            <p class="font-label-badge text-xs uppercase tracking-wider text-surface-dark font-bold mb-2">
-              Horario Semanal Ininterrumpido
-            </p>
-            <div class="flex items-center justify-between px-3 py-2.5 rounded-md bg-mint-wash text-primary font-semibold text-sm border border-primary/20">
-              <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">inventory_2</span>
-                <span>Lunes (Reposición Total)</span>
-              </div>
-              <span class="tabular-nums">09:30 – 20:00</span>
+          <!-- De-Boxed Schedule Ledger with Monospace Time Slots -->
+          <div class="py-5">
+            <div class="flex items-center justify-between mb-3">
+              <p class="font-mono text-xs uppercase tracking-wider text-text-muted font-semibold">
+                Horario Comercial Ininterrumpido
+              </p>
+              <span data-store-live-badge class="font-mono text-[11px] font-semibold text-primary bg-mint-wash px-2.5 py-0.5 rounded-full">
+                Horario Valencia
+              </span>
             </div>
-            <div class="flex items-center justify-between px-3 py-2 rounded-md bg-surface-alt text-surface-dark font-body-sm text-sm">
-              <span>Martes a Viernes</span>
-              <span class="font-semibold tabular-nums">09:30 – 20:00</span>
-            </div>
-            <div class="flex items-center justify-between px-3 py-2 rounded-md bg-surface-alt text-surface-dark font-body-sm text-sm">
-              <span>Sábados</span>
-              <span class="font-semibold tabular-nums">10:00 – 15:00</span>
-            </div>
-            <div class="flex items-center justify-between px-3 py-2 rounded-md bg-surface-alt text-text-muted font-body-sm text-sm">
-              <span>Domingos</span>
-              <span class="font-semibold text-error">Cerrado</span>
-            </div>
-          </div>
 
-          <div class="mb-space-lg">
-            <a
-              class="flex items-center gap-space-sm p-3 rounded-md bg-surface-alt border border-border-subtle hover:border-primary/40 transition-colors group"
-              href="tel:685119511"
-            >
-              <div class="w-10 h-10 rounded-md bg-mint-wash flex items-center justify-center text-primary shrink-0">
-                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">phone_in_talk</span>
+            <div class="divide-y divide-border-subtle border-t border-b border-border-subtle">
+              <div data-day-row="mon" class="flex items-center justify-between py-3 px-2 rounded-sm bg-mint-wash/50 text-surface-dark text-sm">
+                <div class="flex items-center gap-2 font-semibold text-primary">
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">inventory_2</span>
+                  <span>Lunes (Reposición Total)</span>
+                </div>
+                <span class="font-mono font-semibold text-primary tabular-nums">09:30 – 20:00</span>
               </div>
-              <div>
-                <p class="font-body-sm text-xs text-text-muted">Atención telefónica en tienda</p>
-                <p class="font-headline-sm text-base text-surface-dark font-bold group-hover:text-primary transition-colors tabular-nums">
-                  685 11 95 11
-                </p>
+              <div data-day-row="tue-fri" class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
+                <span class="font-medium">Martes a Viernes</span>
+                <span class="font-mono font-semibold tabular-nums">09:30 – 20:00</span>
               </div>
-            </a>
+              <div data-day-row="sat" class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
+                <span class="font-medium">Sábados</span>
+                <span class="font-mono font-semibold tabular-nums">10:00 – 15:00</span>
+              </div>
+              <div data-day-row="sun" class="flex items-center justify-between py-3 px-2 text-text-muted text-sm">
+                <span>Domingos</span>
+                <span class="font-mono font-semibold text-error">Cerrado</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <a
-          class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-space-lg bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
           rel="noopener noreferrer"
           target="_blank"
@@ -120,53 +121,52 @@ const {
       </div>
 
       <!-- Right Column: Map Hub (7 Cols) -->
-      <div class="lg:col-span-7 bg-surface-container-lowest rounded-lg p-2 border border-border-subtle flex flex-col justify-between relative min-h-[440px]">
-        <div class="w-full h-full min-h-[420px] rounded-md relative overflow-hidden bg-surface-container flex flex-col justify-between p-space-md">
+      <div class="lg:col-span-7 bg-surface-container-lowest rounded-3xl p-2.5 border border-border-subtle diffusion-card flex flex-col justify-between relative min-h-[440px]">
+        <div class="w-full h-full min-h-[420px] rounded-2xl relative overflow-hidden bg-surface-container flex flex-col justify-between p-4 sm:p-5">
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHcHHryPs96Yr_U5zIZHCmdfyw-btQQmxlW1_DLl9r-BeINGVl6YDjbmTATQrEhG2p-IVbTp6nzC6tw4ZtL2HMHMpp1LHn5Y9Z0KxbSMgu9vaAxi3J1Rbbk23ucMUr-pgzwYfKpN0xfaK4SBIWTWSUns5l-1ejbTu1tE-06wft09dNKYuzFokUcyk6hdsch4Jke3m3bbwe34igSez6hmplWbU_KGUrPxtCy8CTPwCk"
             alt="Mapa de situación de Rápido Pack en Carrer del Comte Ronrée 8, Alfafar"
-            loading="lazy"
             decoding="async"
             width="700"
             height="460"
             class="absolute inset-0 w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-surface-dark/10 pointer-events-none"></div>
+          <div class="absolute inset-0 bg-surface-dark/15 pointer-events-none"></div>
 
           <!-- Top Bar -->
           <div class="relative z-10 flex items-center justify-between gap-2">
-            <div class="bg-surface-dark/90 backdrop-blur-sm px-3.5 py-2 rounded-md flex items-center gap-2.5 text-on-primary">
+            <div class="liquid-glass px-4 py-2.5 rounded-xl flex items-center gap-2.5 text-on-primary">
               <span class="material-symbols-outlined text-primary-fixed text-[20px]" aria-hidden="true">pin_drop</span>
               <div>
-                <p class="font-headline-sm text-xs leading-none font-bold">Alfafar, Valencia</p>
-                <p class="font-body-sm text-xs text-surface-variant mt-0.5">Carrer del Comte Ronrée, 8</p>
+                <p class="font-display text-xs leading-none font-bold">Alfafar · Zona Comercial</p>
+                <p class="font-mono text-[11px] text-surface-variant mt-1">Carrer del Comte Ronrée, 8</p>
               </div>
             </div>
-            <div class="hidden sm:flex items-center gap-1.5 bg-surface-dark/90 backdrop-blur-sm px-3 py-1.5 rounded-md text-on-primary font-body-sm text-xs">
+            <div class="hidden sm:flex items-center gap-1.5 liquid-glass px-3.5 py-2 rounded-xl text-on-primary font-mono text-xs">
               <span class="material-symbols-outlined text-[16px] text-primary-fixed" aria-hidden="true">train</span>
-              <span>Renfe Alfafar-Benetússer a 10 min</span>
+              <span>Renfe Alfafar a 10 min</span>
             </div>
           </div>
 
           <!-- Center Marker -->
           <div class="relative z-10 my-auto mx-auto flex flex-col items-center pointer-events-none">
-            <div class="bg-surface-dark text-on-primary font-label-badge text-xs px-3 py-1.5 rounded-md mb-1.5 shadow-md flex items-center gap-1.5 border border-primary-fixed/30">
+            <div class="liquid-glass text-on-primary font-mono text-xs font-semibold px-3.5 py-1.5 rounded-lg mb-2 flex items-center gap-1.5">
               <span>Rápido Pack</span>
               <span class="material-symbols-outlined text-primary-fixed text-[14px]" aria-hidden="true">verified</span>
             </div>
-            <div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg ring-4 ring-surface-container-lowest">
+            <div class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg ring-4 ring-surface-container-lowest">
               <span class="material-symbols-outlined text-[20px]" aria-hidden="true">storefront</span>
             </div>
           </div>
 
           <!-- Bottom Action Bar -->
-          <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-space-sm bg-surface-container-lowest/95 backdrop-blur-sm p-3 rounded-md border border-border-subtle">
-            <div class="flex items-center gap-2 text-surface-dark text-xs font-medium">
+          <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 liquid-glass-light p-3.5 rounded-xl">
+            <div class="flex items-center gap-2 text-surface-dark text-xs font-mono font-semibold">
               <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">navigation</span>
-              <span>Acceso directo desde V-31 (Pista de Silla)</span>
+              <span>Salida directa desde V-31 (Pista de Silla)</span>
             </div>
             <a
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-surface-dark hover:bg-secondary text-on-primary font-label-badge text-xs uppercase tracking-wider rounded transition-colors"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-surface-dark hover:bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider rounded-lg transition-all active:scale-[0.98]"
               href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
               rel="noopener noreferrer"
               target="_blank"

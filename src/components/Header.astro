@@ -21,36 +21,55 @@ const navLinks = [
   Saltar al contenido principal
 </a>
 
-<header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md border-b border-border-subtle">
-  <div class="h-20 max-w-[1200px] mx-auto px-margin flex items-center justify-between gap-space-md">
-    <a class="flex items-center gap-space-sm group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" href="/">
-      <img
-        alt="Logotipo de Rápido Pack"
-        class="h-9 w-auto object-contain"
-        width="36"
-        height="36"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqIoxKTpAuDPuBroM8FlUYxsutM7v9o7WeL-fPVvijmdvxTVryFDi8AXdyOM9j_V8F6GQ5JPPoU1hFQr9u6zAcvQ8BqqQ8ocmDLRwj1H5Mc9auZqwKG9dPW2LT7DAL3JQbjjUT2_ab-qaJaPqAmAr9TWR6yWtC7jLYo3--JCq_taH-uXqV4W9dsu4gmc5uG2Ytxi0BHTFYYS3m_-jzxJqU9CSvZj82nfa2j0-1ukRv"
-      />
-      <div class="flex flex-col text-left">
-        <span class="font-headline-md text-headline-md leading-none text-surface-dark font-bold tracking-tight group-hover:text-primary transition-colors">
-          RápidoPack<span class="text-primary">.</span>
-        </span>
-        <span class="font-body-sm text-xs text-text-muted font-medium tracking-wide mt-0.5">
-          Alfafar · Valencia
-        </span>
-      </div>
-    </a>
+<header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/90 backdrop-blur-md border-b border-border-subtle/80 shadow-[inset_0_-1px_0_rgba(17,24,32,0.04)]">
+  <div class="h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-space-md">
+    <div class="flex items-center gap-4">
+      <a
+        class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm"
+        href="/"
+      >
+        <div
+          class="w-10 h-10 rounded-lg bg-surface-dark text-on-primary flex items-center justify-center border border-surface-dark shadow-sm group-hover:bg-primary transition-colors duration-200 shrink-0"
+          aria-hidden="true"
+        >
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+            <path d="m3.3 7 8.7 5 8.7-5" />
+            <path d="M12 22V12" />
+            <path class="text-primary-fixed group-hover:text-white transition-colors" d="m15 14 3-1.8" stroke-width="2.4" />
+          </svg>
+        </div>
+        <div class="flex flex-col text-left whitespace-nowrap">
+          <span class="font-display text-xl leading-none text-surface-dark font-bold tracking-tight group-hover:text-primary transition-colors">
+            RápidoPack<span class="text-primary">.</span>
+          </span>
+          <span class="font-mono text-[11px] text-text-muted font-medium tracking-wider uppercase mt-1">
+            Alfafar · Valencia
+          </span>
+        </div>
+      </a>
 
-    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-space-lg">
+      <!-- Live Store Status Indicator (Valencia Time) -->
+      <div
+        id="header-live-status"
+        class="hidden xl:inline-flex items-center gap-2 pl-4 border-l border-border-subtle text-xs font-mono text-text-muted whitespace-nowrap"
+        aria-live="polite"
+      >
+        <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+        <span data-status-text>L–V 09:30–20:00 · Sáb 10:00–15:00</span>
+      </div>
+    </div>
+
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-1 lg:gap-1.5 whitespace-nowrap">
       {navLinks.map((link) => (
         <a
           href={link.href}
           aria-current={link.active ? 'page' : undefined}
           class:list={[
-            'font-label-button text-sm transition-colors py-1 border-b-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary',
+            'px-3 py-2 rounded-md font-label-button text-sm whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             link.active
-              ? 'text-primary border-primary font-semibold'
-              : 'text-secondary border-transparent hover:text-primary hover:border-primary/40',
+              ? 'bg-mint-wash text-primary font-semibold'
+              : 'text-secondary hover:text-surface-dark hover:bg-surface-alt',
           ]}
         >
           {link.label}
@@ -58,14 +77,22 @@ const navLinks = [
       ))}
     </nav>
 
-    <div class="flex items-center gap-space-sm">
+    <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
       <a
-        class="hidden sm:inline-flex items-center justify-center gap-1.5 px-space-md py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-border-subtle hover:border-primary/40 text-surface-dark font-mono text-xs font-semibold whitespace-nowrap transition-all active:scale-[0.98]"
+        href="tel:685119511"
+      >
+        <span class="material-symbols-outlined text-[16px] text-primary leading-none" aria-hidden="true">call</span>
+        <span class="tabular-nums">685 11 95 11</span>
+      </a>
+
+      <a
+        class="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-sm rounded-lg whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
         rel="noopener noreferrer"
         target="_blank"
       >
-        <span class="material-symbols-outlined text-[18px] leading-none" aria-hidden="true">location_on</span>
+        <span class="material-symbols-outlined text-[18px] text-primary-fixed leading-none" aria-hidden="true">near_me</span>
         <span>Cómo llegar</span>
       </a>
 
@@ -73,21 +100,21 @@ const navLinks = [
       <details class="md:hidden relative group">
         <summary
           aria-label="Abrir menú de navegación"
-          class="list-none flex items-center justify-center w-10 h-10 rounded-md border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer focus-visible:outline-2 focus-visible:outline-primary"
+          class="list-none flex items-center justify-center w-10 h-10 rounded-lg border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
         >
-          <span class="material-symbols-outlined text-[22px] group-open:hidden" aria-hidden="true">menu</span>
-          <span class="material-symbols-outlined text-[22px] hidden group-open:inline" aria-hidden="true">close</span>
+          <span class="material-symbols-outlined text-[22px] group-open:!hidden" aria-hidden="true">menu</span>
+          <span class="material-symbols-outlined text-[22px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
         </summary>
         <nav
           aria-label="Navegación móvil"
-          class="absolute right-0 mt-2 w-64 bg-surface-container-lowest rounded-lg border border-border-subtle shadow-lg p-space-sm flex flex-col gap-1"
+          class="absolute right-0 mt-2 w-72 bg-surface-container-lowest rounded-xl border border-border-subtle shadow-xl p-3 flex flex-col gap-1"
         >
           {navLinks.map((link) => (
             <a
               href={link.href}
               aria-current={link.active ? 'page' : undefined}
               class:list={[
-                'px-space-md py-2.5 rounded-md font-label-button text-sm transition-colors',
+                'px-3.5 py-2.5 rounded-lg font-label-button text-sm transition-colors',
                 link.active
                   ? 'bg-mint-wash text-primary font-semibold'
                   : 'text-surface-dark hover:bg-surface-alt',
@@ -96,9 +123,16 @@ const navLinks = [
               {link.label}
             </a>
           ))}
-          <div class="pt-2 mt-1 border-t border-border-subtle">
+          <div class="pt-2.5 mt-1.5 border-t border-border-subtle flex flex-col gap-2">
             <a
-              class="w-full inline-flex items-center justify-center gap-1.5 px-space-md py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors"
+              class="w-full inline-flex items-center justify-center gap-2 px-3.5 py-2.5 bg-surface-alt text-surface-dark font-mono text-xs font-semibold rounded-lg"
+              href="tel:685119511"
+            >
+              <span class="material-symbols-outlined text-[17px] text-primary" aria-hidden="true">call</span>
+              <span>685 11 95 11</span>
+            </a>
+            <a
+              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-lg transition-colors"
               href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
               rel="noopener noreferrer"
               target="_blank"
@@ -112,3 +146,58 @@ const navLinks = [
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const container = document.getElementById('header-live-status');
+    if (!container) return;
+    const dot = container.querySelector('[data-status-dot]');
+    const text = container.querySelector('[data-status-text]');
+    if (!dot || !text) return;
+
+    try {
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Madrid',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).formatToParts(now);
+
+      const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+      const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
+      const day = map.weekday; // Mon..Sun
+
+      let isOpen = false;
+      let label = 'Cerrado · Abre Lunes 09:30';
+
+      if (['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day)) {
+        if (mins >= 9 * 60 + 30 && mins < 20 * 60) {
+          isOpen = true;
+          label = 'Abierto ahora · Hasta 20:00';
+        } else if (mins < 9 * 60 + 30) {
+          label = 'Abre hoy a las 09:30';
+        } else {
+          label = day === 'Fri' ? 'Abre Sáb a las 10:00' : 'Abre mañana 09:30';
+        }
+      } else if (day === 'Sat') {
+        if (mins >= 10 * 60 && mins < 15 * 60) {
+          isOpen = true;
+          label = 'Abierto ahora · Hasta 15:00';
+        } else if (mins < 10 * 60) {
+          label = 'Abre hoy a las 10:00';
+        } else {
+          label = 'Lunes Reposición · 09:30';
+        }
+      }
+
+      dot.className = isOpen
+        ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15'
+        : 'w-2 h-2 rounded-full bg-amber-500';
+      text.textContent = label;
+    } catch {
+      // Fallback remains static schedule
+    }
+  })();
+</script>
