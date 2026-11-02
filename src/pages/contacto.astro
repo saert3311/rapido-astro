@@ -6,43 +6,47 @@ import FaqAccordion from '../components/FaqAccordion.astro';
 
 const contactChannels = [
   {
+    index: '01',
     icon: 'call',
-    title: 'Llámanos directamente',
+    title: 'Teléfono en tienda',
     value: '685 11 95 11',
     href: 'tel:685119511',
     external: false,
-    description: 'Atención en horario comercial (L–V 09:30–20:00)',
+    description: 'Atención directa L–V 09:30–20:00 y Sáb 10:00–15:00',
     cta: 'Llamar ahora',
     ctaIcon: 'arrow_forward',
   },
   {
+    index: '02',
     icon: 'chat',
-    title: 'Mensaje por WhatsApp',
+    title: 'WhatsApp directo',
     value: '685 11 95 11',
     href: 'https://wa.me/34685119511',
     external: true,
-    description: 'Respuesta directa del equipo en el mismo día',
+    description: 'Consultas rápidas sobre lotes y paquetería en el día',
     cta: 'Abrir WhatsApp',
     ctaIcon: 'open_in_new',
   },
   {
+    index: '03',
     icon: 'mail',
-    title: 'Correo de consultas',
+    title: 'Correo electrónico',
     value: 'contacto@rapidopack.es',
     href: 'mailto:contacto@rapidopack.es',
     external: false,
-    description: 'Para dudas generales, lotes o colaboraciones',
+    description: 'Para consultas generales, lotes mayoristas o acuerdos',
     cta: 'Enviar email',
     ctaIcon: 'outgoing_mail',
   },
   {
+    index: '04',
     icon: 'pin_drop',
-    title: 'Visítanos en tienda',
+    title: 'Local en Alfafar',
     value: 'C/ Comte Ronrée, 8',
     href: 'https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia',
     external: true,
-    description: '46910 Alfafar, Valencia · Aparcamiento gratuito',
-    cta: 'Ver en Google Maps',
+    description: '46910 Alfafar, Valencia · Aparcamiento en puerta',
+    cta: 'Cómo llegar',
     ctaIcon: 'directions',
   },
 ];
@@ -72,38 +76,39 @@ const contactFaqs = [
   currentPage="contacto"
 >
   <div class="flex flex-col w-full">
-    <!-- 1. Hero Section -->
-    <section class="w-full bg-surface-alt pt-space-lg pb-14 border-b border-border-subtle">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="max-w-3xl flex flex-col gap-space-xs items-start">
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-mint-wash text-primary font-label-badge text-label-badge uppercase tracking-wider border border-primary/20">
-            <span class="material-symbols-outlined text-[16px] leading-none" aria-hidden="true">storefront</span>
-            ATENCIÓN Y CONSULTAS · TIENDA FÍSICA EN ALFAFAR
-          </span>
-          <h1 class="mt-1 font-headline-hero text-headline-hero-mobile md:text-headline-hero text-on-surface">
-            Contacta con <span class="text-primary">Rápido Pack</span>
-          </h1>
-          <p class="font-body-lead text-base md:text-body-lead text-secondary max-w-2xl mt-1">
-            ¿Tienes dudas sobre la entrada de nuevo stock los lunes, recogida de paquetería o disponibilidad en tienda? Llámanos, escríbenos o visítanos directamente en Alfafar.
+    <!-- 1. Asymmetric Editorial Header + Hairline Contact Ledger (Rule 3 & Rule 4) -->
+    <section class="w-full bg-surface-container-lowest pt-10 pb-16 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
+          <div class="lg:col-span-7 flex flex-col items-start">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider border border-primary/20 mb-4">
+              <span class="material-symbols-outlined text-[16px] leading-none" aria-hidden="true">storefront</span>
+              <span>ATENCIÓN DIRECTA · TIENDA FÍSICA EN ALFAFAR</span>
+            </span>
+            <h1 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tighter text-on-surface leading-[1.05]">
+              Contacta con <span class="text-primary">Rápido Pack</span>
+            </h1>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed">
+            ¿Tienes dudas sobre la descarga de nuevo stock de los lunes, recogida de paquetería o disponibilidad en sala? Llámanos, escríbenos por WhatsApp o acércate directamente a Alfafar.
           </p>
         </div>
-      </div>
-    </section>
 
-    <!-- 2. Direct Contact Channels Grid (4 Cards) -->
-    <section class="w-full bg-surface-container-lowest -mt-6 relative z-10 pb-margin-lg border-b border-border-subtle">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+        <!-- De-Boxed Architectural Contact Ledger (Replaces 4 uniform floating cards) -->
+        <div class="border-t border-b border-border-subtle divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:divide-x divide-border-subtle bg-surface-alt/40">
           {contactChannels.map((ch) => (
-            <article class="bg-surface-container-lowest p-space-lg rounded-lg border border-border-subtle hover:border-primary/40 transition-colors flex flex-col justify-between">
-              <div class="flex flex-col gap-2">
-                <div class="w-11 h-11 rounded-md bg-mint-wash flex items-center justify-center text-primary">
-                  <span class="material-symbols-outlined text-[24px]" aria-hidden="true">{ch.icon}</span>
+            <article class="p-6 sm:p-7 flex flex-col justify-between group hover:bg-mint-wash/40 transition-colors">
+              <div class="flex flex-col gap-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-xs text-text-muted font-semibold">/{ch.index}</span>
+                  <div class="w-9 h-9 rounded-lg bg-mint-wash flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">{ch.icon}</span>
+                  </div>
                 </div>
                 <div class="flex flex-col mt-1">
-                  <span class="font-body-sm text-xs text-text-muted font-medium">{ch.title}</span>
+                  <span class="font-mono text-xs text-text-muted uppercase tracking-wider">{ch.title}</span>
                   <a
-                    class="font-headline-sm text-base text-on-surface font-bold hover:text-primary transition-colors truncate mt-0.5"
+                    class="font-display text-lg text-on-surface font-bold hover:text-primary transition-colors truncate mt-1"
                     href={ch.href}
                     target={ch.external ? '_blank' : undefined}
                     rel={ch.external ? 'noopener noreferrer' : undefined}
@@ -111,17 +116,17 @@ const contactFaqs = [
                     {ch.value}
                   </a>
                 </div>
-                <p class="font-body-sm text-xs text-secondary leading-relaxed">{ch.description}</p>
+                <p class="font-sans text-xs text-secondary leading-relaxed">{ch.description}</p>
               </div>
-              <div class="pt-3 mt-space-md border-t border-border-subtle/60">
+              <div class="pt-4 mt-5 border-t border-border-subtle/70">
                 <a
-                  class="inline-flex items-center gap-1.5 font-label-button text-xs text-primary hover:text-primary-hover transition-colors"
+                  class="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-primary hover:text-primary-hover transition-colors"
                   href={ch.href}
                   target={ch.external ? '_blank' : undefined}
                   rel={ch.external ? 'noopener noreferrer' : undefined}
                 >
                   <span>{ch.cta}</span>
-                  <span class="material-symbols-outlined text-[16px]" aria-hidden="true">{ch.ctaIcon}</span>
+                  <span class="material-symbols-outlined text-[15px]" aria-hidden="true">{ch.ctaIcon}</span>
                 </a>
               </div>
             </article>
@@ -130,59 +135,59 @@ const contactFaqs = [
       </div>
     </section>
 
-    <!-- 3. Form + Store Inspection Info -->
-    <section class="w-full bg-surface-alt py-margin-lg border-b border-border-subtle">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+    <!-- 2. Form + Store Inspection Info -->
+    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div class="lg:col-span-7">
             <ContactForm />
           </div>
 
-          <aside class="lg:col-span-5 flex flex-col gap-gutter">
+          <aside class="lg:col-span-5 flex flex-col gap-6">
             <!-- Parcel Point & Store Highlights Card -->
-            <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-lg border border-border-subtle flex flex-col gap-space-md">
+            <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-border-subtle diffusion-card flex flex-col gap-5">
               <div class="flex items-center justify-between gap-2 flex-wrap">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-mint-wash rounded font-label-badge text-xs text-primary">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-mint-wash rounded-full font-mono text-xs font-semibold text-primary">
                   <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
                   <span>5.0 Google Reviews</span>
                 </span>
-                <span class="inline-flex items-center gap-1.5 font-body-sm text-xs text-primary font-semibold">
+                <span class="inline-flex items-center gap-1.5 font-mono text-xs text-primary font-semibold">
                   <span class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
                   Atención Presencial
                 </span>
               </div>
 
-              <h3 class="font-headline-md text-headline-md text-on-surface">
+              <h3 class="font-display text-2xl font-bold text-on-surface tracking-tight">
                 Servicios en nuestra tienda de Alfafar
               </h3>
 
-              <ul class="space-y-3 font-body-sm text-sm text-secondary">
-                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+              <ul class="divide-y divide-border-subtle border-t border-b border-border-subtle font-sans text-sm text-secondary">
+                <li class="flex items-start gap-3 py-4">
                   <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">local_shipping</span>
                   <div>
-                    <strong class="text-on-surface block">Lunes de Reposición (09:30 h)</strong>
-                    <span>Descarga semanal de lotes nuevos de tecnología, hogar y herramientas.</span>
+                    <strong class="font-display text-on-surface block">Lunes de Reposición (09:30 h)</strong>
+                    <span class="text-xs text-text-muted">Descarga semanal de lotes nuevos de tecnología, hogar y herramientas.</span>
                   </div>
                 </li>
-                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+                <li class="flex items-start gap-3 py-4">
                   <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">package_2</span>
                   <div>
-                    <strong class="text-on-surface block">Punto Oficial de Paquetería</strong>
-                    <span>Recepción y devoluciones sin esperas durante todo el horario comercial.</span>
+                    <strong class="font-display text-on-surface block">Punto Oficial de Paquetería</strong>
+                    <span class="text-xs text-text-muted">Recepción y devoluciones sin esperas durante todo el horario comercial.</span>
                   </div>
                 </li>
-                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+                <li class="flex items-start gap-3 py-4">
                   <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">power</span>
                   <div>
-                    <strong class="text-on-surface block">Zona de Prueba en Tienda</strong>
-                    <span>Mesas con enchufes para verificar cualquier artículo eléctrico antes de abonar.</span>
+                    <strong class="font-display text-on-surface block">Zona de Prueba en Tienda</strong>
+                    <span class="text-xs text-text-muted">Mesas con enchufes para verificar cualquier artículo eléctrico antes de abonar.</span>
                   </div>
                 </li>
               </ul>
 
               <div class="pt-1">
                 <a
-                  class="w-full inline-flex items-center justify-center gap-2 px-space-md py-3 bg-surface-dark hover:bg-secondary text-on-primary font-label-button text-sm rounded-md transition-colors"
+                  class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98]"
                   href="https://wa.me/34685119511"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -194,8 +199,8 @@ const contactFaqs = [
             </div>
 
             <!-- Store Atmosphere Preview Card -->
-            <div class="bg-surface-container-lowest p-space-md rounded-lg border border-border-subtle flex items-center gap-space-md">
-              <div class="w-24 h-24 rounded-md overflow-hidden shrink-0 bg-surface-container border border-border-subtle/50">
+            <div class="bg-surface-container-lowest p-5 rounded-3xl border border-border-subtle diffusion-card flex items-center gap-4">
+              <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 bg-surface-container border border-border-subtle/50">
                 <img
                   class="w-full h-full object-cover"
                   alt="Pasillo organizado de la tienda outlet Rápido Pack en Alfafar, Valencia"
@@ -207,9 +212,9 @@ const contactFaqs = [
                 />
               </div>
               <div class="flex flex-col gap-1 min-w-0">
-                <span class="font-label-badge text-xs text-primary uppercase">Transparencia total</span>
-                <h4 class="font-headline-sm text-sm text-on-surface font-bold truncate">Comprueba antes de pagar</h4>
-                <p class="font-body-sm text-xs text-secondary leading-relaxed">
+                <span class="font-mono text-[11px] font-semibold text-primary uppercase">Transparencia total</span>
+                <h4 class="font-display text-base text-on-surface font-bold truncate">Comprueba antes de pagar</h4>
+                <p class="font-sans text-xs text-text-muted leading-relaxed">
                   Sin compras a ciegas: revisa el contenido y funcionamiento en el propio local.
                 </p>
               </div>
@@ -219,17 +224,17 @@ const contactFaqs = [
       </div>
     </section>
 
-    <!-- 4. Store Locator & Schedule -->
+    <!-- 3. Store Locator & Schedule -->
     <StoreLocator
-      badge="Acceso y Transporte"
+      badge="02 // Acceso y Transporte"
       title="Dónde encontrarnos en Alfafar (Valencia)"
       subtitle="Acceso directo por la autopista V-31 (a 8 minutos de Valencia centro) y aparcamiento libre sin zona azul en la misma calle."
     />
 
-    <!-- 5. Contact FAQ -->
-    <section class="w-full bg-surface-container-lowest py-margin-lg border-t border-border-subtle section-deferred">
+    <!-- 4. Contact FAQ -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-t border-border-subtle">
       <FaqAccordion
-        badge="Dudas Frecuentes"
+        badge="03 // Dudas Frecuentes"
         title="Preguntas rápidas antes de venir"
         subtitle="Resolvemos las consultas más habituales sobre visitas, lotes y servicio de paquetería."
         items={contactFaqs}

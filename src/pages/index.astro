@@ -3,75 +3,38 @@ import Layout from '../layouts/Layout.astro';
 import StoreLocator from '../components/StoreLocator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 
-const features = [
+const ledgerFeatures = [
   {
+    index: '01',
     icon: 'local_shipping',
-    title: 'Mercancía Nueva Cada Lunes',
-    description: 'Todos los lunes a las 09:30 abrimos con lote recién llegado de stock nuevo de outlet y primeras marcas.',
-    tag: 'Día Clave',
-    tagIcon: 'arrow_forward',
+    title: 'Descarga Cada Lunes · 09:30',
+    metric: 'LOTE SEMANAL',
+    description: 'Cada lunes a primera hora abrimos con palés recién descargados de primeras marcas y liquidaciones.',
   },
   {
+    index: '02',
     icon: 'sell',
-    title: 'Precios de Outlet',
-    description: 'Descuentos directos en primeras marcas de tecnología, pequeño electrodoméstico y artículos para el hogar.',
-    tag: 'Hasta 70% Menos',
-    tagIcon: 'trending_down',
+    title: 'Descuento Directo en Tienda',
+    metric: 'HASTA -70% PVP',
+    description: 'Precios de liquidación real sobre PVP en pequeño electrodoméstico, periféricos, hogar y bricolaje.',
   },
   {
-    icon: 'fact_check',
-    title: 'Comprueba en Persona',
-    description: 'Abre, inspecciona y prueba el producto en nuestras mesas con enchufe antes de pagar. Sin sorpresas.',
-    tag: 'Revisión Libre',
-    tagIcon: 'done_all',
+    index: '03',
+    icon: 'power',
+    title: 'Bancos de Prueba con Enchufe',
+    metric: 'REVISIÓN LIBRE',
+    description: 'Abre la caja, inspecciona cada accesorio y enchufa el producto en nuestras mesas antes de pasar por caja.',
   },
   {
+    index: '04',
     icon: 'package_2',
-    title: 'Punto de Paquetería Oficial',
-    description: 'Recogida y devolución rápida de tus compras online (Amazon Hub, GLS, CTT, InPost, SEUR) con fácil aparcamiento.',
-    tag: 'Recogida y Devolución',
-    tagIcon: 'inventory',
+    title: 'Hub Oficial de Paquetería',
+    metric: '5 OPERADORES',
+    description: 'Recoge o devuelve tus envíos de Amazon Hub, InPost, GLS, SEUR y CTT Express aparcando en la misma puerta.',
   },
 ];
 
-const categories = [
-  {
-    featured: true,
-    badge: 'Más Popular',
-    badgeIcon: 'local_fire_department',
-    meta: 'Apertura 09:30',
-    title: 'Lunes de Reposición Total',
-    description: 'Cada lunes renovamos las estanterías con nuevos lotes de outlet y primeras marcas. Es el mejor momento para encontrar oportunidades desde primera hora.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDaHzGlsNBhqI6dGEVjkag7N1ER9cekBn4iZpAeZEsarx0HY1TUmZvSnExkeK2wgGNFaCWhiUbKgTnecRDWV7ko6l8i8FmFRAla0T7t3OJEQFM8JopoIc5gKYPzvMaVZouAGK2_adK_LF-c-X705yPIBs_yWPYzLV_SuVDLkkhNQNemMGMerfAUXM-Wyv2HC9IXInbHlROll0_lVyNYiDdfINcHbFGstPSSjkfwfr8Z',
-    imageAlt: 'Estanterías de Rápido Pack con lotes de liquidación listos para el lunes por la mañana',
-    footerText: 'Llegar temprano = mayor variedad',
-    footerIcon: 'alarm',
-  },
-  {
-    featured: false,
-    badge: 'Alta Rotación',
-    badgeIcon: 'bolt',
-    meta: 'Marcas Top',
-    title: 'Tecnología y Hogar',
-    description: 'Auriculares, cafeteras, aspiradores, freidoras de aire, periféricos y pequeño electrodoméstico con grandes descuentos frente a su PVP.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8Q6qjd7S5aQoOiAWHM_ltBs3Sw9i1qTDShJsUG4KBsC5IjdyrE46ewPpRn-qTPqFzKN78n2IJo4hn7yOacEXYD1UC7uEix_ltNBnPuscLQdwh48O4jxQdmMUXZC9jbr3JCWC1T9C5n48U26IstvGl8S5GhNqA578rurb7R8WTm9OR8M9PIqWGX3RB08DXEBvDKHDccwMVpxWN8oNB9Yo3I6iPMgIKI5i0OILwJOef',
-    imageAlt: 'Electrónica de consumo, auriculares, freidoras de aire y aspiradores en exposición',
-    footerText: 'Mesa de prueba con enchufe en tienda',
-    footerIcon: 'power',
-  },
-  {
-    featured: false,
-    badge: 'Oportunidades',
-    badgeIcon: 'handyman',
-    meta: 'Variedad Semanal',
-    title: 'Herramientas y Ocio',
-    description: 'Herramientas de bricolaje, equipamiento deportivo, menaje del hogar y artículos de oportunidad que se renuevan cada semana sin catálogo fijo.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuChww7rAfkFGRSpjGXAb-TvEqExKoIksWmlPuFRAxqv8s6QUXMWC4RiNA97QsRSGUmWZIw2udXf7osybslqZPHE4NcMoPLNfDoDmQls_vfLEMqie3wc04npDB_I5gvtBZqC5p0fy6JwEbJvz-z_AbzE9KhS8STZInVQyhA9flNZWPrifRK4CQB3jIOfpPn5vJNLc6ZvaNlCL-1ABdLFtgUAXKtsaLoZhpV5ONE2jm0w',
-    imageAlt: 'Herramientas de bricolaje, accesorios deportivos y menaje en tienda de liquidación',
-    footerText: 'Nuevos lotes cada 7 días',
-    footerIcon: 'sync',
-  },
-];
+const carriers = ['Amazon Hub Counter', 'InPost', 'GLS ParcelShop', 'SEUR Pickup', 'CTT Express'];
 
 const homeFaqs = [
   {
@@ -99,73 +62,99 @@ const homeFaqs = [
 
 <Layout title="Rápido Pack · Alfafar, Valencia — Tienda Outlet y Punto de Paquetería" currentPage="home">
   <div class="flex flex-col w-full">
-    <!-- 1. Hero Section -->
-    <section class="w-full bg-surface-container-lowest pt-space-lg pb-margin-lg border-b border-border-subtle">
-      <div class="max-w-[1200px] mx-auto px-margin flex flex-col items-center text-center">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-mint-wash text-primary font-label-badge text-label-badge border border-primary/20 mb-space-md">
-          <span class="material-symbols-outlined text-[16px]" aria-hidden="true">inventory_2</span>
-          <span>MERCANCÍA NUEVA TODOS LOS LUNES · ALFAFAR (VALENCIA)</span>
-        </div>
+    <!-- 1. Asymmetric Split-Screen Hero (Rule 3: Anti-Center Bias, DESIGN_VARIANCE: 8) -->
+    <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-5rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <!-- Left Editorial Column (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col items-start text-left">
+            <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span>REPOSICIÓN CADA LUNES 09:30 · ALFAFAR, VALENCIA</span>
+            </div>
 
-        <h1 class="font-headline-hero text-headline-hero-mobile md:text-headline-hero text-surface-dark max-w-4xl">
-          Outlet de Primeras Marcas en Valencia a <span class="text-primary">Precios de Oportunidad</span>
-        </h1>
+            <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold tracking-tighter leading-[1.03] text-surface-dark" style="--index: 1;">
+              Liquidaciones de primeras marcas que <span class="text-primary">pruebas en persona</span> antes de pagar.
+            </h1>
 
-        <p class="mt-space-md font-body-lead text-base md:text-body-lead text-text-muted max-w-2xl">
-          Visítanos en Rápido Pack Alfafar. Productos revisados de tecnología, hogar y herramientas con grandes descuentos, además de punto oficial de paquetería. Inspecciona, prueba y llévatelo al instante.
-        </p>
+            <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
+              Tienda física Outlet y punto oficial de paquetería en Carrer del Comte Ronrée, 8. Tecnología, pequeño electrodoméstico y bricolaje con hasta un <strong class="text-surface-dark font-semibold">70% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
+            </p>
 
-        <div class="mt-space-lg flex flex-col sm:flex-row items-center gap-space-sm w-full sm:w-auto">
-          <a
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-label-button rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            href="#ubicacion"
-          >
-            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
-            <span>Ver Ubicación y Horarios</span>
-          </a>
-          <a
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-lg py-3.5 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-label-button rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            href="tel:685119511"
-          >
-            <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">call</span>
-            <span class="tabular-nums">685 11 95 11</span>
-          </a>
-        </div>
+            <!-- Tactile Action Row -->
+            <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 3;">
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="#ubicacion"
+              >
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
+                <span>Ver Ubicación y Horarios</span>
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-mono text-sm font-semibold rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="tel:685119511"
+              >
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">call</span>
+                <span class="tabular-nums">685 11 95 11</span>
+              </a>
+            </div>
 
-        <div class="mt-space-md flex flex-wrap items-center justify-center gap-x-space-md gap-y-1.5 font-body-sm text-xs md:text-sm text-text-muted">
-          <span class="inline-flex items-center gap-1.5 font-semibold text-surface-dark">
-            <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">storefront</span>
-            Carrer del Comte Ronrée, 8, Alfafar
-          </span>
-          <span class="hidden sm:inline text-border-subtle" aria-hidden="true">|</span>
-          <span class="inline-flex items-center gap-1 font-semibold text-surface-dark">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
-            5.0 en Google Reviews
-          </span>
-          <span class="hidden sm:inline text-border-subtle" aria-hidden="true">|</span>
-          <span class="tabular-nums">L–V 09:30–20:00 · Sáb 10:00–15:00</span>
-        </div>
-
-        <!-- Hero Visual Showcase (LCP Candidate) -->
-        <div class="mt-space-xl w-full max-w-5xl rounded-lg overflow-hidden border border-border-subtle bg-surface-container relative">
-          <div class="relative aspect-[16/9] md:aspect-[21/9] w-full">
-            <img
-              class="w-full h-full object-cover"
-              alt="Interior de la tienda física de liquidaciones Rápido Pack en Alfafar, Valencia, con estanterías organizadas de tecnología y hogar"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
-              fetchpriority="high"
-              width="1024"
-              height="440"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"></div>
-            <div class="absolute bottom-space-sm sm:bottom-space-md left-space-sm sm:left-space-md right-space-sm sm:right-space-md flex items-center justify-between text-on-primary">
-              <div class="flex items-center gap-2 bg-surface-dark/90 backdrop-blur-sm px-3 py-1.5 rounded text-xs">
-                <span class="material-symbols-outlined text-primary-fixed text-[18px]" aria-hidden="true">verified</span>
-                <span class="font-label-badge uppercase tracking-wider">Stock Físico Real · Sin Intermediarios</span>
+            <!-- Architectural Telemetry Strip (No Card Boxes — Rule 4) -->
+            <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
+              <div class="flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">Lun 09:30</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Apertura de nuevo lote</span>
               </div>
-              <div class="hidden sm:flex items-center gap-1.5 bg-surface-dark/90 backdrop-blur-sm px-3 py-1.5 rounded font-body-sm text-xs">
-                <span class="w-2 h-2 rounded-full bg-primary-fixed" aria-hidden="true"></span>
-                <span>Inspección libre en tienda</span>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">5.0 ★</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Valoración en Google</span>
+              </div>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">8 min</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Desde Valencia por V-31</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Visual Showcase Column (5 Cols, Asymmetric Aspect + Liquid Glass) -->
+          <div class="lg:col-span-5 stagger-item" style="--index: 2;">
+            <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
+              <img
+                class="w-full h-full object-cover"
+                alt="Interior de la tienda física de liquidaciones Rápido Pack en Alfafar, Valencia, con estanterías organizadas de tecnología y hogar"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
+                fetchpriority="high"
+                width="640"
+                height="720"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/85 via-surface-dark/15 to-transparent"></div>
+
+              <!-- Top Floating Liquid Glass Badge -->
+              <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                <div class="liquid-glass px-3.5 py-2 rounded-xl flex items-center gap-2 text-on-primary text-xs font-mono">
+                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">verified</span>
+                  <span>STOCK FÍSICO VERIFICADO</span>
+                </div>
+                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold tabular-nums">
+                  C/ Comte Ronrée, 8
+                </span>
+              </div>
+
+              <!-- Bottom Floating Liquid Glass Inspection Panel -->
+              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-center justify-between gap-4">
+                <div class="flex items-start gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
+                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">power</span>
+                  </div>
+                  <div>
+                    <p class="font-display text-sm font-bold text-white leading-snug">
+                      Mesa de prueba con enchufes en tienda
+                    </p>
+                    <p class="font-sans text-xs text-surface-variant mt-0.5">
+                      Abre la caja y comprueba su funcionamiento antes de abonar.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -173,107 +162,224 @@ const homeFaqs = [
       </div>
     </section>
 
-    <!-- 2. Ventajas y Punto de Paquetería (4 Columnas) -->
-    <section class="w-full bg-surface-alt py-margin-lg border-b border-border-subtle" id="como-funciona">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="text-center max-w-2xl mx-auto mb-space-xl">
-          <span class="inline-block font-label-badge text-label-badge text-primary uppercase tracking-widest bg-mint-wash px-3 py-1 rounded">
-            Ventajas Rápido Pack
-          </span>
-          <h2 class="mt-2 font-headline-lg text-headline-lg-mobile md:text-headline-lg text-surface-dark">
-            ¿Por qué visitarnos en Alfafar?
-          </h2>
-          <p class="font-body-regular text-body-regular text-text-muted mt-2">
-            Combinamos liquidaciones verificadas en persona con la comodidad de recoger o devolver tus paquetes en un mismo lugar.
+    <!-- 2. De-Boxed Architectural Ledger (Rule 4: Anti-Card Overuse via border-t / divide-x) -->
+    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle" id="como-funciona">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Asymmetric Section Header -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              01 // Operativa de Tienda Física
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Compra transparente en local y hub logístico en un solo paso.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Sin compras a ciegas ni esperas de mensajería. Ven a revisar las liquidaciones de la semana y aprovecha para recoger o devolver tus paquetes online aparcando en la puerta.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-          {features.map((feature) => (
-            <article class="bg-surface-container-lowest p-space-lg rounded-lg border border-border-subtle hover:border-primary/40 transition-colors flex flex-col justify-between">
+        <!-- Hairline Architectural Grid (Zero Card Clutter) -->
+        <div class="border-t border-b border-border-subtle divide-y md:divide-y-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:divide-x divide-border-subtle bg-surface-container-lowest">
+          {ledgerFeatures.map((feature) => (
+            <article class="p-6 sm:p-8 flex flex-col justify-between group hover:bg-mint-wash/35 transition-colors">
               <div>
-                <div class="w-12 h-12 rounded-md bg-mint-wash flex items-center justify-center text-primary mb-space-md">
-                  <span class="material-symbols-outlined text-[24px]" aria-hidden="true">{feature.icon}</span>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="font-mono text-xs font-semibold text-text-muted group-hover:text-primary transition-colors">
+                    /{feature.index}
+                  </span>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded bg-surface-alt group-hover:bg-mint-wash font-mono text-[11px] font-semibold text-primary transition-colors">
+                    {feature.metric}
+                  </span>
                 </div>
-                <h3 class="font-headline-md text-lg text-surface-dark mb-2">{feature.title}</h3>
-                <p class="font-body-sm text-body-sm text-text-muted leading-relaxed">{feature.description}</p>
-              </div>
-              <div class="mt-space-md pt-3 border-t border-border-subtle/60 text-primary font-label-badge text-xs uppercase tracking-wider flex items-center gap-1.5">
-                <span>{feature.tag}</span>
-                <span class="material-symbols-outlined text-[15px]" aria-hidden="true">{feature.tagIcon}</span>
+                <div class="w-10 h-10 rounded-lg bg-mint-wash text-primary flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{feature.icon}</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-surface-dark mb-2.5">
+                  {feature.title}
+                </h3>
+                <p class="font-sans text-sm text-text-muted leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             </article>
           ))}
+        </div>
+
+        <!-- Integrated Official Parcel Carriers Bar -->
+        <div class="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 rounded-2xl bg-surface-container-lowest border border-border-subtle">
+          <div class="flex items-center gap-2.5 text-xs font-mono font-semibold text-surface-dark uppercase tracking-wider">
+            <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">inventory</span>
+            <span>Operadores Oficiales en Rápido Pack:</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            {carriers.map((carrier) => (
+              <span class="px-3 py-1 rounded-md bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium">
+                {carrier}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Lunes de Reposición y Categorías (3 Columnas) -->
-    <section class="w-full bg-surface-container-lowest py-margin-lg border-b border-border-subtle section-deferred" id="lunes-de-stock">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
-          <div>
-            <span class="inline-block font-label-badge text-label-badge text-primary uppercase tracking-widest bg-mint-wash px-3 py-1 rounded">
-              Inventario Semanal
+    <!-- 3. Asymmetric Bento 2.0 Grid (Replaces Banned 3-Column Equal Cards — Section 7 & 9) -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="lunes-de-stock">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              02 // Rotación Semanal de Inventario
             </span>
-            <h2 class="mt-2 font-headline-lg text-headline-lg-mobile md:text-headline-lg text-surface-dark">
-              Lunes de Reposición y Categorías
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Lunes de Reposición Total y líneas de producto en tienda.
             </h2>
           </div>
-          <p class="font-body-regular text-sm md:text-base text-text-muted max-w-md">
-            El stock físico se renueva cada semana. Los lotes más buscados tienen mayor disponibilidad durante las primeras horas del lunes.
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Cada semana renovamos las estanterías por completo. Las unidades más buscadas de primeras marcas se asignan por orden de llegada desde el lunes a las 09:30 h.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter items-stretch">
-          {categories.map((cat) => (
-            <article
-              class:list={[
-                'rounded-lg p-space-lg bg-surface-container-lowest border transition-colors flex flex-col justify-between',
-                cat.featured ? 'border-border-subtle border-t-4 border-t-primary' : 'border-border-subtle hover:border-primary/40',
-              ]}
-            >
-              <div>
-                <div class="flex items-center justify-between mb-space-md">
-                  <span
-                    class:list={[
-                      'inline-flex items-center gap-1.5 px-2.5 py-1 rounded font-label-badge text-xs uppercase tracking-wider',
-                      cat.featured ? 'bg-mint-wash text-primary' : 'bg-surface-alt text-secondary',
-                    ]}
-                  >
-                    <span class="material-symbols-outlined text-[15px]" aria-hidden="true">{cat.badgeIcon}</span>
-                    <span>{cat.badge}</span>
-                  </span>
-                  <span class="font-body-sm text-xs font-semibold text-text-muted">{cat.meta}</span>
-                </div>
-
-                <div class="h-44 w-full rounded-md overflow-hidden mb-space-md bg-surface-container border border-border-subtle/50">
-                  <img
-                    class="w-full h-full object-cover"
-                    alt={cat.imageAlt}
-                    src={cat.image}
-                    loading="lazy"
-                    decoding="async"
-                    width="380"
-                    height="176"
-                  />
-                </div>
-
-                <h3 class="font-headline-md text-headline-md text-surface-dark mb-2">{cat.title}</h3>
-                <p class="font-body-regular text-sm text-text-muted leading-relaxed">{cat.description}</p>
+        <!-- Asymmetric 7 / 5 Bento Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Dominant Flagship Tile (7 Cols): Lunes de Reposición Total -->
+          <article class="lg:col-span-7 rounded-3xl bg-surface-dark text-on-primary p-6 sm:p-9 flex flex-col justify-between relative overflow-hidden diffusion-card border border-surface-dark">
+            <div>
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-[15px]" aria-hidden="true">bolt</span>
+                  <span>Día Clave · Mayor Variedad</span>
+                </span>
+                <span id="monday-countdown-pill" class="font-mono text-xs text-primary-fixed bg-white/10 px-3 py-1.5 rounded-full tabular-nums">
+                  Apertura Lunes · 09:30 h
+                </span>
               </div>
 
-              <div
-                class:list={[
-                  'mt-space-lg pt-3 flex items-center justify-between font-body-sm text-xs',
-                  cat.featured ? 'p-2.5 rounded-md bg-mint-wash text-primary font-semibold' : 'border-t border-border-subtle/60 text-text-muted',
-                ]}
-              >
-                <span>{cat.footerText}</span>
-                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">{cat.footerIcon}</span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Lunes de Reposición Total en Estanterías
+              </h3>
+              <p class="mt-3 font-sans text-sm sm:text-base text-surface-variant leading-relaxed max-w-[58ch]">
+                Todos los lunes a las 09:30 h abrimos las puertas con nuevos lotes recién clasificados. Si buscas primeras marcas de electrónica o pequeño electrodoméstico al mayor descuento, acudir el lunes por la mañana te garantiza acceso prioritario.
+              </p>
+            </div>
+
+            <div class="my-6 rounded-2xl overflow-hidden border border-white/10 aspect-[16/9] relative">
+              <img
+                class="w-full h-full object-cover"
+                alt="Estanterías de Rápido Pack con lotes de liquidación listos para el lunes por la mañana"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaHzGlsNBhqI6dGEVjkag7N1ER9cekBn4iZpAeZEsarx0HY1TUmZvSnExkeK2wgGNFaCWhiUbKgTnecRDWV7ko6l8i8FmFRAla0T7t3OJEQFM8JopoIc5gKYPzvMaVZouAGK2_adK_LF-c-X705yPIBs_yWPYzLV_SuVDLkkhNQNemMGMerfAUXM-Wyv2HC9IXInbHlROll0_lVyNYiDdfINcHbFGstPSSjkfwfr8Z"
+                loading="lazy"
+                decoding="async"
+                width="680"
+                height="380"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"></div>
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-white">
+                <span class="liquid-glass px-3 py-1.5 rounded-lg">Stock 100% presencial en Alfafar</span>
+                <span class="liquid-glass px-3 py-1.5 rounded-lg text-primary-fixed">Sin reservas online</span>
+              </div>
+            </div>
+
+            <!-- Weekly Drop Progression Bar -->
+            <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-primary-fixed block font-semibold">LUNES 09:30</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">100% del lote nuevo en sala</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-white block font-semibold">MAR – VIE</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Reposición continua de pasillos</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                <span class="text-white block font-semibold">SÁB 10:00–15:00</span>
+                <span class="text-surface-variant mt-0.5 block font-sans">Liquidación de últimas unidades</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Column (5 Cols): Stacked Secondary Bento Tiles -->
+          <div class="lg:col-span-5 flex flex-col gap-6">
+            <!-- Tile 2: Tecnología y Pequeño Electrodoméstico -->
+            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold">
+                    <span class="material-symbols-outlined text-[15px]" aria-hidden="true">devices</span>
+                    <span>ALTA ROTACIÓN</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-muted font-semibold">TEST EN ENCHUFE</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                  <div class="sm:col-span-7">
+                    <h3 class="font-display text-xl font-bold text-surface-dark">
+                      Tecnología y Hogar
+                    </h3>
+                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
+                      Auriculares, cafeteras, aspiradores, freidoras de aire y periféricos revisados con descuento directo sobre PVP.
+                    </p>
+                  </div>
+                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
+                    <img
+                      class="w-full h-full object-cover"
+                      alt="Electrónica de consumo, auriculares, freidoras de aire y aspiradores en exposición"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Q6qjd7S5aQoOiAWHM_ltBs3Sw9i1qTDShJsUG4KBsC5IjdyrE46ewPpRn-qTPqFzKN78n2IJo4hn7yOacEXYD1UC7uEix_ltNBnPuscLQdwh48O4jxQdmMUXZC9jbr3JCWC1T9C5n48U26IstvGl8S5GhNqA578rurb7R8WTm9OR8M9PIqWGX3RB08DXEBvDKHDccwMVpxWN8oNB9Yo3I6iPMgIKI5i0OILwJOef"
+                      loading="lazy"
+                      decoding="async"
+                      width="240"
+                      height="160"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
+                <span>Comprobación eléctrica antes de pagar</span>
+                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">power</span>
               </div>
             </article>
-          ))}
+
+            <!-- Tile 3: Herramientas, Bricolaje y Ocio -->
+            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest border border-border-subtle text-surface-dark font-mono text-xs font-semibold">
+                    <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">handyman</span>
+                    <span>OPORTUNIDADES</span>
+                  </span>
+                  <span class="font-mono text-xs text-text-muted font-semibold">LOTES VARIABLES</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                  <div class="sm:col-span-7">
+                    <h3 class="font-display text-xl font-bold text-surface-dark">
+                      Herramientas y Ocio
+                    </h3>
+                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
+                      Equipamiento de bricolaje, jardín, deporte y menaje del hogar que se renueva cada 7 días según lote recibido.
+                    </p>
+                  </div>
+                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
+                    <img
+                      class="w-full h-full object-cover"
+                      alt="Herramientas de bricolaje, accesorios deportivos y menaje en tienda de liquidación"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuChww7rAfkFGRSpjGXAb-TvEqExKoIksWmlPuFRAxqv8s6QUXMWC4RiNA97QsRSGUmWZIw2udXf7osybslqZPHE4NcMoPLNfDoDmQls_vfLEMqie3wc04npDB_I5gvtBZqC5p0fy6JwEbJvz-z_AbzE9KhS8STZInVQyhA9flNZWPrifRK4CQB3jIOfpPn5vJNLc6ZvaNlCL-1ABdLFtgUAXKtsaLoZhpV5ONE2jm0w"
+                      loading="lazy"
+                      decoding="async"
+                      width="240"
+                      height="160"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
+                <span>Unidades únicas por orden de llegada</span>
+                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">sync</span>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -281,10 +387,10 @@ const homeFaqs = [
     <!-- 4. Ubicación y Horarios -->
     <StoreLocator />
 
-    <!-- 5. Preguntas Frecuentes (Native Exclusive Accordion) -->
-    <section class="w-full bg-surface-container-lowest py-margin-lg border-t border-border-subtle section-deferred">
+    <!-- 5. Preguntas Frecuentes (Native Exclusive Accordion with Smooth Intrinsic Sizing) -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-t border-border-subtle">
       <FaqAccordion
-        badge="Preguntas Frecuentes"
+        badge="04 // Preguntas Frecuentes"
         title="Resolvemos tus dudas antes de venir"
         subtitle="Todo lo que necesitas saber sobre el funcionamiento de nuestra tienda física y punto de paquetería en Alfafar."
         items={homeFaqs}
@@ -293,24 +399,24 @@ const homeFaqs = [
     </section>
 
     <!-- 6. Banner de Cierre / Conversión -->
-    <section class="w-full bg-surface-dark text-on-primary py-margin-lg section-deferred">
-      <div class="max-w-[1200px] mx-auto px-margin flex flex-col md:flex-row items-center justify-between gap-space-lg">
-        <div class="max-w-xl text-center md:text-left">
-          <span class="inline-flex items-center gap-2 font-label-badge text-xs text-primary-fixed uppercase tracking-wider bg-surface-container-lowest/10 px-3 py-1 rounded">
+    <section class="w-full bg-surface-dark text-on-primary py-16 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div class="max-w-2xl text-left">
+          <span class="inline-flex items-center gap-2 font-mono text-xs text-primary-fixed uppercase tracking-wider bg-white/10 px-3 py-1.5 rounded-full">
             <span class="w-2 h-2 rounded-full bg-primary-fixed" aria-hidden="true"></span>
-            Próxima Descarga: Lunes 09:30 h
+            Próxima Descarga Semanal · Lunes 09:30 h
           </span>
-          <h2 class="mt-2 font-headline-lg text-headline-lg-mobile md:text-headline-lg text-surface-container-lowest">
+          <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
             Descubre las oportunidades de esta semana en tienda
           </h2>
-          <p class="mt-2 font-body-regular text-sm md:text-base text-surface-variant">
+          <p class="mt-2 font-sans text-base text-surface-variant">
             Acércate a Carrer del Comte Ronrée, 8 en Alfafar y comprueba en persona nuestro stock de primeras marcas.
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-space-sm w-full md:w-auto shrink-0">
+        <div class="flex flex-col sm:flex-row gap-3.5 w-full lg:w-auto shrink-0">
           <a
-            class="inline-flex items-center justify-center gap-2 px-space-xl py-3.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors text-center"
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
             href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
             rel="noopener noreferrer"
             target="_blank"
@@ -319,7 +425,7 @@ const homeFaqs = [
             <span>Cómo Llegar en Coche</span>
           </a>
           <a
-            class="inline-flex items-center justify-center gap-2 px-space-lg py-3.5 bg-surface-container-lowest/10 hover:bg-surface-container-lowest/20 text-surface-container-lowest border border-surface-container-lowest/20 font-label-button text-sm rounded-md transition-colors text-center"
+            class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/15 font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
             href="/contacto"
           >
             <span class="material-symbols-outlined text-[20px]" aria-hidden="true">mail</span>
@@ -332,7 +438,7 @@ const homeFaqs = [
     <!-- Mobile Sticky Bottom CTA -->
     <div class="md:hidden fixed bottom-3 left-3 right-3 z-40">
       <a
-        class="w-full flex items-center justify-between px-space-md py-3 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md shadow-lg border border-primary-fixed/20"
+        class="w-full flex items-center justify-between px-4 py-3.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl shadow-xl border border-primary-fixed/30 active:scale-[0.98] transition-transform"
         href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
         rel="noopener noreferrer"
         target="_blank"
@@ -341,8 +447,39 @@ const homeFaqs = [
           <span class="material-symbols-outlined text-[20px]" aria-hidden="true">navigation</span>
           <span>Cómo llegar a Rápido Pack</span>
         </span>
-        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
+        <span class="font-mono text-xs bg-surface-dark/25 px-2.5 py-1 rounded-md">V-31 · 8 min</span>
       </a>
     </div>
   </div>
 </Layout>
+
+<script is:inline>
+  (() => {
+    const pill = document.getElementById('monday-countdown-pill');
+    if (!pill) return;
+    try {
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Madrid',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).formatToParts(now);
+      const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+      const dayMap = { Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6, Sun: 0 };
+      const d = dayMap[map.weekday] ?? 1;
+      const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
+
+      if (d === 1 && mins >= 9 * 60 + 30 && mins < 20 * 60) {
+        pill.textContent = 'HOY LUNES · LOTE NUEVO EN SALA';
+      } else {
+        const daysUntilMon = d === 1 && mins < 9 * 60 + 30 ? 0 : (8 - d) % 7 || 7;
+        pill.textContent =
+          daysUntilMon === 0
+            ? 'Hoy 09:30 h · Apertura de lote'
+            : `Próximo lote en ${daysUntilMon} ${daysUntilMon === 1 ? 'día' : 'días'} · Lun 09:30`;
+      }
+    } catch {}
+  })();
+</script>
