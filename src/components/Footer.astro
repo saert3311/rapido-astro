@@ -1,0 +1,60 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full bg-surface-dark text-surface-container-lowest border-t border-border-subtle/20">
+  <div class="max-w-[1200px] mx-auto px-margin py-margin-lg">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+      <div class="md:col-span-5 flex flex-col gap-space-sm">
+        <div class="flex items-center gap-space-sm">
+          <span class="font-headline-md text-headline-md text-surface-container-lowest font-bold tracking-tight">
+            RápidoPack<span class="text-primary-fixed">.</span>
+          </span>
+          <span class="font-label-badge text-xs text-primary-fixed uppercase tracking-wider bg-surface-container-lowest/10 px-2.5 py-1 rounded">
+            Alfafar · Valencia
+          </span>
+        </div>
+        <p class="font-body-regular text-sm text-surface-variant max-w-sm leading-relaxed">
+          Tienda física Outlet de primeras marcas y punto oficial de paquetería en Valencia. Inspección directa y lotes renovados cada lunes.
+        </p>
+      </div>
+
+      <div class="md:col-span-3 flex flex-col gap-space-xs">
+        <span class="font-label-badge text-xs uppercase tracking-wider text-primary-fixed mb-1">
+          Secciones
+        </span>
+        <ul class="space-y-1.5 font-body-sm text-sm text-surface-variant">
+          <li><a class="hover:text-surface-container-lowest transition-colors" href="/">Inicio</a></li>
+          <li><a class="hover:text-surface-container-lowest transition-colors" href="/#como-funciona">Ventajas y Paquetería</a></li>
+          <li><a class="hover:text-surface-container-lowest transition-colors" href="/#lunes-de-stock">Lunes de Reposición</a></li>
+          <li><a class="hover:text-surface-container-lowest transition-colors" href="/contacto">Contacto y Horarios</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4 flex flex-col gap-space-xs">
+        <span class="font-label-badge text-xs uppercase tracking-wider text-primary-fixed mb-1">
+          Tienda Física
+        </span>
+        <address class="not-italic flex flex-col gap-2 text-sm text-surface-container-lowest">
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
+            <span>Carrer del Comte Ronrée, 8, 46910 Alfafar, Valencia</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0" aria-hidden="true">call</span>
+            <a class="hover:text-primary-fixed transition-colors font-semibold" href="tel:685119511">685 11 95 11</a>
+          </div>
+          <div class="flex items-center gap-2 text-surface-variant text-xs">
+            <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0" aria-hidden="true">schedule</span>
+            <span>L–V 09:30–20:00 · Sáb 10:00–15:00</span>
+          </div>
+        </address>
+      </div>
+    </div>
+
+    <div class="mt-space-xl pt-space-md border-t border-surface-container-lowest/10 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-surface-variant font-body-sm text-xs">
+      <p>© {currentYear} Rápido Pack Valencia. Todos los derechos reservados.</p>
+      <p class="text-surface-variant/80">Outlet físico verificado y Punto de Paquetería en Alfafar</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,114 @@
+---
+interface Props {
+  currentPage?: 'home' | 'contacto';
+}
+
+const { currentPage = 'home' } = Astro.props;
+
+const navLinks = [
+  { label: 'Inicio', href: '/', active: currentPage === 'home' },
+  { label: 'Ventajas', href: currentPage === 'home' ? '#como-funciona' : '/#como-funciona', active: false },
+  { label: 'Lunes de Stock', href: currentPage === 'home' ? '#lunes-de-stock' : '/#lunes-de-stock', active: false },
+  { label: 'Ubicación', href: currentPage === 'home' ? '#ubicacion' : '/#ubicacion', active: false },
+  { label: 'Contacto', href: '/contacto', active: currentPage === 'contacto' },
+];
+---
+
+<a
+  href="#main-content"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-space-md focus:py-space-sm focus:bg-primary focus:text-on-primary focus:rounded-md focus:font-label-button focus:shadow-lg"
+>
+  Saltar al contenido principal
+</a>
+
+<header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-container-lowest/95 backdrop-blur-md border-b border-border-subtle">
+  <div class="h-20 max-w-[1200px] mx-auto px-margin flex items-center justify-between gap-space-md">
+    <a class="flex items-center gap-space-sm group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-sm" href="/">
+      <img
+        alt="Logotipo de Rápido Pack"
+        class="h-9 w-auto object-contain"
+        width="36"
+        height="36"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqIoxKTpAuDPuBroM8FlUYxsutM7v9o7WeL-fPVvijmdvxTVryFDi8AXdyOM9j_V8F6GQ5JPPoU1hFQr9u6zAcvQ8BqqQ8ocmDLRwj1H5Mc9auZqwKG9dPW2LT7DAL3JQbjjUT2_ab-qaJaPqAmAr9TWR6yWtC7jLYo3--JCq_taH-uXqV4W9dsu4gmc5uG2Ytxi0BHTFYYS3m_-jzxJqU9CSvZj82nfa2j0-1ukRv"
+      />
+      <div class="flex flex-col text-left">
+        <span class="font-headline-md text-headline-md leading-none text-surface-dark font-bold tracking-tight group-hover:text-primary transition-colors">
+          RápidoPack<span class="text-primary">.</span>
+        </span>
+        <span class="font-body-sm text-xs text-text-muted font-medium tracking-wide mt-0.5">
+          Alfafar · Valencia
+        </span>
+      </div>
+    </a>
+
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-space-lg">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          aria-current={link.active ? 'page' : undefined}
+          class:list={[
+            'font-label-button text-sm transition-colors py-1 border-b-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary',
+            link.active
+              ? 'text-primary border-primary font-semibold'
+              : 'text-secondary border-transparent hover:text-primary hover:border-primary/40',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-space-sm">
+      <a
+        class="hidden sm:inline-flex items-center justify-center gap-1.5 px-space-md py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span class="material-symbols-outlined text-[18px] leading-none" aria-hidden="true">location_on</span>
+        <span>Cómo llegar</span>
+      </a>
+
+      <!-- Mobile Menu Disclosure -->
+      <details class="md:hidden relative group">
+        <summary
+          aria-label="Abrir menú de navegación"
+          class="list-none flex items-center justify-center w-10 h-10 rounded-md border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer focus-visible:outline-2 focus-visible:outline-primary"
+        >
+          <span class="material-symbols-outlined text-[22px] group-open:hidden" aria-hidden="true">menu</span>
+          <span class="material-symbols-outlined text-[22px] hidden group-open:inline" aria-hidden="true">close</span>
+        </summary>
+        <nav
+          aria-label="Navegación móvil"
+          class="absolute right-0 mt-2 w-64 bg-surface-container-lowest rounded-lg border border-border-subtle shadow-lg p-space-sm flex flex-col gap-1"
+        >
+          {navLinks.map((link) => (
+            <a
+              href={link.href}
+              aria-current={link.active ? 'page' : undefined}
+              class:list={[
+                'px-space-md py-2.5 rounded-md font-label-button text-sm transition-colors',
+                link.active
+                  ? 'bg-mint-wash text-primary font-semibold'
+                  : 'text-surface-dark hover:bg-surface-alt',
+              ]}
+            >
+              {link.label}
+            </a>
+          ))}
+          <div class="pt-2 mt-1 border-t border-border-subtle">
+            <a
+              class="w-full inline-flex items-center justify-center gap-1.5 px-space-md py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors"
+              href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span>
+              <span>Cómo llegar al local</span>
+            </a>
+          </div>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
