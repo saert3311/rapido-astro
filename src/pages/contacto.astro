@@ -1,419 +1,240 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import StoreLocator from '../components/StoreLocator.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+
+const contactChannels = [
+  {
+    icon: 'call',
+    title: 'Llámanos directamente',
+    value: '685 11 95 11',
+    href: 'tel:685119511',
+    external: false,
+    description: 'Atención en horario comercial (L–V 09:30–20:00)',
+    cta: 'Llamar ahora',
+    ctaIcon: 'arrow_forward',
+  },
+  {
+    icon: 'chat',
+    title: 'Mensaje por WhatsApp',
+    value: '685 11 95 11',
+    href: 'https://wa.me/34685119511',
+    external: true,
+    description: 'Respuesta directa del equipo en el mismo día',
+    cta: 'Abrir WhatsApp',
+    ctaIcon: 'open_in_new',
+  },
+  {
+    icon: 'mail',
+    title: 'Correo de consultas',
+    value: 'contacto@rapidopack.es',
+    href: 'mailto:contacto@rapidopack.es',
+    external: false,
+    description: 'Para dudas generales, lotes o colaboraciones',
+    cta: 'Enviar email',
+    ctaIcon: 'outgoing_mail',
+  },
+  {
+    icon: 'pin_drop',
+    title: 'Visítanos en tienda',
+    value: 'C/ Comte Ronrée, 8',
+    href: 'https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia',
+    external: true,
+    description: '46910 Alfafar, Valencia · Aparcamiento gratuito',
+    cta: 'Ver en Google Maps',
+    ctaIcon: 'directions',
+  },
+];
+
+const contactFaqs = [
+  {
+    icon: 'door_front',
+    question: '¿Es necesario pedir cita para venir a la tienda?',
+    answer: 'No, la entrada es 100% libre durante nuestro horario comercial. Puedes entrar, revisar las estanterías y probar los productos en nuestra zona habilitada al instante. Recomendamos acudir los lunes a primera hora para aprovechar el lote recién descargado.',
+  },
+  {
+    icon: 'shopping_bag',
+    question: '¿Puedo reservar un producto o lote por teléfono?',
+    answer: 'Debido a la alta rotación y a los precios de liquidación de nuestro Outlet, las unidades individuales se asignan por estricto orden de llegada en tienda física. Si te interesa adquirir lotes completos al por mayor, escríbenos por WhatsApp para coordinar.',
+  },
+  {
+    icon: 'package_2',
+    question: '¿Hasta qué hora puedo recoger o entregar paquetes?',
+    answer: 'El servicio oficial de paquetería (recogidas y devoluciones de Amazon Hub, GLS, InPost, CTT y SEUR) está operativo ininterrumpidamente durante todo el horario: lunes a viernes de 09:30 a 20:00 h y sábados de 10:00 a 15:00 h.',
+  },
+];
 ---
 
-<Layout title="Contacto · Rápido Pack Alfafar, Valencia - Teléfono, Ubicación y Consultas" currentPage="contacto">
+<Layout
+  title="Contacto · Rápido Pack Alfafar, Valencia — Teléfono, Ubicación y Consultas"
+  description="Contacta con Rápido Pack en Alfafar, Valencia. Teléfono 685 11 95 11, WhatsApp, horarios de reposición de los lunes y recogida de paquetería."
+  currentPage="contacto"
+>
   <div class="flex flex-col w-full">
-    <!-- Hero Section -->
-    <section class="relative w-full bg-surface-container-low py-space-xl overflow-hidden">
+    <!-- 1. Hero Section -->
+    <section class="w-full bg-surface-alt pt-space-lg pb-14 border-b border-border-subtle">
       <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="max-w-3xl flex flex-col gap-space-sm items-start">
-          <span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-mint-wash text-primary font-label-badge text-label-badge uppercase tracking-wider">
-            <span class="material-symbols-outlined text-[16px] leading-none">storefront</span>
+        <div class="max-w-3xl flex flex-col gap-space-xs items-start">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-mint-wash text-primary font-label-badge text-label-badge uppercase tracking-wider border border-primary/20">
+            <span class="material-symbols-outlined text-[16px] leading-none" aria-hidden="true">storefront</span>
             ATENCIÓN Y CONSULTAS · TIENDA FÍSICA EN ALFAFAR
           </span>
-          <h1 class="font-headline-hero text-headline-hero text-on-surface">
+          <h1 class="mt-1 font-headline-hero text-headline-hero-mobile md:text-headline-hero text-on-surface">
             Contacta con <span class="text-primary">Rápido Pack</span>
           </h1>
-          <p class="font-body-lead text-body-lead text-secondary max-w-2xl">
-            ¿Tienes dudas sobre la llegada de nuevo stock los lunes, recogida de paquetería o disponibilidad de chollos de Outlet? Escríbenos, llámanos o ven a visitarnos a nuestra tienda.
+          <p class="font-body-lead text-base md:text-body-lead text-secondary max-w-2xl mt-1">
+            ¿Tienes dudas sobre la entrada de nuevo stock los lunes, recogida de paquetería o disponibilidad en tienda? Llámanos, escríbenos o visítanos directamente en Alfafar.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Quick Contact Grid (4 Cards) -->
-    <section class="w-full bg-surface-container-lowest -mt-8 relative z-10 pb-space-xl">
+    <!-- 2. Direct Contact Channels Grid (4 Cards) -->
+    <section class="w-full bg-surface-container-lowest -mt-6 relative z-10 pb-margin-lg border-b border-border-subtle">
       <div class="max-w-[1200px] mx-auto px-margin">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
-          <!-- Phone Card -->
-          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all group">
-            <div class="flex flex-col gap-space-sm">
-              <div class="w-12 h-12 rounded-xl bg-mint-wash flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                <span class="material-symbols-outlined text-[26px]">call</span>
+          {contactChannels.map((ch) => (
+            <article class="bg-surface-container-lowest p-space-lg rounded-lg border border-border-subtle hover:border-primary/40 transition-colors flex flex-col justify-between">
+              <div class="flex flex-col gap-2">
+                <div class="w-11 h-11 rounded-md bg-mint-wash flex items-center justify-center text-primary">
+                  <span class="material-symbols-outlined text-[24px]" aria-hidden="true">{ch.icon}</span>
+                </div>
+                <div class="flex flex-col mt-1">
+                  <span class="font-body-sm text-xs text-text-muted font-medium">{ch.title}</span>
+                  <a
+                    class="font-headline-sm text-base text-on-surface font-bold hover:text-primary transition-colors truncate mt-0.5"
+                    href={ch.href}
+                    target={ch.external ? '_blank' : undefined}
+                    rel={ch.external ? 'noopener noreferrer' : undefined}
+                  >
+                    {ch.value}
+                  </a>
+                </div>
+                <p class="font-body-sm text-xs text-secondary leading-relaxed">{ch.description}</p>
               </div>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-headline-sm text-on-surface">Llámanos directamente</span>
-                <a class="font-headline-md text-headline-md text-primary font-bold hover:underline" href="tel:685119511">685 11 95 11</a>
+              <div class="pt-3 mt-space-md border-t border-border-subtle/60">
+                <a
+                  class="inline-flex items-center gap-1.5 font-label-button text-xs text-primary hover:text-primary-hover transition-colors"
+                  href={ch.href}
+                  target={ch.external ? '_blank' : undefined}
+                  rel={ch.external ? 'noopener noreferrer' : undefined}
+                >
+                  <span>{ch.cta}</span>
+                  <span class="material-symbols-outlined text-[16px]" aria-hidden="true">{ch.ctaIcon}</span>
+                </a>
               </div>
-              <p class="font-body-sm text-body-sm text-secondary">Atención en horario comercial (L-V 9:30-20:00)</p>
-            </div>
-            <div class="pt-space-md mt-space-sm">
-              <a class="inline-flex items-center gap-space-xs font-label-button text-label-button text-primary hover:text-primary-hover transition-colors" href="tel:685119511">
-                <span>Llamar ahora</span>
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-          <!-- WhatsApp Card -->
-          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all group">
-            <div class="flex flex-col gap-space-sm">
-              <div class="w-12 h-12 rounded-xl bg-mint-wash flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                <span class="material-symbols-outlined text-[26px]">chat</span>
-              </div>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-headline-sm text-on-surface">Mensaje por WhatsApp</span>
-                <a class="font-headline-md text-headline-md text-primary font-bold hover:underline" href="https://wa.me/34685119511" rel="noopener noreferrer" target="_blank">685 11 95 11</a>
-              </div>
-              <p class="font-body-sm text-body-sm text-secondary">Respuesta rápida y directa en el mismo día</p>
-            </div>
-            <div class="pt-space-md mt-space-sm">
-              <a class="inline-flex items-center gap-space-xs font-label-button text-label-button text-primary hover:text-primary-hover transition-colors" href="https://wa.me/34685119511" rel="noopener noreferrer" target="_blank">
-                <span>Abrir WhatsApp</span>
-                <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-              </a>
-            </div>
-          </div>
-          <!-- Email Card -->
-          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all group">
-            <div class="flex flex-col gap-space-sm">
-              <div class="w-12 h-12 rounded-xl bg-mint-wash flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                <span class="material-symbols-outlined text-[26px]">mail</span>
-              </div>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-headline-sm text-on-surface">Email de consultas</span>
-                <a class="font-headline-sm text-headline-sm text-on-surface font-semibold hover:text-primary transition-colors truncate" href="mailto:contacto@rapidopack.es">contacto@rapidopack.es</a>
-              </div>
-              <p class="font-body-sm text-body-sm text-secondary">Para dudas generales, envíos o colaboraciones</p>
-            </div>
-            <div class="pt-space-md mt-space-sm">
-              <a class="inline-flex items-center gap-space-xs font-label-button text-label-button text-primary hover:text-primary-hover transition-colors" href="mailto:contacto@rapidopack.es">
-                <span>Enviar email</span>
-                <span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
-              </a>
-            </div>
-          </div>
-          <!-- Location Card -->
-          <div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-md flex flex-col justify-between hover:shadow-xl transition-all group">
-            <div class="flex flex-col gap-space-sm">
-              <div class="w-12 h-12 rounded-xl bg-mint-wash flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-                <span class="material-symbols-outlined text-[26px]">pin_drop</span>
-              </div>
-              <div class="flex flex-col">
-                <span class="font-headline-sm text-headline-sm text-on-surface">Visítanos en tienda</span>
-                <span class="font-body-regular text-body-regular font-semibold text-on-surface">C/ Comte Ronrée, 8</span>
-                <span class="font-body-sm text-body-sm text-secondary">46910 Alfafar, Valencia</span>
-              </div>
-              <p class="font-body-sm text-body-sm text-secondary">Aparcamiento gratuito directo en la puerta</p>
-            </div>
-            <div class="pt-space-md mt-space-sm">
-              <a class="inline-flex items-center gap-space-xs font-label-button text-label-button text-primary hover:text-primary-hover transition-colors" href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia" rel="noopener noreferrer" target="_blank">
-                <span>Ver en Google Maps</span>
-                <span class="material-symbols-outlined text-[18px]">directions</span>
-              </a>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- Two Column Main Body Section -->
-    <section class="w-full bg-surface-alt py-space-xl">
+    <!-- 3. Form + Store Inspection Info -->
+    <section class="w-full bg-surface-alt py-margin-lg border-b border-border-subtle">
       <div class="max-w-[1200px] mx-auto px-margin">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-          <!-- Form Column (Left: 7 cols) -->
-          <div class="lg:col-span-7 bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-md">
-            <div class="flex flex-col gap-space-xs mb-space-lg">
-              <span class="font-label-badge text-label-badge text-primary uppercase tracking-wider font-semibold">Formulario directo</span>
-              <h2 class="font-headline-lg text-headline-lg text-on-surface">Envíanos un mensaje</h2>
-              <p class="font-body-regular text-body-regular text-secondary">
-                Escríbenos para cualquier consulta y te responderemos a la mayor brevedad posible.
-              </p>
-            </div>
-            <form class="flex flex-col gap-space-md" id="contact-form">
-              <!-- Full Name -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-button text-label-button text-on-surface text-sm" for="contact-name">Nombre completo <span class="text-primary">*</span></label>
-                <input class="w-full px-space-md py-space-sm bg-surface-container-low text-on-surface placeholder:text-secondary rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-colors font-body-regular text-body-regular shadow-inner" id="contact-name" placeholder="Ej. Carlos Martínez" required="" type="text" />
-              </div>
-              <!-- Phone & Email (2 columns on tablet/desktop) -->
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
-                <div class="flex flex-col gap-space-xs">
-                  <label class="font-label-button text-label-button text-on-surface text-sm" for="contact-phone">Teléfono de contacto <span class="text-primary">*</span></label>
-                  <input class="w-full px-space-md py-space-sm bg-surface-container-low text-on-surface placeholder:text-secondary rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-colors font-body-regular text-body-regular shadow-inner" id="contact-phone" placeholder="685 00 00 00" required="" type="tel" />
-                </div>
-                <div class="flex flex-col gap-space-xs">
-                  <label class="font-label-button text-label-button text-on-surface text-sm" for="contact-email">Correo electrónico <span class="text-primary">*</span></label>
-                  <input class="w-full px-space-md py-space-sm bg-surface-container-low text-on-surface placeholder:text-secondary rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-colors font-body-regular text-body-regular shadow-inner" id="contact-email" placeholder="ejemplo@correo.com" required="" type="email" />
-                </div>
-              </div>
-              <!-- Subject Reason Select -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-button text-label-button text-on-surface text-sm" for="contact-subject">Motivo de la consulta <span class="text-primary">*</span></label>
-                <div class="relative">
-                  <select class="w-full appearance-none px-space-md py-space-sm bg-surface-container-low text-on-surface rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-colors font-body-regular text-body-regular shadow-inner pr-10 cursor-pointer" id="contact-subject" required="">
-                    <option disabled="" selected="" value="">Selecciona una opción</option>
-                    <option value="lotes">Dudas sobre mercancía y lotes</option>
-                    <option value="paqueteria">Paquetería y devoluciones (Amazon/GLS/etc.)</option>
-                    <option value="horarios">Horarios y disponibilidad</option>
-                    <option value="otro">Otro motivo</option>
-                  </select>
-                  <span class="material-symbols-outlined text-[20px] text-secondary absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
-                </div>
-              </div>
-              <!-- Message Textarea -->
-              <div class="flex flex-col gap-space-xs">
-                <label class="font-label-button text-label-button text-on-surface text-sm" for="contact-message">Mensaje <span class="text-primary">*</span></label>
-                <textarea class="w-full px-space-md py-space-sm bg-surface-container-low text-on-surface placeholder:text-secondary rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-colors font-body-regular text-body-regular shadow-inner resize-y" id="contact-message" placeholder="Cuéntanos con detalle qué necesitas consultar o reservar..." required="" rows="4"></textarea>
-              </div>
-              <!-- Checkbox Privacy -->
-              <div class="flex items-start gap-space-sm pt-space-xs">
-                <input class="mt-1 h-4 w-4 rounded accent-primary text-primary focus:ring-0 cursor-pointer" id="privacy-check" required="" type="checkbox" />
-                <label class="font-body-sm text-body-sm text-secondary cursor-pointer select-none" for="privacy-check">
-                  He leído y acepto la <span class="text-on-surface font-semibold underline">política de privacidad</span> y el tratamiento de mis datos de contacto para responder esta solicitud.
-                </label>
-              </div>
-              <!-- Submit Button & Feedback -->
-              <div class="pt-space-sm flex flex-col gap-space-sm">
-                <button class="w-full sm:w-auto inline-flex items-center justify-center gap-space-xs px-space-xl py-space-sm bg-primary hover:bg-primary-hover text-on-primary font-label-button text-label-button rounded-xl shadow-md hover:shadow-lg transition-all" type="submit">
-                  <span>Enviar Mensaje</span>
-                  <span class="material-symbols-outlined text-[20px]">send</span>
-                </button>
-                <div class="flex items-center gap-space-xs text-secondary font-body-sm text-body-sm">
-                  <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
-                  <span>Solemos responder en menos de 24 horas laborables.</span>
-                </div>
-                <!-- Inline Success Alert -->
-                <div class="hidden p-space-md rounded-lg bg-mint-wash text-on-surface flex items-start gap-space-sm mt-space-sm shadow-sm" id="form-feedback">
-                  <span class="material-symbols-outlined text-primary text-[22px] shrink-0">check_circle</span>
-                  <div class="flex flex-col">
-                    <span class="font-label-button text-label-button text-primary">¡Mensaje enviado con éxito!</span>
-                    <span class="font-body-sm text-body-sm text-secondary">Nos pondremos en contacto contigo lo antes posible. Si es urgente, recuerda que puedes llamarnos directamente al 685 11 95 11.</span>
-                  </div>
-                </div>
-              </div>
-            </form>
+          <div class="lg:col-span-7">
+            <ContactForm />
           </div>
-          <!-- Store Info & Hours (Right: 5 cols) -->
-          <div class="lg:col-span-5 flex flex-col gap-gutter">
-            <!-- Schedule Card -->
-            <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-xl shadow-md flex flex-col gap-space-md">
-              <div class="flex items-center justify-between gap-space-sm flex-wrap">
-                <span class="inline-flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low rounded-full font-label-badge text-label-badge text-on-surface shadow-sm">
-                  <span class="text-amber-500 font-bold">★ 5.0</span>
-                  <span>en Google Reviews</span>
+
+          <aside class="lg:col-span-5 flex flex-col gap-gutter">
+            <!-- Parcel Point & Store Highlights Card -->
+            <div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-lg border border-border-subtle flex flex-col gap-space-md">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-mint-wash rounded font-label-badge text-xs text-primary">
+                  <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">star</span>
+                  <span>5.0 Google Reviews</span>
                 </span>
-                <span class="flex items-center gap-1 font-body-sm text-body-sm text-primary font-semibold">
-                  <span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
-                  Local Abierto
+                <span class="inline-flex items-center gap-1.5 font-body-sm text-xs text-primary font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
+                  Atención Presencial
                 </span>
               </div>
+
               <h3 class="font-headline-md text-headline-md text-on-surface">
-                Información del Local y Atención Presencial
+                Servicios en nuestra tienda de Alfafar
               </h3>
-              <!-- Schedule Rows -->
-              <div class="flex flex-col gap-space-xs pt-space-xs">
-                <!-- Monday (Highlight) -->
-                <div class="flex items-center justify-between p-space-sm bg-mint-wash rounded-lg">
-                  <div class="flex items-center gap-space-xs">
-                    <span class="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
-                    <div class="flex flex-col">
-                      <span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Lunes (Stock Nuevo)</span>
-                      <span class="font-body-sm text-body-sm text-primary font-medium">¡Día de reposición semanal!</span>
-                    </div>
+
+              <ul class="space-y-3 font-body-sm text-sm text-secondary">
+                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+                  <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">local_shipping</span>
+                  <div>
+                    <strong class="text-on-surface block">Lunes de Reposición (09:30 h)</strong>
+                    <span>Descarga semanal de lotes nuevos de tecnología, hogar y herramientas.</span>
                   </div>
-                  <span class="font-label-button text-label-button text-primary font-bold">09:30 – 20:00</span>
-                </div>
-                <!-- Tue - Fri -->
-                <div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg">
-                  <span class="font-body-regular text-body-regular text-on-surface font-medium">Martes a Viernes</span>
-                  <span class="font-body-regular text-body-regular text-secondary font-semibold">09:30 – 20:00</span>
-                </div>
-                <!-- Saturday -->
-                <div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg">
-                  <span class="font-body-regular text-body-regular text-on-surface font-medium">Sábados</span>
-                  <span class="font-body-regular text-body-regular text-secondary font-semibold">10:00 – 15:00</span>
-                </div>
-                <!-- Sunday -->
-                <div class="flex items-center justify-between p-space-sm bg-surface-container-low/60 rounded-lg">
-                  <span class="font-body-regular text-body-regular text-secondary">Domingos</span>
-                  <span class="font-body-regular text-body-regular text-secondary font-medium">Cerrado</span>
-                </div>
+                </li>
+                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+                  <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">package_2</span>
+                  <div>
+                    <strong class="text-on-surface block">Punto Oficial de Paquetería</strong>
+                    <span>Recepción y devoluciones sin esperas durante todo el horario comercial.</span>
+                  </div>
+                </li>
+                <li class="flex items-start gap-2.5 p-3 rounded-md bg-surface-alt border border-border-subtle/60">
+                  <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">power</span>
+                  <div>
+                    <strong class="text-on-surface block">Zona de Prueba en Tienda</strong>
+                    <span>Mesas con enchufes para verificar cualquier artículo eléctrico antes de abonar.</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="pt-1">
+                <a
+                  class="w-full inline-flex items-center justify-center gap-2 px-space-md py-3 bg-surface-dark hover:bg-secondary text-on-primary font-label-button text-sm rounded-md transition-colors"
+                  href="https://wa.me/34685119511"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <span class="material-symbols-outlined text-[18px] text-primary-fixed" aria-hidden="true">chat</span>
+                  <span>Consultar por WhatsApp</span>
+                </a>
               </div>
-              <!-- Useful Notice Banner -->
-              <div class="p-space-md bg-secondary-container/40 rounded-xl flex items-start gap-space-sm">
-                <span class="material-symbols-outlined text-on-secondary-container text-[22px] shrink-0 mt-0.5">inventory_2</span>
-                <p class="font-body-sm text-body-sm text-on-secondary-container">
-                  <strong>Punto oficial de paquetería:</strong> Recepción y devoluciones de paquetes disponible ininterrumpidamente durante todo el horario de apertura.
+            </div>
+
+            <!-- Store Atmosphere Preview Card -->
+            <div class="bg-surface-container-lowest p-space-md rounded-lg border border-border-subtle flex items-center gap-space-md">
+              <div class="w-24 h-24 rounded-md overflow-hidden shrink-0 bg-surface-container border border-border-subtle/50">
+                <img
+                  class="w-full h-full object-cover"
+                  alt="Pasillo organizado de la tienda outlet Rápido Pack en Alfafar, Valencia"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF9qXGJUeSsSOKet9svtf0RfLhCz1GwKHQOBcWjaYORdiKCUwmT9EaGrrYG2qXK1qvW8PctUS13qoTCQbJjk-o9VFuSEJ-s_27duCla7OiO209-2BdzvG-nB3Nf8LRDWuXzVSVDw0FpOZw8c8mSKqVxA0OiUn0-qyMMwF67xYVsAMbvuMBn1z2xdMnUPfIFs28Ct7QqUtVdF02kUOKCPbVR6NTZCRJLSHWtNkEBXf1"
+                  loading="lazy"
+                  decoding="async"
+                  width="96"
+                  height="96"
+                />
+              </div>
+              <div class="flex flex-col gap-1 min-w-0">
+                <span class="font-label-badge text-xs text-primary uppercase">Transparencia total</span>
+                <h4 class="font-headline-sm text-sm text-on-surface font-bold truncate">Comprueba antes de pagar</h4>
+                <p class="font-body-sm text-xs text-secondary leading-relaxed">
+                  Sin compras a ciegas: revisa el contenido y funcionamiento en el propio local.
                 </p>
               </div>
-              <!-- Direct CTA to Google Maps -->
-              <a class="w-full inline-flex items-center justify-center gap-space-xs px-space-md py-space-sm bg-on-surface text-surface-container-lowest font-label-button text-label-button rounded-xl shadow-md hover:bg-secondary transition-colors" href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia" rel="noopener noreferrer" target="_blank">
-                <span class="material-symbols-outlined text-[20px] text-primary-fixed">near_me</span>
-                <span>Abrir Ruta en Google Maps</span>
-              </a>
             </div>
-            <!-- Store Atmosphere Preview Card -->
-            <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md flex items-center gap-space-md overflow-hidden">
-              <div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 bg-surface-container">
-                <img class="w-full h-full object-cover" alt="Pasillo de tienda outlet en Alfafar Valencia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF9qXGJUeSsSOKet9svtf0RfLhCz1GwKHQOBcWjaYORdiKCUwmT9EaGrrYG2qXK1qvW8PctUS13qoTCQbJjk-o9VFuSEJ-s_27duCla7OiO209-2BdzvG-nB3Nf8LRDWuXzVSVDw0FpOZw8c8mSKqVxA0OiUn0-qyMMwF67xYVsAMbvuMBn1z2xdMnUPfIFs28Ct7QqUtVdF02kUOKCPbVR6NTZCRJLSHWtNkEBXf1" />
-              </div>
-              <div class="flex flex-col gap-space-xs min-w-0">
-                <span class="font-label-badge text-label-badge text-primary uppercase">Inspección libre</span>
-                <h4 class="font-headline-sm text-headline-sm text-on-surface truncate">Comprueba antes de pagar</h4>
-                <p class="font-body-sm text-body-sm text-secondary line-clamp-2">Mesas de prueba disponibles en tienda para verificar productos electrónicos in situ.</p>
-              </div>
-            </div>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Map & Directions Section -->
-    <section class="w-full bg-surface-container-lowest py-space-xl" id="ubicacion">
-      <div class="max-w-[1200px] mx-auto px-margin flex flex-col gap-space-lg">
-        <!-- Section Title -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
-          <div class="max-w-2xl flex flex-col gap-space-xs">
-            <span class="font-label-badge text-label-badge text-primary uppercase tracking-wider font-semibold">Acceso y Transporte</span>
-            <h2 class="font-headline-lg text-headline-lg text-on-surface">Dónde encontrarnos en Alfafar (Valencia)</h2>
-            <p class="font-body-regular text-body-regular text-secondary">
-              Fácil acceso por la autopista V-31 (a solo 8 minutos de Valencia capital) y aparcamiento libre sin zona azul en la misma puerta.
-            </p>
-          </div>
-          <div class="flex items-center gap-space-sm shrink-0">
-            <div class="flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface">
-              <span class="material-symbols-outlined text-primary text-[18px]">directions_car</span>
-              <span>8 min desde Valencia (V-31)</span>
-            </div>
-            <div class="flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container rounded-lg font-body-sm text-body-sm text-on-surface">
-              <span class="material-symbols-outlined text-primary text-[18px]">local_parking</span>
-              <span>Parking fácil en la calle</span>
-            </div>
-          </div>
-        </div>
-        <!-- Map Display Container -->
-        <div class="relative w-full h-[420px] rounded-xl overflow-hidden shadow-lg bg-surface-container">
-          <div class="w-full h-full bg-cover bg-center">
-            <div class="w-full h-full bg-surface-container flex flex-col items-center justify-center p-space-lg text-center relative">
-              <!-- Graphic background lines representing streets -->
-              <svg class="absolute inset-0 w-full h-full opacity-15" fill="none" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-                <path class="text-secondary" d="M0 100 H1000 M0 250 H1000 M0 400 H1000" stroke="currentColor" stroke-width="8"></path>
-                <path class="text-secondary" d="M150 0 V500 M450 0 V500 M800 0 V500" stroke="currentColor" stroke-width="8"></path>
-                <path class="text-primary" d="M50 450 L950 50" stroke="currentColor" stroke-width="12"></path>
-              </svg>
-              <!-- Floating Marker Hub -->
-              <div class="relative z-10 bg-surface-container-lowest p-space-lg rounded-xl shadow-xl max-w-sm mx-auto flex flex-col items-center gap-space-sm">
-                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-md">
-                  <span class="material-symbols-outlined text-[28px]">storefront</span>
-                </div>
-                <div class="flex flex-col">
-                  <span class="font-headline-sm text-headline-sm text-on-surface font-bold">Rápido Pack Alfafar</span>
-                  <span class="font-body-sm text-body-sm text-secondary">Carrer del Comte Ronrée, 8</span>
-                </div>
-                <span class="font-label-badge text-label-badge text-primary bg-mint-wash px-space-sm py-space-xs rounded">
-                  Abierto hoy de 09:30 a 20:00
-                </span>
-                <a class="mt-space-xs inline-flex items-center gap-space-xs px-space-md py-space-xs bg-primary hover:bg-primary-hover text-on-primary font-label-button text-label-button rounded-lg transition-colors text-sm shadow-sm" href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia" rel="noopener noreferrer" target="_blank">
-                  <span class="material-symbols-outlined text-[18px]">navigation</span>
-                  <span>Cómo llegar en coche / bus</span>
-                </a>
-              </div>
-              <!-- Floating Quick Nav Button -->
-              <div class="absolute bottom-space-md left-space-md hidden sm:flex items-center gap-space-xs bg-surface-container-lowest/95 backdrop-blur-md px-space-md py-space-sm rounded-lg shadow-md font-body-sm text-body-sm text-on-surface">
-                <span class="material-symbols-outlined text-primary text-[20px]">train</span>
-                <span>Estación de Tren Renfe Alfafar-Benetússer a 10 min caminando</span>
-              </div>
-              <!-- External Google Maps Button -->
-              <div class="absolute bottom-space-md right-space-md">
-                <a class="inline-flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest text-on-surface hover:text-primary font-label-button text-label-button rounded-lg shadow-md transition-colors text-sm" href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia" rel="noopener noreferrer" target="_blank">
-                  <span class="material-symbols-outlined text-[18px]">map</span>
-                  <span>Abrir en aplicación de mapas</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- 4. Store Locator & Schedule -->
+    <StoreLocator
+      badge="Acceso y Transporte"
+      title="Dónde encontrarnos en Alfafar (Valencia)"
+      subtitle="Acceso directo por la autopista V-31 (a 8 minutos de Valencia centro) y aparcamiento libre sin zona azul en la misma calle."
+    />
 
-    <!-- FAQ Section -->
-    <section class="w-full bg-surface-alt py-space-xl">
-      <div class="max-w-[1200px] mx-auto px-margin">
-        <div class="max-w-3xl mx-auto flex flex-col gap-space-lg">
-          <div class="text-center flex flex-col gap-space-xs">
-            <span class="font-label-badge text-label-badge text-primary uppercase tracking-wider font-semibold">Dudas Frecuentes</span>
-            <h2 class="font-headline-lg text-headline-lg text-on-surface">Preguntas rápidas antes de venir</h2>
-            <p class="font-body-regular text-body-regular text-secondary">
-              Resolvemos las preguntas más habituales sobre visitas, reserva de artículos y paquetería.
-            </p>
-          </div>
-          <!-- FAQ Items Container -->
-          <div class="flex flex-col gap-space-sm">
-            <!-- Item 1 -->
-            <details class="group bg-surface-container-lowest rounded-xl shadow-sm transition-all overflow-hidden" open="">
-              <summary class="flex items-center justify-between p-space-lg cursor-pointer list-none select-none font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                <span class="flex items-center gap-space-sm">
-                  <span class="w-8 h-8 rounded-lg bg-mint-wash text-primary flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[20px]">door_front</span>
-                  </span>
-                  ¿Es necesario pedir cita para venir a la tienda?
-                </span>
-                <span class="material-symbols-outlined text-[24px] text-secondary group-open:rotate-180 transition-transform">expand_more</span>
-              </summary>
-              <div class="px-space-lg pb-space-lg pt-0 text-secondary font-body-regular text-body-regular">
-                <p>No, la entrada es 100% libre durante nuestro horario comercial. Puedes entrar, revisar las estanterías y probar los productos en nuestra zona habilitada para descubrir los mejores lotes y chollos de Outlet al instante. Solo recomendamos venir a primera hora los lunes si quieres aprovechar el stock recién llegado.</p>
-              </div>
-            </details>
-            <!-- Item 2 -->
-            <details class="group bg-surface-container-lowest rounded-xl shadow-sm transition-all overflow-hidden">
-              <summary class="flex items-center justify-between p-space-lg cursor-pointer list-none select-none font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                <span class="flex items-center gap-space-sm">
-                  <span class="w-8 h-8 rounded-lg bg-mint-wash text-primary flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
-                  </span>
-                  ¿Puedo reservar un producto o lote por teléfono?
-                </span>
-                <span class="material-symbols-outlined text-[24px] text-secondary group-open:rotate-180 transition-transform">expand_more</span>
-              </summary>
-              <div class="px-space-lg pb-space-lg pt-0 text-secondary font-body-regular text-body-regular">
-                <p>Debido a la altísima rotación y a los precios especiales de nuestro Outlet de oportunidad, las unidades individuales se asignan por estricto orden de llegada a la tienda física. Si estás interesado en adquirir lotes mayoristas completos, contáctanos previamente por WhatsApp para coordinar la carga.</p>
-              </div>
-            </details>
-            <!-- Item 3 -->
-            <details class="group bg-surface-container-lowest rounded-xl shadow-sm transition-all overflow-hidden">
-              <summary class="flex items-center justify-between p-space-lg cursor-pointer list-none select-none font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                <span class="flex items-center gap-space-sm">
-                  <span class="w-8 h-8 rounded-lg bg-mint-wash text-primary flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[20px]">package_2</span>
-                  </span>
-                  ¿Hasta qué hora puedo recoger o entregar paquetes?
-                </span>
-                <span class="material-symbols-outlined text-[24px] text-secondary group-open:rotate-180 transition-transform">expand_more</span>
-              </summary>
-              <div class="px-space-lg pb-space-lg pt-0 text-secondary font-body-regular text-body-regular">
-                <p>El punto de paquetería (devoluciones y recogidas de mensajería) funciona durante todo el horario de la tienda: de lunes a viernes hasta las 20:00 h y los sábados hasta las 15:00 h. Trae tu código QR o etiqueta lista en el teléfono para agilizar el trámite.</p>
-              </div>
-            </details>
-          </div>
-          <!-- Reassurance Footer Banner -->
-          <div class="p-space-lg bg-surface-container-lowest rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-md text-center sm:text-left">
-            <div class="flex items-center gap-space-md">
-              <div class="w-12 h-12 rounded-full bg-mint-wash flex items-center justify-center text-primary shrink-0">
-                <span class="material-symbols-outlined text-[24px]">support_agent</span>
-              </div>
-              <div>
-                <h4 class="font-headline-sm text-headline-sm text-on-surface">¿Otra consulta específica?</h4>
-                <p class="font-body-sm text-body-sm text-secondary">Nuestro equipo en tienda responde llamadas y WhatsApp en el momento.</p>
-              </div>
-            </div>
-            <a class="inline-flex items-center gap-space-xs px-space-lg py-space-sm bg-primary hover:bg-primary-hover text-on-primary font-label-button text-label-button rounded-xl transition-all shadow-md shrink-0" href="https://wa.me/34685119511" rel="noopener noreferrer" target="_blank">
-              <span class="material-symbols-outlined text-[18px]">chat</span>
-              <span>Hablar por WhatsApp</span>
-            </a>
-          </div>
-        </div>
-      </div>
+    <!-- 5. Contact FAQ -->
+    <section class="w-full bg-surface-container-lowest py-margin-lg border-t border-border-subtle section-deferred">
+      <FaqAccordion
+        badge="Dudas Frecuentes"
+        title="Preguntas rápidas antes de venir"
+        subtitle="Resolvemos las consultas más habituales sobre visitas, lotes y servicio de paquetería."
+        items={contactFaqs}
+        groupName="contact-faq"
+      />
     </section>
   </div>
-
-  <script is:inline>
-    document.getElementById('contact-form')?.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const feedback = document.getElementById('form-feedback');
-      if (feedback) {
-        feedback.classList.remove('hidden');
-      }
-    });
-  </script>
 </Layout>

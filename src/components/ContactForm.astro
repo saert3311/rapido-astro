@@ -1,0 +1,314 @@
+---
+---
+
+<div class="bg-surface-container-lowest p-space-lg sm:p-space-xl rounded-lg border border-border-subtle">
+  <div class="flex flex-col gap-1 mb-space-lg">
+    <span class="font-label-badge text-xs text-primary uppercase tracking-wider font-semibold">
+      Formulario directo
+    </span>
+    <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">
+      Envíanos un mensaje
+    </h2>
+    <p class="font-body-regular text-sm text-secondary">
+      Escríbenos para cualquier consulta sobre lotes, horarios o paquetería. Los campos marcados con <span class="text-primary font-semibold">*</span> son obligatorios.
+    </p>
+  </div>
+
+  <form class="flex flex-col gap-space-md" id="contact-form">
+    <!-- Full Name -->
+    <div class="field flex flex-col">
+      <label class="font-label-button text-sm text-on-surface" for="contact-name">
+        Nombre completo <span class="text-primary" aria-hidden="true">*</span>
+      </label>
+      <span id="name-hint" class="text-xs text-text-muted mt-0.5 mb-1.5">
+        Indica tu nombre o el de tu empresa
+      </span>
+      <input
+        class="form-control w-full px-3.5 py-2.5 bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/70 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-regular text-sm"
+        id="contact-name"
+        name="name"
+        type="text"
+        required
+        minlength="2"
+        autocomplete="name"
+        placeholder="Ej. Carlos Martínez"
+        aria-describedby="name-hint"
+        aria-errormessage="name-error"
+      />
+      <div id="name-error" class="error-msg text-xs text-error font-medium mt-1.5 items-center gap-1">
+        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+        <span>Por favor, introduce tu nombre completo (mínimo 2 caracteres).</span>
+      </div>
+    </div>
+
+    <!-- Phone & Email -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+      <div class="field flex flex-col">
+        <label class="font-label-button text-sm text-on-surface" for="contact-phone">
+          Teléfono de contacto <span class="text-primary" aria-hidden="true">*</span>
+        </label>
+        <span id="phone-hint" class="text-xs text-text-muted mt-0.5 mb-1.5">
+          Formato: 9 dígitos (ej. 685119511)
+        </span>
+        <input
+          class="form-control w-full px-3.5 py-2.5 bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/70 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-regular text-sm tabular-nums"
+          id="contact-phone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          required
+          pattern="[0-9+\s()-]{9,15}"
+          autocomplete="tel"
+          placeholder="685 00 00 00"
+          aria-describedby="phone-hint"
+          aria-errormessage="phone-error"
+        />
+        <div id="phone-error" class="error-msg text-xs text-error font-medium mt-1.5 items-center gap-1">
+          <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+          <span>Introduce un número de teléfono válido (mínimo 9 dígitos).</span>
+        </div>
+      </div>
+
+      <div class="field flex flex-col">
+        <label class="font-label-button text-sm text-on-surface" for="contact-email">
+          Correo electrónico <span class="text-primary" aria-hidden="true">*</span>
+        </label>
+        <span id="email-hint" class="text-xs text-text-muted mt-0.5 mb-1.5">
+          Formato: nombre@dominio.com
+        </span>
+        <input
+          class="form-control w-full px-3.5 py-2.5 bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/70 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-regular text-sm"
+          id="contact-email"
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="ejemplo@correo.com"
+          aria-describedby="email-hint"
+          aria-errormessage="email-error"
+        />
+        <div id="email-error" class="error-msg text-xs text-error font-medium mt-1.5 items-center gap-1">
+          <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+          <span>Introduce una dirección de correo electrónico válida.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subject Select -->
+    <div class="field flex flex-col">
+      <label class="font-label-button text-sm text-on-surface" for="contact-subject">
+        Motivo de la consulta <span class="text-primary" aria-hidden="true">*</span>
+      </label>
+      <span id="subject-hint" class="text-xs text-text-muted mt-0.5 mb-1.5">
+        Elige el departamento para agilizar tu respuesta
+      </span>
+      <div class="relative">
+        <select
+          class="form-control w-full appearance-none px-3.5 py-2.5 bg-surface-container-lowest text-on-surface border border-border-subtle rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-regular text-sm pr-10 cursor-pointer"
+          id="contact-subject"
+          name="subject"
+          required
+          aria-describedby="subject-hint"
+          aria-errormessage="subject-error"
+        >
+          <option disabled selected value="">Selecciona una opción</option>
+          <option value="lotes">Dudas sobre mercancía y lotes de los lunes</option>
+          <option value="paqueteria">Paquetería y devoluciones (Amazon, GLS, InPost, SEUR)</option>
+          <option value="horarios">Horarios y ubicación del local</option>
+          <option value="otro">Otra consulta</option>
+        </select>
+        <span class="material-symbols-outlined text-[20px] text-secondary absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+          expand_more
+        </span>
+      </div>
+      <div id="subject-error" class="error-msg text-xs text-error font-medium mt-1.5 items-center gap-1">
+        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+        <span>Selecciona un motivo para tu consulta.</span>
+      </div>
+    </div>
+
+    <!-- Message Textarea -->
+    <div class="field flex flex-col">
+      <label class="font-label-button text-sm text-on-surface" for="contact-message">
+        Mensaje <span class="text-primary" aria-hidden="true">*</span>
+      </label>
+      <span id="message-hint" class="text-xs text-text-muted mt-0.5 mb-1.5">
+        Detalla tu consulta (mínimo 10 caracteres)
+      </span>
+      <textarea
+        class="form-control w-full px-3.5 py-2.5 bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/70 rounded-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-body-regular text-sm resize-y"
+        id="contact-message"
+        name="message"
+        required
+        minlength="10"
+        rows="4"
+        placeholder="Cuéntanos qué necesitas consultar sobre nuestro stock o punto de paquetería..."
+        aria-describedby="message-hint"
+        aria-errormessage="message-error"
+      ></textarea>
+      <div id="message-error" class="error-msg text-xs text-error font-medium mt-1.5 items-center gap-1">
+        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+        <span>Por favor, escribe un mensaje con al menos 10 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Privacy Checkbox -->
+    <div class="field flex flex-col pt-1">
+      <div class="flex items-start gap-2.5">
+        <input
+          class="form-control mt-1 h-4 w-4 rounded-sm border-border-subtle accent-primary text-primary focus:ring-primary cursor-pointer"
+          id="privacy-check"
+          name="privacy"
+          required
+          type="checkbox"
+          aria-errormessage="privacy-error"
+        />
+        <label class="font-body-sm text-xs text-secondary cursor-pointer select-none leading-relaxed" for="privacy-check">
+          He leído y acepto la <span class="text-on-surface font-semibold underline">política de privacidad</span> y el tratamiento de mis datos exclusivamente para atender esta solicitud. <span class="text-primary" aria-hidden="true">*</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Submit Button & Status Feedback -->
+    <div class="pt-2 flex flex-col gap-space-sm">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+        <button
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          type="submit"
+        >
+          <span>Enviar Mensaje</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">send</span>
+        </button>
+        <div class="flex items-center gap-1.5 text-text-muted font-body-sm text-xs">
+          <span class="material-symbols-outlined text-[16px] text-primary" aria-hidden="true">schedule</span>
+          <span>Respuesta habitual en menos de 24 h laborables</span>
+        </div>
+      </div>
+
+      <div
+        role="status"
+        aria-live="polite"
+        class="hidden p-space-md rounded-md bg-mint-wash border border-primary/30 text-on-surface flex items-start gap-space-sm mt-1"
+        id="form-feedback"
+      >
+        <span class="material-symbols-outlined text-primary text-[22px] shrink-0" aria-hidden="true">check_circle</span>
+        <div class="flex flex-col">
+          <span class="font-label-button text-sm text-primary">¡Mensaje enviado correctamente!</span>
+          <span class="font-body-sm text-xs text-secondary mt-0.5">
+            Hemos recibido tu consulta. Si necesitas atención inmediata, puedes llamarnos al <a href="tel:685119511" class="font-semibold underline text-on-surface">685 11 95 11</a>.
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<style>
+  .error-msg {
+    display: none;
+  }
+
+  .form-control:user-invalid,
+  .form-control.user-invalid-fallback {
+    border-color: #ba1a1a;
+    background-color: #fff8f7;
+  }
+
+  .form-control:user-invalid + .error-msg,
+  .form-control.user-invalid-fallback + .error-msg,
+  .field:has(.form-control:user-invalid) > .error-msg,
+  .field:has(.form-control.user-invalid-fallback) > .error-msg {
+    display: flex;
+  }
+
+  .form-control:user-valid,
+  .form-control.user-valid-fallback {
+    border-color: #059652;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    // Sync aria-invalid with native :user-invalid state
+    const syncAria = (el) => {
+      if (!el || typeof el.matches !== 'function' || !el.classList?.contains('form-control')) return;
+      try {
+        el.setAttribute('aria-invalid', el.matches(':user-invalid') ? 'true' : 'false');
+      } catch {
+        // Fallback handles browsers without :user-invalid
+      }
+    };
+
+    form.addEventListener('blur', (e) => syncAria(e.target), true);
+    form.addEventListener('input', (e) => {
+      if (e.target?.hasAttribute?.('aria-invalid')) syncAria(e.target);
+    });
+
+    // WeakMap fallback for browsers without :user-invalid support
+    const UserInvalidFallback = (() => {
+      const dirtyState = new WeakMap();
+
+      const updateState = (input) => {
+        const isValid = input.checkValidity();
+        input.classList.toggle('user-invalid-fallback', !isValid);
+        input.classList.toggle('user-valid-fallback', isValid);
+        if (!isValid) {
+          input.setAttribute('aria-invalid', 'true');
+        } else {
+          input.removeAttribute('aria-invalid');
+        }
+      };
+
+      const handleEvent = (event) => {
+        const input = event.target;
+        if (event.type === 'reset') {
+          const controls = input.elements || [];
+          for (const control of controls) {
+            dirtyState.delete(control);
+            control.classList.remove('user-invalid-fallback', 'user-valid-fallback');
+            control.removeAttribute('aria-invalid');
+          }
+          return;
+        }
+        if (!input?.checkValidity) return;
+
+        if (event.type === 'input' || event.type === 'change') {
+          const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+          state.hasInteracted = true;
+          dirtyState.set(input, state);
+          if (state.hasBlurred) updateState(input);
+        } else if (event.type === 'blur') {
+          const state = dirtyState.get(input) || { hasInteracted: false, hasBlurred: false };
+          state.hasBlurred = true;
+          dirtyState.set(input, state);
+          if (state.hasInteracted) updateState(input);
+        }
+      };
+
+      const init = (root = document) => {
+        if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('selector(:user-invalid)')) return;
+        root.addEventListener('blur', handleEvent, true);
+        root.addEventListener('input', handleEvent);
+        root.addEventListener('change', handleEvent);
+        root.addEventListener('reset', handleEvent, true);
+      };
+
+      return { init };
+    })();
+
+    UserInvalidFallback.init(form);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const feedback = document.getElementById('form-feedback');
+      if (feedback) {
+        feedback.classList.remove('hidden');
+        form.reset();
+        form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      }
+    });
+  })();
+</script>
