@@ -8,7 +8,7 @@ function toMinutes(timeStr: string): number {
   return (h ?? 0) * 60 + (m ?? 0);
 }
 
-const rawPhone = '685 11 95 11';
+const rawPhone = '640 39 74 34';
 const digitsPhone = rawPhone.replace(/\D/g, '');
 const countryCode = '34';
 
