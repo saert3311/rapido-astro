@@ -10,7 +10,7 @@ interface Props {
 const {
   badge = '03 // Ubicación y Acceso Directo',
   title = `Visita ${SITE.brand.name} en Alfafar`,
-  subtitle = `Situados en el eje comercial de Alfafar con acceso directo desde la V-31 (Pista de Silla) y ${SITE.location.parkingNote.toLowerCase()}.`,
+  subtitle = `Situados en el centro urbano de Alfafar, a ${SITE.location.stationWalkLabel} de la ${SITE.location.stationName} (Cercanías C1/C2 y MetroBus).`,
 } = Astro.props;
 ---
 
@@ -30,12 +30,12 @@ const {
       </div>
       <div class="flex flex-wrap items-center gap-2.5 shrink-0">
         <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
-          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">directions_car</span>
-          <span>{SITE.location.driveTimeLabel} {SITE.location.transitNote}</span>
+          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">train</span>
+          <span>{SITE.location.stationNote}</span>
         </span>
         <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
-          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">local_parking</span>
-          <span>{SITE.location.parkingNote}</span>
+          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">directions_walk</span>
+          <span>{SITE.location.stationWalkLabel}</span>
         </span>
       </div>
     </div>
@@ -161,7 +161,7 @@ const {
           <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 liquid-glass-light p-3.5 rounded-xl">
             <div class="flex items-center gap-2 text-surface-dark text-xs font-mono font-semibold">
               <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">navigation</span>
-              <span>Salida directa desde V-31 (Pista de Silla)</span>
+              <span>A 5 min a pie de la Estación Alfafar-Benetússer</span>
             </div>
             <a
               class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-surface-dark hover:bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider rounded-lg transition-all active:scale-[0.98]"
