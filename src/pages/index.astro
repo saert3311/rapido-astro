@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import StoreLocator from '../components/StoreLocator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import { SITE } from '../config/site';
 
@@ -9,152 +8,141 @@ const ledgerFeatures = [
     index: '01',
     icon: 'local_shipping',
     title: 'Mercancía Todas las Semanas',
-    metric: 'LOTES SEMANALES',
-    description: 'Todas las semanas renovamos nuestras estanterías con nuevos lotes de outlet, primeras marcas y segunda mano.',
+    metric: 'ROTACIÓN CONTINUA',
+    description: 'Renovamos nuestras estanterías continuamente con nuevos lotes de outlet, excedentes de primeras marcas y segunda mano revisada.',
   },
   {
     index: '02',
-    icon: 'sell',
-    title: 'Outlet y Segunda Mano',
-    metric: `HASTA -${SITE.brand.maxDiscountPct}% PVP`,
-    description: 'Descuentos directos sobre PVP en pequeño electrodoméstico, tecnología, hogar, bricolaje y segunda mano verificada.',
-  },
-  {
-    index: '03',
     icon: 'power',
     title: 'Bancos de Prueba con Enchufe',
     metric: 'REVISIÓN LIBRE',
-    description: 'Abre la caja, inspecciona cada accesorio y enchufa el producto en nuestras mesas antes de pasar por caja.',
+    description: 'Abre la caja, inspecciona los accesorios y enchufa cualquier aparato eléctrico en nuestras mesas de prueba antes de pasar por caja.',
+  },
+  {
+    index: '03',
+    icon: 'package_2',
+    title: 'Punto Oficial de Paquetería',
+    metric: `${SITE.carriers.length} OPERADORES`,
+    description: `Recoge o devuelve paquetes de ${SITE.carriers.map((c) => c.name).join(', ')} con total agilidad y sin esperar en casa.`,
   },
   {
     index: '04',
-    icon: 'package_2',
-    title: 'Hub Oficial de Paquetería',
-    metric: `${SITE.carriers.length} OPERADORES`,
-    description: `Recoge o devuelve tus envíos de ${SITE.carriers.map((c) => c.name).join(', ')} aparcando en la misma puerta.`,
+    icon: 'directions_car',
+    title: 'Aparcamiento en la Puerta',
+    metric: 'CARGA FÁCIL',
+    description: 'Estacionamiento cómodo justo en la entrada de la tienda para cargar bultos pesados o hacer gestiones rápidas en 1 minuto.',
   },
 ];
 
-const carriers = SITE.carriers.map((c) => c.name);
-
 const homeFaqs = [
   {
-    icon: 'calendar_month',
-    question: `¿Cuándo entra mercancía nueva en ${SITE.brand.name}?`,
-    answer: 'Recibimos y reponemos <strong>mercancía nueva todas las semanas</strong> con lotes de outlet de primeras marcas y productos de segunda mano revisados listos en estanterías.',
-  },
-  {
-    icon: 'schedule',
-    question: `¿Dónde está ${SITE.brand.name} y cuál es el horario?`,
-    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>. Nuestro horario ininterrumpido es de <strong>lunes a viernes de ${SITE.schedule.weekdays.open} a ${SITE.schedule.weekdays.close}</strong> y los <strong>sábados de ${SITE.schedule.saturday.open} a ${SITE.schedule.saturday.close}</strong>. Los domingos permanecemos cerrados.`,
-  },
-  {
-    icon: 'fact_check',
-    question: '¿Puedo comprobar los productos de segunda mano y outlet antes de comprar?',
-    answer: 'Sí. Esa es nuestra principal ventaja frente a la compra online a ciegas. En el local puedes abrir las cajas, revisar el estado estético y probar los aparatos eléctricos en nuestra zona de enchufes antes de pasar por caja.',
-  },
-  {
     icon: 'storefront',
-    question: '¿Hacéis envíos online o tenéis catálogo web?',
-    answer: `Vendemos exclusivamente en persona en nuestra tienda física de ${SITE.brand.name} en ${SITE.location.city}. Como el inventario de outlet y segunda mano rota todas las semanas y cada unidad es única por orden de llegada, ofrecemos el mejor precio directamente en tienda.`,
+    question: `¿Qué es ${SITE.brand.name} y qué servicios ofrecéis?`,
+    answer: `Somos un espacio comercial físico en ${SITE.location.city} que integra dos actividades bajo el mismo techo: un <strong>punto oficial de paquetería multirred</strong> (${SITE.carriers.map((c) => c.name).join(', ')}) y una <strong>tienda outlet de primeras marcas y segunda mano</strong> con reposición semanal y hasta un ${SITE.brand.maxDiscountPct}% de descuento frente a PVP.`,
+  },
+  {
+    icon: 'shopping_cart_off',
+    question: '¿Se puede comprar online o reservar artículos por la web?',
+    answer: `No. La venta de outlet y segunda mano es <strong>100% presencial en nuestra tienda física de ${SITE.location.shortStreet}</strong>. Como el stock rota todas las semanas y cada unidad es única por estricto orden de llegada, no disponemos de tienda online ni reservas telefónicas.`,
+  },
+  {
+    icon: 'pin_drop',
+    question: `¿Dónde está ubicada la tienda y cómo llegar desde Valencia?`,
+    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>, a solo <strong>${SITE.location.driveTimeLabel} de Valencia capital por la V-31</strong>. Dispones de espacio para parar y aparcar justo en la misma puerta del local, facilitando la recogida de paquetes voluminosos y compras de electrodomésticos.`,
   },
 ];
 ---
 
-<Layout title={`${SITE.brand.name} · ${SITE.location.city} — ${SITE.brand.tagline}`} currentPage="home">
+<Layout title={`${SITE.brand.name} · ${SITE.location.city} — Paquetería y Outlet Semanal`} currentPage="home">
   <div class="flex flex-col w-full">
-    <!-- 1. Asymmetric Split-Screen Hero (Rule 3: Anti-Center Bias, DESIGN_VARIANCE: 8) -->
+    <!-- 1. Hero Asimétrico Split (Portal Resumen del Negocio Dual) -->
     <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          <!-- Left Editorial Column (7 Cols) -->
+          <!-- Columna Editorial Izquierda (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-start text-left">
             <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
               <span class="w-2 h-2 rounded-full bg-primary"></span>
-              <span>MERCANCÍA NUEVA TODAS LAS SEMANAS · ALFAFAR, VALENCIA</span>
+              <span>PAQUETERÍA OFICIAL & OUTLET SEMANAL · ALFAFAR, VALENCIA</span>
             </div>
 
             <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold tracking-tighter leading-[1.03] text-surface-dark" style="--index: 1;">
-              Outlet de primeras marcas y <span class="text-primary">segunda mano</span> que pruebas en persona.
+              Tu punto de <span class="text-primary">paquetería</span> y tienda outlet con prueba en persona.
             </h1>
 
             <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
-              Bienvenido a <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> en {SITE.location.street}. Artículos de outlet, productos de segunda mano revisados y punto oficial de paquetería con hasta un <strong class="text-surface-dark font-semibold">{SITE.brand.maxDiscountPct}% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
+              Bienvenido a <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> en {SITE.location.shortStreet}. Gestiona tus envíos de Amazon, InPost, GLS, SEUR y CTT sin esperas y encuentra oportunidades de outlet y segunda mano hasta un <strong class="text-surface-dark font-semibold">-{SITE.brand.maxDiscountPct}% PVP</strong> con mesas de prueba con enchufe.
             </p>
 
-            <!-- Tactile Action Row -->
+            <!-- Botones de Acción Hacia los Dos Pilares -->
             <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 3;">
               <a
                 class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                href="/outlet"
+                href="/paqueteria"
               >
-                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
-                <span>Explorar Outlet y 2ª Mano</span>
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">package_2</span>
+                <span>Punto de Paquetería</span>
               </a>
               <a
                 class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                href="#ubicacion"
+                href="/outlet"
               >
-                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">near_me</span>
-                <span>Ubicación y Horarios</span>
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">sell</span>
+                <span>Outlet y Segunda Mano</span>
               </a>
             </div>
 
-            <!-- Architectural Telemetry Strip (No Card Boxes — Rule 4) -->
+            <!-- Banda de Telemetría -->
             <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
               <div class="flex flex-col">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">Semanal</span>
-                <span class="font-sans text-xs text-text-muted mt-1">Nuevos lotes en tienda</span>
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">{SITE.carriers.length} Operadores</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Amazon, InPost, GLS, SEUR, CTT</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">5.0 ★</span>
-                <span class="font-sans text-xs text-text-muted mt-1">Valoración en Google</span>
+                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">Semanal</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Lotes nuevos de outlet</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">8 min</span>
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">{SITE.location.driveTimeLabel}</span>
                 <span class="font-sans text-xs text-text-muted mt-1">Desde Valencia por V-31</span>
               </div>
             </div>
           </div>
 
-          <!-- Right Visual Showcase Column (5 Cols, Asymmetric Aspect + Liquid Glass) -->
+          <!-- Columna Visual Derecha (5 Cols) -->
           <div class="lg:col-span-5 stagger-item" style="--index: 2;">
             <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
               <img
                 class="w-full h-full object-cover"
-                alt="Interior de la tienda física Rápido Pack Valencia en Alfafar con estanterías organizadas de tecnología, segunda mano y hogar"
+                alt={`Interior de la tienda ${SITE.brand.name} en Alfafar`}
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
                 fetchpriority="high"
                 width="640"
                 height="720"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/85 via-surface-dark/15 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/90 via-surface-dark/25 to-transparent"></div>
 
-              <!-- Top Floating Liquid Glass Badge -->
               <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
                 <div class="liquid-glass px-3.5 py-2 rounded-xl flex items-center gap-2 text-on-primary text-xs font-mono">
-                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">verified</span>
-                  <span>STOCK FÍSICO VERIFICADO</span>
+                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">storefront</span>
+                  <span>TIENDA FÍSICA EN ALFAFAR</span>
                 </div>
-                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold tabular-nums">
+                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold">
                   {SITE.location.shortStreet}
                 </span>
               </div>
 
-              <!-- Bottom Floating Liquid Glass Inspection Panel -->
-              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-center justify-between gap-4">
-                <div class="flex items-start gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
-                    <span class="material-symbols-outlined text-[20px]" aria-hidden="true">power</span>
-                  </div>
-                  <div>
-                    <p class="font-display text-sm font-bold text-white leading-snug">
-                      Mesa de prueba con enchufes en tienda
-                    </p>
-                    <p class="font-sans text-xs text-surface-variant mt-0.5">
-                      Abre la caja y comprueba su funcionamiento antes de abonar.
-                    </p>
-                  </div>
+              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-start gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
+                  <span class="material-symbols-outlined text-[20px]" aria-hidden="true">power</span>
+                </div>
+                <div>
+                  <p class="font-display text-sm font-bold text-white leading-snug">
+                    Mesas con tomas de enchufe libres
+                  </p>
+                  <p class="font-sans text-xs text-surface-variant mt-0.5">
+                    Abre el producto, conéctalo a la corriente y pruébalo antes de pagar.
+                  </p>
                 </div>
               </div>
             </div>
@@ -163,25 +151,132 @@ const homeFaqs = [
       </div>
     </section>
 
-    <!-- 2. De-Boxed Architectural Ledger (Rule 4: Anti-Card Overuse via border-t / divide-x) -->
-    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle" id="como-funciona">
+    <!-- 2. Los Dos Pilares (Gateway Cards): Paquetería & Outlet -->
+    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle" id="servicios">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Asymmetric Section Header -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
           <div class="lg:col-span-7">
             <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-              01 // Operativa de Rápido Pack Valencia
+              01 // Dos Servicios Bajo el Mismo Techo
             </span>
             <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-              Compra transparente en local y hub logístico en un solo paso.
+              Todo lo que puedes hacer al visitarnos en Alfafar.
             </h2>
           </div>
           <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
-            Sin compras a ciegas ni esperas de mensajería. Ven a revisar nuestras oportunidades de segunda mano y outlet todas las semanas y aprovecha para gestionar tus paquetes online.
+            Hemos diseñado un modelo híbrido para facilitarte la vida: gestiona tus paquetes habituales sin perder tiempo y llévate oportunidades de primeras marcas a precios irrepetibles.
           </p>
         </div>
 
-        <!-- Hairline Architectural Grid (Zero Card Clutter) -->
+        <!-- 2 Grandes Tarjetas Gateway -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <!-- Gateway 1: Paquetería -->
+          <article class="rounded-3xl bg-surface-container-lowest p-8 sm:p-10 border border-border-subtle flex flex-col justify-between hover:border-primary/40 transition-all shadow-sm">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-mint-wash text-primary flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[26px]" aria-hidden="true">package_2</span>
+                </div>
+                <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider">
+                  5 Agencias Homologadas
+                </span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-surface-dark mb-3">
+                Hub Oficial de Paquetería
+              </h3>
+
+              <p class="font-sans text-base text-text-muted leading-relaxed mb-6">
+                Recogida y devolución express para <strong class="text-surface-dark font-medium">Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express</strong>. Devoluciones de Amazon sin imprimir etiquetas, parking en la misma puerta y atención rápida en sala.
+              </p>
+
+              <!-- Tags de Agencias -->
+              <div class="flex flex-wrap gap-2 mb-8">
+                {SITE.carriers.map((c) => (
+                  <span class="px-3 py-1 rounded-md bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium">
+                    {c.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-border-subtle flex items-center justify-between">
+              <span class="font-mono text-xs text-text-muted">L–V 09:30–20h · Sáb 10–15h</span>
+              <a
+                href="/paqueteria"
+                class="inline-flex items-center gap-2 font-label-button text-sm font-semibold text-primary hover:text-primary-hover group"
+              >
+                <span>Ver detalles de paquetería</span>
+                <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Gateway 2: Outlet y Segunda Mano -->
+          <article class="rounded-3xl bg-surface-dark text-on-primary p-8 sm:p-10 border border-surface-dark flex flex-col justify-between diffusion-card shadow-sm">
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-primary/25 text-primary-fixed flex items-center justify-center">
+                  <span class="material-symbols-outlined text-[26px]" aria-hidden="true">sell</span>
+                </div>
+                <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider">
+                  Hasta -{SITE.brand.maxDiscountPct}% PVP
+                </span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-3">
+                Outlet y Segunda Mano
+              </h3>
+
+              <p class="font-sans text-base text-surface-variant leading-relaxed mb-6">
+                Lotes nuevos de liquidación de primeras marcas y artículos de segunda mano verificados todas las semanas. Abre la caja, comprueba el estado estético y conecta el producto en nuestras mesas de prueba con enchufe antes de decidir.
+              </p>
+
+              <!-- Highlights -->
+              <div class="grid grid-cols-2 gap-3 mb-8 text-xs font-mono">
+                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                  <span class="text-primary-fixed block font-semibold">PRUEBA EN SALA</span>
+                  <span class="text-surface-variant block font-sans mt-0.5">Enchufes disponibles</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
+                  <span class="text-white block font-semibold">STOCK SEMANAL</span>
+                  <span class="text-surface-variant block font-sans mt-0.5">Entrada continua</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+              <span class="font-mono text-xs text-surface-variant">Venta física en tienda</span>
+              <a
+                href="/outlet"
+                class="inline-flex items-center gap-2 font-label-button text-sm font-semibold text-primary-fixed hover:text-white group transition-colors"
+              >
+                <span>Explorar Outlet y 2ª Mano</span>
+                <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1" aria-hidden="true">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. De-Boxed Architectural Ledger (Ventajas de Comprar y Operar en Local) -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="ventajas">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              02 // Confianza Física
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              La ventaja de una tienda física frente a la compra a ciegas en internet.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Revisión en el acto, trato personal y total tranquilidad. Sin sorpresas al abrir cajas ni esperas de envíos a domicilio.
+          </p>
+        </div>
+
         <div class="border-t border-b border-border-subtle divide-y md:divide-y-0 md:grid md:grid-cols-2 lg:grid-cols-4 md:divide-x divide-border-subtle bg-surface-container-lowest">
           {ledgerFeatures.map((feature) => (
             <article class="p-6 sm:p-8 flex flex-col justify-between group hover:bg-mint-wash/35 transition-colors">
@@ -207,239 +302,89 @@ const homeFaqs = [
             </article>
           ))}
         </div>
-
-        <!-- Integrated Official Parcel Carriers Bar -->
-        <div class="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-5 py-4 rounded-2xl bg-surface-container-lowest border border-border-subtle">
-          <div class="flex items-center gap-2.5 text-xs font-mono font-semibold text-surface-dark uppercase tracking-wider">
-            <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">inventory</span>
-            <span>Operadores Oficiales en Rápido Pack Valencia:</span>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            {carriers.map((carrier) => (
-              <span class="px-3 py-1 rounded-md bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium">
-                {carrier}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- 3. Asymmetric Bento 2.0 Grid (Weekly Stock & Dedicated 2nd-Hand / Outlet Showcase) -->
-    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="stock-semanal">
+    <!-- 4. Módulo de Visita Rápida (Sin Iframe Pesado) -->
+    <section class="w-full bg-surface-alt py-16 lg:py-20 border-b border-border-subtle" id="visita">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
-          <div class="lg:col-span-7">
-            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-              02 // Rotación Semanal y Segunda Mano
+        <div class="rounded-3xl bg-surface-container-lowest p-8 sm:p-12 border border-border-subtle flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 shadow-sm">
+          <div class="flex flex-col gap-3 max-w-2xl">
+            <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold text-primary uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
+              Visítanos en Alfafar
             </span>
-            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-              Mercancía nueva todas las semanas y sección dedicada de segunda mano.
-            </h2>
-          </div>
-          <div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-between gap-3">
-            <p class="font-sans text-base text-text-muted leading-relaxed">
-              Todas las semanas renovamos las estanterías con lotes de liquidación y artículos de segunda mano revisados listos para probar.
+            <h3 class="font-display text-2xl sm:text-3xl font-bold text-surface-dark tracking-tight">
+              {SITE.location.fullAddress}
+            </h3>
+            <p class="font-sans text-sm sm:text-base text-text-muted leading-relaxed">
+              Horario comercial: <strong class="text-surface-dark font-semibold">Lunes a Viernes de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h</strong> y <strong class="text-surface-dark font-semibold">Sábados de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h</strong>. {SITE.location.parkingNote} y acceso a {SITE.location.driveTimeLabel} desde Valencia por la V-31.
             </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3.5 w-full lg:w-auto shrink-0">
             <a
-              href="/outlet"
-              class="inline-flex items-center gap-2 font-mono text-xs font-semibold text-primary hover:text-primary-hover uppercase tracking-wider group"
+              class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
+              href={SITE.location.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span>Ir a la página de Outlet y Segunda Mano</span>
-              <span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5" aria-hidden="true">arrow_forward</span>
+              <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
+              <span>Cómo llegar (Google Maps)</span>
+            </a>
+            <a
+              class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-surface-alt hover:bg-surface text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
+              href="/contacto"
+            >
+              <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">map</span>
+              <span>Ver mapa y contacto completo</span>
             </a>
           </div>
         </div>
-
-        <!-- Asymmetric 7 / 5 Bento Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          <!-- Dominant Flagship Tile (7 Cols): Renovación Semanal + Segunda Mano -->
-          <article class="lg:col-span-7 rounded-3xl bg-surface-dark text-on-primary p-6 sm:p-9 flex flex-col justify-between relative overflow-hidden diffusion-card border border-surface-dark">
-            <div>
-              <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider">
-                  <span class="material-symbols-outlined text-[15px]" aria-hidden="true">bolt</span>
-                  <span>Renovación Todas las Semanas</span>
-                </span>
-                <span class="font-mono text-xs text-primary-fixed bg-white/10 px-3 py-1.5 rounded-full">
-                  Outlet y 2ª Mano en Sala
-                </span>
-              </div>
-
-              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Nuevos Lotes Semanales y Artículos de Segunda Mano Verificados
-              </h3>
-              <p class="mt-3 font-sans text-sm sm:text-base text-surface-variant leading-relaxed max-w-[58ch]">
-                En Rápido Pack Valencia incorporamos mercancía nueva todas las semanas: desde liquidaciones de primeras marcas hasta productos de segunda mano revisados a precios de oportunidad.
-              </p>
-            </div>
-
-            <div class="my-6 rounded-2xl overflow-hidden border border-white/10 aspect-[16/9] relative">
-              <img
-                class="w-full h-full object-cover"
-                alt="Estanterías de Rápido Pack Valencia con lotes semanales de liquidación y segunda mano"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaHzGlsNBhqI6dGEVjkag7N1ER9cekBn4iZpAeZEsarx0HY1TUmZvSnExkeK2wgGNFaCWhiUbKgTnecRDWV7ko6l8i8FmFRAla0T7t3OJEQFM8JopoIc5gKYPzvMaVZouAGK2_adK_LF-c-X705yPIBs_yWPYzLV_SuVDLkkhNQNemMGMerfAUXM-Wyv2HC9IXInbHlROll0_lVyNYiDdfINcHbFGstPSSjkfwfr8Z"
-                loading="lazy"
-                decoding="async"
-                width="680"
-                height="380"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/70 via-transparent to-transparent"></div>
-              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono text-white">
-                <span class="liquid-glass px-3 py-1.5 rounded-lg">Stock 100% presencial en Alfafar</span>
-                <a href="/outlet" class="liquid-glass px-3 py-1.5 rounded-lg text-primary-fixed hover:text-white transition-colors">
-                  Ver sección Segunda Mano →
-                </a>
-              </div>
-            </div>
-
-            <!-- Weekly Drop Progression Bar -->
-            <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-primary-fixed block font-semibold">TODAS LAS SEMANAS</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">Entrada continua de nuevos lotes</span>
-              </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-white block font-semibold">SEGUNDA MANO</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">Artículos revisados y probados</span>
-              </div>
-              <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                <span class="text-white block font-semibold">PRUEBA EN MESA</span>
-                <span class="text-surface-variant mt-0.5 block font-sans">Tomas eléctricas para verificar</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Right Column (5 Cols): Stacked Secondary Bento Tiles -->
-          <div class="lg:col-span-5 flex flex-col gap-6">
-            <!-- Tile 2: Tecnología y Pequeño Electrodoméstico -->
-            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 mb-4">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold">
-                    <span class="material-symbols-outlined text-[15px]" aria-hidden="true">devices</span>
-                    <span>ALTA ROTACIÓN</span>
-                  </span>
-                  <span class="font-mono text-xs text-text-muted font-semibold">TEST EN ENCHUFE</span>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                  <div class="sm:col-span-7">
-                    <h3 class="font-display text-xl font-bold text-surface-dark">
-                      Tecnología y Hogar
-                    </h3>
-                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
-                      Auriculares, cafeteras, aspiradores, freidoras de aire y periféricos de outlet y segunda mano revisada.
-                    </p>
-                  </div>
-                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
-                    <img
-                      class="w-full h-full object-cover"
-                      alt="Electrónica de consumo, auriculares, freidoras de aire y aspiradores en Rápido Pack Valencia"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Q6qjd7S5aQoOiAWHM_ltBs3Sw9i1qTDShJsUG4KBsC5IjdyrE46ewPpRn-qTPqFzKN78n2IJo4hn7yOacEXYD1UC7uEix_ltNBnPuscLQdwh48O4jxQdmMUXZC9jbr3JCWC1T9C5n48U26IstvGl8S5GhNqA578rurb7R8WTm9OR8M9PIqWGX3RB08DXEBvDKHDccwMVpxWN8oNB9Yo3I6iPMgIKI5i0OILwJOef"
-                      loading="lazy"
-                      decoding="async"
-                      width="240"
-                      height="160"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
-                <a href="/outlet" class="hover:text-primary transition-colors font-semibold">Ver productos en Outlet →</a>
-                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">power</span>
-              </div>
-            </article>
-
-            <!-- Tile 3: Herramientas, Bricolaje y Segunda Mano -->
-            <article class="flex-1 rounded-3xl bg-surface-alt p-6 sm:p-7 border border-border-subtle diffusion-card flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between gap-2 mb-4">
-                  <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest border border-border-subtle text-surface-dark font-mono text-xs font-semibold">
-                    <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">handyman</span>
-                    <span>2ª MANO Y OPORTUNIDADES</span>
-                  </span>
-                  <span class="font-mono text-xs text-text-muted font-semibold">LOTES SEMANALES</span>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                  <div class="sm:col-span-7">
-                    <h3 class="font-display text-xl font-bold text-surface-dark">
-                      Herramientas y Segunda Mano
-                    </h3>
-                    <p class="mt-2 font-sans text-sm text-text-muted leading-relaxed">
-                      Equipamiento de bricolaje, jardín, deporte y artículos de segunda mano que se renuevan todas las semanas.
-                    </p>
-                  </div>
-                  <div class="sm:col-span-5 h-36 sm:h-32 rounded-2xl overflow-hidden border border-border-subtle bg-surface-container">
-                    <img
-                      class="w-full h-full object-cover"
-                      alt="Herramientas de bricolaje, accesorios deportivos y artículos de segunda mano en Rápido Pack Valencia"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuChww7rAfkFGRSpjGXAb-TvEqExKoIksWmlPuFRAxqv8s6QUXMWC4RiNA97QsRSGUmWZIw2udXf7osybslqZPHE4NcMoPLNfDoDmQls_vfLEMqie3wc04npDB_I5gvtBZqC5p0fy6JwEbJvz-z_AbzE9KhS8STZInVQyhA9flNZWPrifRK4CQB3jIOfpPn5vJNLc6ZvaNlCL-1ABdLFtgUAXKtsaLoZhpV5ONE2jm0w"
-                      loading="lazy"
-                      decoding="async"
-                      width="240"
-                      height="160"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-5 pt-3.5 border-t border-border-subtle flex items-center justify-between text-xs font-mono text-secondary">
-                <a href="/outlet" class="hover:text-primary transition-colors font-semibold">Detalles de Segunda Mano →</a>
-                <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">sync</span>
-              </div>
-            </article>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- 4. Ubicación y Horarios -->
-    <StoreLocator />
-
-    <!-- 5. Preguntas Frecuentes (Native Exclusive Accordion with Smooth Intrinsic Sizing) -->
-    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-t border-border-subtle">
+    <!-- 5. Preguntas Frecuentes Conceptuales -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle">
       <FaqAccordion
-        badge="04 // Preguntas Frecuentes"
-        title="Resolvemos tus dudas antes de venir a Rápido Pack Valencia"
-        subtitle="Todo lo que necesitas saber sobre el funcionamiento de nuestra tienda de outlet, segunda mano y punto de paquetería en Alfafar."
+        badge="03 // Preguntas Frecuentes"
+        title="Resolvemos tus dudas sobre Rápido Pack Valencia"
+        subtitle="Conoce el funcionamiento de nuestra tienda física y los servicios integrados en Alfafar."
         items={homeFaqs}
         groupName="home-faq"
       />
     </section>
 
-    <!-- 6. Banner de Cierre / Conversión -->
-    <section class="w-full bg-surface-dark text-on-primary py-16 border-t border-white/10">
+    <!-- 6. Banner de Conversión / Cierre -->
+    <section class="w-full bg-surface-dark text-on-primary py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
         <div class="max-w-2xl text-left">
           <span class="inline-flex items-center gap-2 font-mono text-xs text-primary-fixed uppercase tracking-wider bg-white/10 px-3 py-1.5 rounded-full">
             <span class="w-2 h-2 rounded-full bg-primary-fixed" aria-hidden="true"></span>
-            Mercancía Nueva Todas las Semanas
+            Dos Servicios en Alfafar
           </span>
           <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Descubre las oportunidades de esta semana en {SITE.brand.name}
+            Acércate a {SITE.brand.name} y compruébalo en persona
           </h2>
           <p class="mt-2 font-sans text-base text-surface-variant">
-            Acércate a {SITE.location.street} en {SITE.location.city} y comprueba en persona nuestro stock de segunda mano y primeras marcas.
+            Tanto si necesitas tramitar un paquete de forma ágil como si buscas una ganga revisada con garantía física en tienda.
           </p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3.5 w-full lg:w-auto shrink-0">
           <a
             class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
-            href="/outlet"
+            href="/paqueteria"
           >
-            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
-            <span>Ver Outlet y Segunda Mano</span>
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">package_2</span>
+            <span>Paquetería</span>
           </a>
           <a
             class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/15 font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
-            href="/contacto"
+            href="/outlet"
           >
-            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">mail</span>
-            <span>Contactar</span>
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
+            <span>Outlet y 2ª Mano</span>
           </a>
         </div>
       </div>
@@ -449,15 +394,15 @@ const homeFaqs = [
     <div class="md:hidden fixed bottom-3 left-3 right-3 z-40">
       <a
         class="w-full flex items-center justify-between px-4 py-3.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl shadow-xl border border-primary-fixed/30 active:scale-[0.98] transition-transform"
-        href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
+        href={SITE.location.mapsUrl}
         rel="noopener noreferrer"
         target="_blank"
       >
         <span class="flex items-center gap-2">
           <span class="material-symbols-outlined text-[20px]" aria-hidden="true">navigation</span>
-          <span>Cómo llegar a Rápido Pack Valencia</span>
+          <span>Cómo llegar a {SITE.brand.name}</span>
         </span>
-        <span class="font-mono text-xs bg-surface-dark/25 px-2.5 py-1 rounded-md">V-31 · 8 min</span>
+        <span class="font-mono text-xs bg-surface-dark/25 px-2.5 py-1 rounded-md">V-31 · {SITE.location.driveTimeLabel}</span>
       </a>
     </div>
   </div>
