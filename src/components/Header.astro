@@ -2,13 +2,14 @@
 import { SITE } from '../config/site';
 
 interface Props {
-  currentPage?: 'home' | 'outlet' | 'contacto';
+  currentPage?: 'home' | 'paqueteria' | 'outlet' | 'contacto';
 }
 
 const { currentPage = 'home' } = Astro.props;
 
 const navLinks = [
   { label: 'Inicio', href: '/', active: currentPage === 'home' },
+  { label: 'Paquetería', href: '/paqueteria', active: currentPage === 'paqueteria' },
   { label: 'Outlet', href: '/outlet', active: currentPage === 'outlet' },
   { label: 'Contacto', href: '/contacto', active: currentPage === 'contacto' },
 ];
