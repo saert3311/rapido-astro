@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config/site';
+
 interface Props {
   badge?: string;
   title?: string;
@@ -7,8 +9,8 @@ interface Props {
 
 const {
   badge = '03 // Ubicación y Acceso Directo',
-  title = 'Visita Rápido Pack Valencia en Alfafar',
-  subtitle = 'Situados en el eje comercial de Alfafar con acceso directo desde la V-31 (Pista de Silla) y aparcamiento gratuito en la misma puerta.',
+  title = `Visita ${SITE.brand.name} en Alfafar`,
+  subtitle = `Situados en el eje comercial de Alfafar con acceso directo desde la V-31 (Pista de Silla) y ${SITE.location.parkingNote.toLowerCase()}.`,
 } = Astro.props;
 ---
 
@@ -29,11 +31,11 @@ const {
       <div class="flex flex-wrap items-center gap-2.5 shrink-0">
         <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
           <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">directions_car</span>
-          <span>8 min Valencia (V-31)</span>
+          <span>{SITE.location.driveTimeLabel} {SITE.location.transitNote}</span>
         </span>
         <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
           <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">local_parking</span>
-          <span>Parking gratuito</span>
+          <span>{SITE.location.parkingNote}</span>
         </span>
       </div>
     </div>
@@ -48,7 +50,7 @@ const {
                 Tienda Física & Hub Paquetería
               </span>
               <h3 class="font-display text-2xl font-bold text-surface-dark mt-1">
-                Rápido Pack Valencia
+                {SITE.brand.name}
               </h3>
             </div>
             <div class="inline-flex items-center gap-1.5 bg-mint-wash px-3 py-1.5 rounded-full text-primary font-mono text-xs font-semibold shrink-0">
@@ -61,16 +63,16 @@ const {
             <div class="flex items-start gap-3">
               <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
               <div>
-                <p class="font-display text-base text-surface-dark font-bold">Carrer del Comte Ronrée, 8</p>
-                <p class="font-mono text-xs text-text-muted mt-0.5">46910 Alfafar · Valencia</p>
+                <p class="font-display text-base text-surface-dark font-bold">{SITE.location.street}</p>
+                <p class="font-mono text-xs text-text-muted mt-0.5">{SITE.location.postalCode} {SITE.location.city} · {SITE.location.province}</p>
               </div>
             </div>
             <a
-              href="tel:685119511"
+              href={SITE.contact.phoneHref}
               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-alt hover:bg-mint-wash text-surface-dark hover:text-primary font-mono text-xs font-semibold transition-colors shrink-0"
             >
               <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">call</span>
-              <span>685 11 95 11</span>
+              <span>{SITE.contact.phoneDisplay}</span>
             </a>
           </address>
 
@@ -91,15 +93,15 @@ const {
                   <span class="material-symbols-outlined text-[18px]" aria-hidden="true">storefront</span>
                   <span>Lunes a Viernes</span>
                 </div>
-                <span class="font-mono font-semibold text-primary tabular-nums">09:30 – 20:00</span>
+                <span class="font-mono font-semibold text-primary tabular-nums">{SITE.schedule.weekdays.label}</span>
               </div>
               <div class="flex items-center justify-between py-3 px-2 text-surface-dark text-sm">
                 <span class="font-medium">Sábados</span>
-                <span class="font-mono font-semibold tabular-nums">10:00 – 15:00</span>
+                <span class="font-mono font-semibold tabular-nums">{SITE.schedule.saturday.label}</span>
               </div>
               <div class="flex items-center justify-between py-3 px-2 text-text-muted text-sm">
                 <span>Domingos</span>
-                <span class="font-mono font-semibold text-error">Cerrado</span>
+                <span class="font-mono font-semibold text-error">{SITE.schedule.sunday.label}</span>
               </div>
             </div>
           </div>
@@ -107,7 +109,7 @@ const {
 
         <a
           class="w-full inline-flex items-center justify-center gap-2 py-4 px-6 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
+          href={SITE.location.mapsUrl}
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -121,7 +123,7 @@ const {
         <div class="w-full h-full min-h-[420px] rounded-2xl relative overflow-hidden bg-surface-container flex flex-col justify-between p-4 sm:p-5">
           <img
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHcHHryPs96Yr_U5zIZHCmdfyw-btQQmxlW1_DLl9r-BeINGVl6YDjbmTATQrEhG2p-IVbTp6nzC6tw4ZtL2HMHMpp1LHn5Y9Z0KxbSMgu9vaAxi3J1Rbbk23ucMUr-pgzwYfKpN0xfaK4SBIWTWSUns5l-1ejbTu1tE-06wft09dNKYuzFokUcyk6hdsch4Jke3m3bbwe34igSez6hmplWbU_KGUrPxtCy8CTPwCk"
-            alt="Mapa de situación de Rápido Pack Valencia en Carrer del Comte Ronrée 8, Alfafar"
+            alt={`Mapa de situación de ${SITE.brand.name} en ${SITE.location.street}, ${SITE.location.city}`}
             decoding="async"
             width="700"
             height="460"
@@ -135,7 +137,7 @@ const {
               <span class="material-symbols-outlined text-primary-fixed text-[20px]" aria-hidden="true">pin_drop</span>
               <div>
                 <p class="font-display text-xs leading-none font-bold">Alfafar · Zona Comercial</p>
-                <p class="font-mono text-[11px] text-surface-variant mt-1">Carrer del Comte Ronrée, 8</p>
+                <p class="font-mono text-[11px] text-surface-variant mt-1">{SITE.location.street}</p>
               </div>
             </div>
             <div class="hidden sm:flex items-center gap-1.5 liquid-glass px-3.5 py-2 rounded-xl text-on-primary font-mono text-xs">

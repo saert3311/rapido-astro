@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config/site';
+
 interface Props {
   currentPage?: 'home' | 'outlet' | 'contacto';
 }
@@ -25,11 +27,11 @@ const navLinks = [
       <a
         class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-md py-1"
         href="/"
-        aria-label="Rápido Pack Valencia — Ir a Inicio"
+        aria-label={`${SITE.brand.name} — Ir a Inicio`}
       >
         <img
           src="/logo-rapido-pack-valencia.png"
-          alt="Rápido Pack Valencia"
+          alt={SITE.brand.name}
           width="206"
           height="144"
           class="h-16 sm:h-[72px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
@@ -42,8 +44,17 @@ const navLinks = [
         class="hidden lg:inline-flex items-center gap-2 pl-5 border-l border-border-subtle text-xs font-mono text-text-muted whitespace-nowrap"
         aria-live="polite"
       >
+        data-weekday-open={SITE.schedule.weekdays.openMinutes}
+        data-weekday-close={SITE.schedule.weekdays.closeMinutes}
+        data-sat-open={SITE.schedule.saturday.openMinutes}
+        data-sat-close={SITE.schedule.saturday.closeMinutes}
+        data-weekday-open-label={SITE.schedule.weekdays.open}
+        data-weekday-close-label={SITE.schedule.weekdays.close}
+        data-sat-open-label={SITE.schedule.saturday.open}
+        data-sat-close-label={SITE.schedule.saturday.close}
+      >
         <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
-        <span data-status-text>L–V 09:30–20:00 · Sáb 10:00–15:00</span>
+        <span data-status-text>{SITE.schedule.summaryBadge}</span>
       </div>
     </div>
 
@@ -67,15 +78,15 @@ const navLinks = [
     <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
       <a
         class="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-border-subtle hover:border-primary/40 text-surface-dark font-mono text-xs font-semibold whitespace-nowrap transition-all active:scale-[0.98]"
-        href="tel:685119511"
+        href={SITE.contact.phoneHref}
       >
         <span class="material-symbols-outlined text-[16px] text-primary leading-none" aria-hidden="true">call</span>
-        <span class="tabular-nums">685 11 95 11</span>
+        <span class="tabular-nums">{SITE.contact.phoneDisplay}</span>
       </a>
 
       <a
         class="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-sm rounded-lg whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
+        href={SITE.location.mapsUrl}
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -113,14 +124,14 @@ const navLinks = [
           <div class="pt-2.5 mt-1.5 border-t border-border-subtle flex flex-col gap-2">
             <a
               class="w-full inline-flex items-center justify-center gap-2 px-3.5 py-2.5 bg-surface-alt text-surface-dark font-mono text-xs font-semibold rounded-lg"
-              href="tel:685119511"
+              href={SITE.contact.phoneHref}
             >
               <span class="material-symbols-outlined text-[17px] text-primary" aria-hidden="true">call</span>
-              <span>685 11 95 11</span>
+              <span>{SITE.contact.phoneDisplay}</span>
             </a>
             <a
               class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-lg transition-colors"
-              href="https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia"
+              href={SITE.location.mapsUrl}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -153,29 +164,39 @@ const navLinks = [
       }).formatToParts(now);
 
       const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
+      const weekdayOpenMins = parseInt(container.dataset.weekdayOpen || '570', 10);
+      const weekdayCloseMins = parseInt(container.dataset.weekdayClose || '1200', 10);
+      const satOpenMins = parseInt(container.dataset.satOpen || '600', 10);
+      const satCloseMins = parseInt(container.dataset.satClose || '900', 10);
+
+      const weekdayOpenLabel = container.dataset.weekdayOpenLabel || '09:30';
+      const weekdayCloseLabel = container.dataset.weekdayCloseLabel || '20:00';
+      const satOpenLabel = container.dataset.satOpenLabel || '10:00';
+      const satCloseLabel = container.dataset.satCloseLabel || '15:00';
+
       const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
       const day = map.weekday;
 
       let isOpen = false;
-      let label = 'Cerrado · Abre Lunes 09:30';
+      let label = `Cerrado · Abre Lunes ${weekdayOpenLabel}`;
 
       if (['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day)) {
-        if (mins >= 9 * 60 + 30 && mins < 20 * 60) {
+        if (mins >= weekdayOpenMins && mins < weekdayCloseMins) {
           isOpen = true;
-          label = 'Abierto ahora · Hasta 20:00';
-        } else if (mins < 9 * 60 + 30) {
-          label = 'Abre hoy a las 09:30';
+          label = `Abierto ahora · Hasta ${weekdayCloseLabel}`;
+        } else if (mins < weekdayOpenMins) {
+          label = `Abre hoy a las ${weekdayOpenLabel}`;
         } else {
-          label = day === 'Fri' ? 'Abre Sáb a las 10:00' : 'Abre mañana 09:30';
+          label = day === 'Fri' ? `Abre Sáb a las ${satOpenLabel}` : `Abre mañana ${weekdayOpenLabel}`;
         }
       } else if (day === 'Sat') {
-        if (mins >= 10 * 60 && mins < 15 * 60) {
+        if (mins >= satOpenMins && mins < satCloseMins) {
           isOpen = true;
-          label = 'Abierto ahora · Hasta 15:00';
-        } else if (mins < 10 * 60) {
-          label = 'Abre hoy a las 10:00';
+          label = `Abierto ahora · Hasta ${satCloseLabel}`;
+        } else if (mins < satOpenMins) {
+          label = `Abre hoy a las ${satOpenLabel}`;
         } else {
-          label = 'Cerrado · Abre Lunes 09:30';
+          label = `Cerrado · Abre Lunes ${weekdayOpenLabel}`;
         }
       }
 

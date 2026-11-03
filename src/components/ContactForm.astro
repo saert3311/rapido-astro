@@ -1,4 +1,5 @@
 ---
+import { SITE } from '../config/site';
 ---
 
 <div class="bg-surface-container-lowest p-6 sm:p-9 rounded-3xl border border-border-subtle diffusion-card">
@@ -48,7 +49,7 @@
           Teléfono de contacto <span class="text-primary" aria-hidden="true">*</span>
         </label>
         <span id="phone-hint" class="text-xs text-text-muted">
-          9 dígitos (ej. 685 11 95 11)
+          9 dígitos (ej. {SITE.contact.phoneDisplay})
         </span>
         <input
           class="form-control w-full px-4 py-3 bg-surface-alt/50 focus:bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/60 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-mono text-sm tabular-nums"
@@ -59,7 +60,7 @@
           required
           pattern="[0-9+\s()-]{9,15}"
           autocomplete="tel"
-          placeholder="685 11 95 11"
+          placeholder={SITE.contact.phoneDisplay}
           aria-describedby="phone-hint"
           aria-errormessage="phone-error"
         />
@@ -206,9 +207,9 @@
         <div class="flex items-start gap-3">
           <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5" aria-hidden="true">check_circle</span>
           <div class="flex flex-col">
-            <span class="font-display font-bold text-base text-surface-dark">Consulta registrada en Rápido Pack Valencia</span>
+            <span class="font-display font-bold text-base text-surface-dark">Consulta registrada en {SITE.brand.name}</span>
             <span class="font-sans text-xs text-secondary mt-1 leading-relaxed">
-              Nuestro equipo de Alfafar te responderá en horario comercial. Si necesitas confirmación inmediata, llámanos al <a href="tel:685119511" class="font-mono font-semibold underline text-on-surface">685 11 95 11</a>.
+              Nuestro equipo de Alfafar te responderá en horario comercial. Si necesitas confirmación inmediata, llámanos al <a href={SITE.contact.phoneHref} class="font-mono font-semibold underline text-on-surface">{SITE.contact.phoneDisplay}</a>.
             </span>
           </div>
         </div>

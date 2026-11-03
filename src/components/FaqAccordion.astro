@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config/site';
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -34,7 +36,7 @@ const { badge, title, subtitle, items, groupName = 'faq-accordion' } = Astro.pro
           <span class="material-symbols-outlined text-[18px]" aria-hidden="true">support_agent</span>
         </span>
         <span>
-          ¿Necesitas atención inmediata? Llámanos al <a href="tel:685119511" class="font-mono font-semibold text-surface-dark underline hover:text-primary">685 11 95 11</a>.
+          ¿Necesitas atención inmediata? Llámanos al <a href={SITE.contact.phoneHref} class="font-mono font-semibold text-surface-dark underline hover:text-primary">{SITE.contact.phoneDisplay}</a>.
         </span>
       </div>
     </div>

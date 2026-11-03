@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config/site';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -10,11 +12,11 @@ const currentYear = new Date().getFullYear();
           <a
             href="/"
             class="inline-flex items-center bg-white px-3.5 py-2 rounded-xl border border-white/20 shadow-sm"
-            aria-label="Rápido Pack Valencia — Inicio"
+            aria-label={`${SITE.brand.name} — Inicio`}
           >
             <img
               src="/logo-rapido-pack-valencia.png"
-              alt="Rápido Pack Valencia"
+              alt={SITE.brand.name}
               width="140"
               height="98"
               class="h-12 w-auto object-contain"
@@ -24,10 +26,10 @@ const currentYear = new Date().getFullYear();
           </a>
           <div class="flex flex-col">
             <span class="font-display text-lg text-white font-bold tracking-tight">
-              Rápido Pack Valencia
+              {SITE.brand.name}
             </span>
             <span class="font-mono text-[11px] text-primary-fixed uppercase tracking-wider mt-0.5">
-              Alfafar · Valencia
+              {SITE.location.city} · {SITE.location.province}
             </span>
           </div>
         </div>
@@ -49,27 +51,29 @@ const currentYear = new Date().getFullYear();
 
       <div class="md:col-span-4 flex flex-col gap-2">
         <span class="font-mono text-xs uppercase tracking-wider text-primary-fixed mb-1 font-semibold">
-          Rápido Pack Valencia
+          {SITE.brand.name}
         </span>
         <address class="not-italic flex flex-col gap-2.5 text-sm text-white">
           <div class="flex items-start gap-2.5">
             <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
-            <span>Carrer del Comte Ronrée, 8, 46910 Alfafar, Valencia</span>
+            <a class="hover:text-primary-fixed transition-colors" href={SITE.location.mapsUrl} target="_blank" rel="noopener noreferrer">
+              {SITE.location.fullAddress}
+            </a>
           </div>
           <div class="flex items-center gap-2.5">
             <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0" aria-hidden="true">call</span>
-            <a class="hover:text-primary-fixed transition-colors font-mono font-semibold tabular-nums" href="tel:685119511">685 11 95 11</a>
+            <a class="hover:text-primary-fixed transition-colors font-mono font-semibold tabular-nums" href={SITE.contact.phoneHref}>{SITE.contact.phoneDisplay}</a>
           </div>
           <div class="flex items-center gap-2.5 text-surface-variant font-mono text-xs">
             <span class="material-symbols-outlined text-primary-fixed text-[18px] shrink-0" aria-hidden="true">schedule</span>
-            <span>L–V 09:30–20:00 · Sáb 10:00–15:00</span>
+            <span>{SITE.schedule.summaryBadge}</span>
           </div>
         </address>
       </div>
     </div>
 
     <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-surface-variant font-mono text-xs">
-      <p>© {currentYear} Rápido Pack Valencia. Todos los derechos reservados.</p>
+      <p>© {currentYear} {SITE.brand.name}. Todos los derechos reservados.</p>
       <p class="text-surface-variant/80">Outlet, Segunda Mano Verificada y Punto Oficial de Paquetería en Alfafar</p>
     </div>
   </div>

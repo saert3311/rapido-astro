@@ -3,16 +3,17 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import StoreLocator from '../components/StoreLocator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import { SITE } from '../config/site';
 
 const contactChannels = [
   {
     index: '01',
     icon: 'call',
     title: 'Teléfono en tienda',
-    value: '685 11 95 11',
-    href: 'tel:685119511',
+    value: SITE.contact.phoneDisplay,
+    href: SITE.contact.phoneHref,
     external: false,
-    description: 'Atención directa L–V 09:30–20:00 y Sáb 10:00–15:00',
+    description: `Atención directa L–V ${SITE.schedule.weekdays.label} y Sáb ${SITE.schedule.saturday.label}`,
     cta: 'Llamar ahora',
     ctaIcon: 'arrow_forward',
   },
@@ -20,8 +21,8 @@ const contactChannels = [
     index: '02',
     icon: 'chat',
     title: 'WhatsApp directo',
-    value: '685 11 95 11',
-    href: 'https://wa.me/34685119511',
+    value: SITE.contact.phoneDisplay,
+    href: SITE.contact.whatsappHref,
     external: true,
     description: 'Consultas rápidas sobre lotes semanales, 2ª mano y paquetería',
     cta: 'Abrir WhatsApp',
@@ -31,8 +32,8 @@ const contactChannels = [
     index: '03',
     icon: 'mail',
     title: 'Correo electrónico',
-    value: 'contacto@rapidopack.es',
-    href: 'mailto:contacto@rapidopack.es',
+    value: SITE.contact.email,
+    href: SITE.contact.emailHref,
     external: false,
     description: 'Para consultas generales, lotes mayoristas o acuerdos',
     cta: 'Enviar email',
@@ -41,11 +42,11 @@ const contactChannels = [
   {
     index: '04',
     icon: 'pin_drop',
-    title: 'Local en Alfafar',
-    value: 'C/ Comte Ronrée, 8',
-    href: 'https://maps.google.com/?q=Carrer+del+Comte+Ronr%C3%A9e,+8,+46910+Alfafar,+Valencia',
+    title: `Local en ${SITE.location.city}`,
+    value: SITE.location.shortStreet,
+    href: SITE.location.mapsUrl,
     external: true,
-    description: '46910 Alfafar, Valencia · Aparcamiento en puerta',
+    description: `${SITE.location.postalCode} ${SITE.location.city}, ${SITE.location.province} · ${SITE.location.parkingNote}`,
     cta: 'Cómo llegar',
     ctaIcon: 'directions',
   },
@@ -54,7 +55,7 @@ const contactChannels = [
 const contactFaqs = [
   {
     icon: 'door_front',
-    question: '¿Es necesario pedir cita para venir a Rápido Pack Valencia?',
+    question: `¿Es necesario pedir cita para venir a ${SITE.brand.name}?`,
     answer: 'No, la entrada es 100% libre durante nuestro horario comercial. Puedes entrar, revisar las estanterías con mercancía nueva todas las semanas y probar los productos de segunda mano y outlet en nuestra zona habilitada al instante.',
   },
   {
@@ -65,14 +66,14 @@ const contactFaqs = [
   {
     icon: 'package_2',
     question: '¿Hasta qué hora puedo recoger o entregar paquetes?',
-    answer: 'El servicio oficial de paquetería en Rápido Pack Valencia (recogidas y devoluciones de Amazon Hub, GLS, InPost, CTT y SEUR) está operativo ininterrumpidamente durante todo el horario: lunes a viernes de 09:30 a 20:00 h y sábados de 10:00 a 15:00 h.',
+    answer: `El servicio oficial de paquetería en ${SITE.brand.name} (recogidas y devoluciones de ${SITE.carriers.map((c) => c.name).join(', ')}) está operativo ininterrumpidamente durante todo el horario: ${SITE.schedule.fullScheduleLabel}.`,
   },
 ];
 ---
 
 <Layout
-  title="Contacto · Rápido Pack Valencia — Teléfono, Ubicación y Consultas en Alfafar"
-  description="Contacta con Rápido Pack Valencia en Alfafar. Teléfono 685 11 95 11, WhatsApp, consultas sobre productos de segunda mano, outlet semanal y recogida de paquetería."
+  title={`Contacto · ${SITE.brand.name} — Teléfono, Ubicación y Consultas en ${SITE.location.city}`}
+  description={`Contacta con ${SITE.brand.name} en ${SITE.location.city}. Teléfono ${SITE.contact.phoneDisplay}, WhatsApp, consultas sobre productos de segunda mano, outlet semanal y recogida de paquetería.`}
   currentPage="contacto"
 >
   <div class="flex flex-col w-full">
@@ -188,7 +189,7 @@ const contactFaqs = [
               <div class="pt-1">
                 <a
                   class="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98]"
-                  href="https://wa.me/34685119511"
+                  href={SITE.contact.whatsappHref}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

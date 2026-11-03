@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import StoreLocator from '../components/StoreLocator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import { SITE } from '../config/site';
 
 const ledgerFeatures = [
   {
@@ -15,7 +16,7 @@ const ledgerFeatures = [
     index: '02',
     icon: 'sell',
     title: 'Outlet y Segunda Mano',
-    metric: 'HASTA -70% PVP',
+    metric: `HASTA -${SITE.brand.maxDiscountPct}% PVP`,
     description: 'Descuentos directos sobre PVP en pequeño electrodoméstico, tecnología, hogar, bricolaje y segunda mano verificada.',
   },
   {
@@ -29,23 +30,23 @@ const ledgerFeatures = [
     index: '04',
     icon: 'package_2',
     title: 'Hub Oficial de Paquetería',
-    metric: '5 OPERADORES',
-    description: 'Recoge o devuelve tus envíos de Amazon Hub, InPost, GLS, SEUR y CTT Express aparcando en la misma puerta.',
+    metric: `${SITE.carriers.length} OPERADORES`,
+    description: `Recoge o devuelve tus envíos de ${SITE.carriers.map((c) => c.name).join(', ')} aparcando en la misma puerta.`,
   },
 ];
 
-const carriers = ['Amazon Hub Counter', 'InPost', 'GLS ParcelShop', 'SEUR Pickup', 'CTT Express'];
+const carriers = SITE.carriers.map((c) => c.name);
 
 const homeFaqs = [
   {
     icon: 'calendar_month',
-    question: '¿Cuándo entra mercancía nueva en Rápido Pack Valencia?',
+    question: `¿Cuándo entra mercancía nueva en ${SITE.brand.name}?`,
     answer: 'Recibimos y reponemos <strong>mercancía nueva todas las semanas</strong> con lotes de outlet de primeras marcas y productos de segunda mano revisados listos en estanterías.',
   },
   {
     icon: 'schedule',
-    question: '¿Dónde está Rápido Pack Valencia y cuál es el horario?',
-    answer: 'Estamos en <strong>Carrer del Comte Ronrée, 8, 46910 Alfafar (Valencia)</strong>. Nuestro horario ininterrumpido es de <strong>lunes a viernes de 09:30 a 20:00</strong> y los <strong>sábados de 10:00 a 15:00</strong>. Los domingos permanecemos cerrados.',
+    question: `¿Dónde está ${SITE.brand.name} y cuál es el horario?`,
+    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>. Nuestro horario ininterrumpido es de <strong>lunes a viernes de ${SITE.schedule.weekdays.open} a ${SITE.schedule.weekdays.close}</strong> y los <strong>sábados de ${SITE.schedule.saturday.open} a ${SITE.schedule.saturday.close}</strong>. Los domingos permanecemos cerrados.`,
   },
   {
     icon: 'fact_check',
@@ -55,12 +56,12 @@ const homeFaqs = [
   {
     icon: 'storefront',
     question: '¿Hacéis envíos online o tenéis catálogo web?',
-    answer: 'Vendemos exclusivamente en persona en nuestra tienda física de Rápido Pack Valencia en Alfafar. Como el inventario de outlet y segunda mano rota todas las semanas y cada unidad es única por orden de llegada, ofrecemos el mejor precio directamente en tienda.',
+    answer: `Vendemos exclusivamente en persona en nuestra tienda física de ${SITE.brand.name} en ${SITE.location.city}. Como el inventario de outlet y segunda mano rota todas las semanas y cada unidad es única por orden de llegada, ofrecemos el mejor precio directamente en tienda.`,
   },
 ];
 ---
 
-<Layout title="Rápido Pack Valencia · Alfafar — Tienda Outlet, Segunda Mano y Punto de Paquetería" currentPage="home">
+<Layout title={`${SITE.brand.name} · ${SITE.location.city} — ${SITE.brand.tagline}`} currentPage="home">
   <div class="flex flex-col w-full">
     <!-- 1. Asymmetric Split-Screen Hero (Rule 3: Anti-Center Bias, DESIGN_VARIANCE: 8) -->
     <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
@@ -78,7 +79,7 @@ const homeFaqs = [
             </h1>
 
             <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
-              Bienvenido a <strong class="text-surface-dark font-semibold">Rápido Pack Valencia</strong> en Carrer del Comte Ronrée, 8. Artículos de outlet, productos de segunda mano revisados y punto oficial de paquetería con hasta un <strong class="text-surface-dark font-semibold">70% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
+              Bienvenido a <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> en {SITE.location.street}. Artículos de outlet, productos de segunda mano revisados y punto oficial de paquetería con hasta un <strong class="text-surface-dark font-semibold">{SITE.brand.maxDiscountPct}% de descuento</strong> frente a PVP y banco de pruebas con enchufe.
             </p>
 
             <!-- Tactile Action Row -->
@@ -136,7 +137,7 @@ const homeFaqs = [
                   <span>STOCK FÍSICO VERIFICADO</span>
                 </div>
                 <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold tabular-nums">
-                  C/ Comte Ronrée, 8
+                  {SITE.location.shortStreet}
                 </span>
               </div>
 
@@ -418,10 +419,10 @@ const homeFaqs = [
             Mercancía Nueva Todas las Semanas
           </span>
           <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            Descubre las oportunidades de esta semana en Rápido Pack Valencia
+            Descubre las oportunidades de esta semana en {SITE.brand.name}
           </h2>
           <p class="mt-2 font-sans text-base text-surface-variant">
-            Acércate a Carrer del Comte Ronrée, 8 en Alfafar y comprueba en persona nuestro stock de segunda mano y primeras marcas.
+            Acércate a {SITE.location.street} en {SITE.location.city} y comprueba en persona nuestro stock de segunda mano y primeras marcas.
           </p>
         </div>
 

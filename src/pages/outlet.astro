@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import StoreLocator from '../components/StoreLocator.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import { SITE } from '../config/site';
 
 const inspectionSteps = [
   {
@@ -9,7 +10,7 @@ const inspectionSteps = [
     icon: 'inventory_2',
     title: 'Apertura Libre en Sala',
     metric: 'SIN CAJAS CERRADAS',
-    description: 'En Rápido Pack Valencia puedes abrir el embalaje, revisar todos los accesorios incluidos y comprobar el estado estético real.',
+    description: `En ${SITE.brand.name} puedes abrir el embalaje, revisar todos los accesorios incluidos y comprobar el estado estético real.`,
   },
   {
     index: '02',
@@ -29,7 +30,7 @@ const inspectionSteps = [
     index: '04',
     icon: 'sell',
     title: 'Etiquetado de Oportunidad',
-    metric: 'HASTA -70% PVP',
+    metric: `HASTA -${SITE.brand.maxDiscountPct}% PVP`,
     description: 'El descuento se aplica directamente según el estado del artículo y su embalaje para que te lleves el mejor precio en el acto.',
   },
 ];
@@ -37,8 +38,8 @@ const inspectionSteps = [
 const outletFaqs = [
   {
     icon: 'fact_check',
-    question: '¿Qué diferencia hay entre los artículos de segunda mano y los de outlet en Rápido Pack Valencia?',
-    answer: 'En nuestra tienda de Alfafar encontrarás tanto <strong>excedentes de stock y cajas abiertas sin uso</strong> como <strong>productos de segunda mano y reacondicionados</strong>. En todos los casos puedes abrirlos y probarlos personalmente en nuestras mesas con enchufe antes de decidir.',
+    question: `¿Qué diferencia hay entre los artículos de segunda mano y los de outlet en ${SITE.brand.name}?`,
+    answer: `En nuestra tienda de ${SITE.location.city} encontrarás tanto <strong>excedentes de stock y cajas abiertas sin uso</strong> como <strong>productos de segunda mano y reacondicionados</strong>. En todos los casos puedes abrirlos y probarlos personalmente en nuestras mesas con enchufe antes de decidir.`,
   },
   {
     icon: 'calendar_month',
@@ -48,19 +49,19 @@ const outletFaqs = [
   {
     icon: 'power',
     question: '¿Cómo puedo comprobar que un artículo de segunda mano funciona correctamente?',
-    answer: 'Contamos con una <strong>zona de prueba equipada con enchufes</strong> en el propio local de Rápido Pack Valencia. Puedes enchufar pequeños electrodomésticos, herramientas o dispositivos electrónicos y verificar su funcionamiento con total tranquilidad.',
+    answer: `Contamos con una <strong>zona de prueba equipada con enchufes</strong> en el propio local de ${SITE.brand.name}. Puedes enchufar pequeños electrodomésticos, herramientas o dispositivos electrónicos y verificar su funcionamiento con total tranquilidad.`,
   },
   {
     icon: 'storefront',
     question: '¿Publicáis un listado online de cada unidad de segunda mano?',
-    answer: 'No. Al tratarse de unidades individuales con alta rotación semanal, la venta es <strong>100% presencial en Carrer del Comte Ronrée, 8 (Alfafar)</strong> por orden de llegada.',
+    answer: `No. Al tratarse de unidades individuales con alta rotación semanal, la venta es <strong>100% presencial en ${SITE.location.street} (${SITE.location.city})</strong> por orden de llegada.`,
   },
 ];
 ---
 
 <Layout
-  title="Outlet y Segunda Mano · Rápido Pack Valencia — Productos Revisados en Alfafar"
-  description="Catálogo presencial de productos de segunda mano verificados y outlet de primeras marcas en Rápido Pack Valencia (Alfafar). Mercancía nueva todas las semanas y mesas de prueba con enchufe."
+  title={`Outlet y Segunda Mano · ${SITE.brand.name} — Productos Revisados en ${SITE.location.city}`}
+  description={`Catálogo presencial de productos de segunda mano verificados y outlet de primeras marcas en ${SITE.brand.name} (${SITE.location.city}). Mercancía nueva todas las semanas y mesas de prueba con enchufe.`}
   currentPage="outlet"
 >
   <div class="flex flex-col w-full">
