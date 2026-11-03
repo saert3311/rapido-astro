@@ -35,7 +35,7 @@ const navLinks = [
           alt={SITE.brand.name}
           width="206"
           height="144"
-          class="h-16 sm:h-[72px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+          class="h-[76px] sm:h-[84px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
         />
       </a>
 
@@ -105,32 +105,46 @@ const navLinks = [
         </summary>
         <nav
           aria-label="Navegación móvil"
-          class="absolute right-0 mt-2 w-72 bg-surface-container-lowest rounded-xl border border-border-subtle shadow-xl p-3 flex flex-col gap-1"
+          class="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-72 max-w-xs bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-2xl p-3 flex flex-col gap-1.5"
         >
+          <!-- Live Store Status for Mobile -->
+          <div
+            id="header-mobile-live-status"
+            class="px-3.5 py-2.5 rounded-xl bg-surface-alt/70 border border-border-subtle flex items-center gap-2 text-xs font-mono text-text-muted mb-1"
+            aria-live="polite"
+            data-mobile-status
+          >
+            <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+            <span data-status-text>{SITE.schedule.summaryBadge}</span>
+          </div>
+
           {navLinks.map((link) => (
             <a
               href={link.href}
               aria-current={link.active ? 'page' : undefined}
               class:list={[
-                'px-3.5 py-2.5 rounded-lg font-label-button text-sm transition-colors',
+                'px-4 py-3 min-h-[44px] flex items-center justify-between rounded-xl font-label-button text-sm transition-colors active:scale-[0.99]',
                 link.active
                   ? 'bg-mint-wash text-primary font-semibold'
                   : 'text-surface-dark hover:bg-surface-alt',
               ]}
             >
-              {link.label}
+              <span>{link.label}</span>
+              {link.active && (
+                <span class="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true"></span>
+              )}
             </a>
           ))}
-          <div class="pt-2.5 mt-1.5 border-t border-border-subtle flex flex-col gap-2">
+          <div class="pt-2.5 mt-1 border-t border-border-subtle flex flex-col gap-2">
             <a
-              class="w-full inline-flex items-center justify-center gap-2 px-3.5 py-2.5 bg-surface-alt text-surface-dark font-mono text-xs font-semibold rounded-lg"
+              class="w-full inline-flex items-center justify-center gap-2 px-3.5 py-3 min-h-[44px] bg-surface-alt text-surface-dark font-mono text-xs font-semibold rounded-xl active:scale-[0.99] transition-transform"
               href={SITE.contact.phoneHref}
             >
-              <span class="material-symbols-outlined text-[17px] text-primary" aria-hidden="true">call</span>
+              <span class="material-symbols-outlined text-[18px] text-primary" aria-hidden="true">call</span>
               <span>{SITE.contact.phoneDisplay}</span>
             </a>
             <a
-              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-lg transition-colors"
+              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-3 min-h-[44px] bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl active:scale-[0.99] transition-all shadow-sm"
               href={SITE.location.mapsUrl}
               rel="noopener noreferrer"
               target="_blank"
@@ -147,11 +161,10 @@ const navLinks = [
 
 <script is:inline>
   (() => {
-    const container = document.getElementById('header-live-status');
-    if (!container) return;
-    const dot = container.querySelector('[data-status-dot]');
-    const text = container.querySelector('[data-status-text]');
-    if (!dot || !text) return;
+    const desktopContainer = document.getElementById('header-live-status');
+    const mobileContainer = document.getElementById('header-mobile-live-status');
+    const containers = [desktopContainer, mobileContainer].filter(Boolean);
+    if (containers.length === 0) return;
 
     try {
       const now = new Date();
@@ -164,15 +177,16 @@ const navLinks = [
       }).formatToParts(now);
 
       const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
-      const weekdayOpenMins = parseInt(container.dataset.weekdayOpen || '570', 10);
-      const weekdayCloseMins = parseInt(container.dataset.weekdayClose || '1200', 10);
-      const satOpenMins = parseInt(container.dataset.satOpen || '600', 10);
-      const satCloseMins = parseInt(container.dataset.satClose || '900', 10);
+      const source = desktopContainer || mobileContainer;
+      const weekdayOpenMins = parseInt(source?.dataset.weekdayOpen || '570', 10);
+      const weekdayCloseMins = parseInt(source?.dataset.weekdayClose || '1200', 10);
+      const satOpenMins = parseInt(source?.dataset.satOpen || '600', 10);
+      const satCloseMins = parseInt(source?.dataset.satClose || '900', 10);
 
-      const weekdayOpenLabel = container.dataset.weekdayOpenLabel || '09:30';
-      const weekdayCloseLabel = container.dataset.weekdayCloseLabel || '20:00';
-      const satOpenLabel = container.dataset.satOpenLabel || '10:00';
-      const satCloseLabel = container.dataset.satCloseLabel || '15:00';
+      const weekdayOpenLabel = source?.dataset.weekdayOpenLabel || '09:30';
+      const weekdayCloseLabel = source?.dataset.weekdayCloseLabel || '20:00';
+      const satOpenLabel = source?.dataset.satOpenLabel || '10:00';
+      const satCloseLabel = source?.dataset.satCloseLabel || '15:00';
 
       const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
       const day = map.weekday;
@@ -200,10 +214,18 @@ const navLinks = [
         }
       }
 
-      dot.className = isOpen
-        ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15 shrink-0'
-        : 'w-2 h-2 rounded-full bg-amber-500 shrink-0';
-      text.textContent = label;
+      for (const c of containers) {
+        const dot = c.querySelector('[data-status-dot]');
+        const text = c.querySelector('[data-status-text]');
+        if (dot) {
+          dot.className = isOpen
+            ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15 shrink-0'
+            : 'w-2 h-2 rounded-full bg-amber-500 shrink-0';
+        }
+        if (text) {
+          text.textContent = label;
+        }
+      }
     } catch {}
   })();
 </script>

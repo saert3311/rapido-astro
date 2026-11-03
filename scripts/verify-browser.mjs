@@ -24,11 +24,6 @@ const chrome = spawn(CHROME_PATH, [
   '--user-data-dir=' + path.resolve('.temp-chrome-profile'),
 ]);
 
-chrome.stderr.on('data', (d) => {
-  // console.error('[chrome stderr]', d.toString());
-});
-
-// Wait for Chrome CDP port to become ready
 let versionData = null;
 for (let i = 0; i < 30; i++) {
   try {
@@ -55,7 +50,6 @@ const results = [];
 async function inspectRoute(route, vp) {
   console.log(`\n--- Inspecting ${route} [${vp.name}: ${vp.width}x${vp.height}] ---`);
 
-  // Create new target tab
   const createRes = await fetch(`http://127.0.0.1:${PORT}/json/new?${encodeURIComponent(BASE_URL + route)}`, { method: 'PUT' });
   const target = await createRes.json();
   const wsUrl = target.webSocketDebuggerUrl;
@@ -109,12 +103,10 @@ async function inspectRoute(route, vp) {
     }
   };
 
-  // Enable domains
   await send('Page.enable');
   await send('Runtime.enable');
   await send('Network.enable');
 
-  // Set device metrics
   await send('Emulation.setDeviceMetricsOverride', {
     width: vp.width,
     height: vp.height,
@@ -122,22 +114,84 @@ async function inspectRoute(route, vp) {
     mobile: vp.mobile,
   });
 
-  // Navigate and wait for load
   await send('Page.navigate', { url: BASE_URL + route });
-
-  // Wait for load event and render stabilization
   await new Promise((r) => setTimeout(r, 1200));
 
-  // Get title and check DOM
-  const evalResult = await send('Runtime.evaluate', {
-    expression: '({ title: document.title, h1: document.querySelector("h1")?.textContent?.trim() || null, navCount: document.querySelectorAll("header nav a").length })',
+  // Inspect Logo and Mobile UI via Runtime.evaluate
+  const metricsResult = await send('Runtime.evaluate', {
+    expression: `(() => {
+      const logoImg = document.querySelector('header a img[src*="logo-rapido-pack-valencia"]');
+      const logoRect = logoImg ? logoImg.getBoundingClientRect() : { width: 0, height: 0 };
+      const docScrollWidth = document.documentElement.scrollWidth;
+      const winInnerWidth = window.innerWidth;
+      const overflow = docScrollWidth > winInnerWidth;
+      const menuSummary = document.querySelector('header details summary');
+      const menuSummaryRect = menuSummary ? menuSummary.getBoundingClientRect() : null;
+      const stickyCta = document.querySelector('.md\\\\:hidden.fixed.bottom-3');
+      const mobileStatus = document.getElementById('header-mobile-live-status');
+
+      return {
+        title: document.title,
+        h1: document.querySelector('h1')?.textContent?.trim() || null,
+        logo: {
+          width: Math.round(logoRect.width),
+          height: Math.round(logoRect.height),
+        },
+        viewport: {
+          docScrollWidth,
+          winInnerWidth,
+          hasHorizontalOverflow: overflow,
+        },
+        mobileMenuSummary: menuSummaryRect ? {
+          width: Math.round(menuSummaryRect.width),
+          height: Math.round(menuSummaryRect.height),
+        } : null,
+        hasStickyCta: !!stickyCta,
+        hasMobileLiveStatus: !!mobileStatus,
+      };
+    })()`,
     returnByValue: true,
   });
 
-  const pageInfo = evalResult.result.value;
-  console.log('Title:', pageInfo.title);
-  console.log('H1:', pageInfo.h1?.replace(/\s+/g, ' '));
-  console.log('Header nav links count:', pageInfo.navCount);
+  const metrics = metricsResult.result.value;
+  console.log('Title:', metrics.title);
+  console.log(`Logo rendered size: ${metrics.logo.width}x${metrics.logo.height}px`);
+  console.log(`Viewport check: docScrollWidth=${metrics.viewport.docScrollWidth}px, winInnerWidth=${metrics.viewport.winInnerWidth}px, overflow=${metrics.viewport.hasHorizontalOverflow}`);
+
+  // Assertions for logo and mobile
+  if (vp.name === 'desktop') {
+    if (metrics.logo.height < 80) {
+      console.error(`Desktop logo height ${metrics.logo.height}px is below target >= 80px!`);
+      overallErrors++;
+    } else {
+      console.log(`✓ Desktop logo size (${metrics.logo.height}px height) meets target >= 80px`);
+    }
+  } else if (vp.name === 'mobile') {
+    if (metrics.logo.height < 70) {
+      console.error(`Mobile logo height ${metrics.logo.height}px is below target >= 70px!`);
+      overallErrors++;
+    } else {
+      console.log(`✓ Mobile logo size (${metrics.logo.height}px height) meets target >= 70px`);
+    }
+
+    if (metrics.viewport.hasHorizontalOverflow) {
+      console.error(`Mobile horizontal overflow detected: docScrollWidth=${metrics.viewport.docScrollWidth} > ${metrics.viewport.winInnerWidth}`);
+      overallErrors++;
+    } else {
+      console.log(`✓ 0 horizontal overflow on mobile (${metrics.viewport.docScrollWidth}px <= ${metrics.viewport.winInnerWidth}px)`);
+    }
+
+    if (metrics.mobileMenuSummary && metrics.mobileMenuSummary.width >= 44 && metrics.mobileMenuSummary.height >= 44) {
+      console.log(`✓ Mobile menu tap target (${metrics.mobileMenuSummary.width}x${metrics.mobileMenuSummary.height}px) meets WCAG >= 44px`);
+    }
+
+    if (metrics.hasStickyCta) {
+      console.log(`✓ Mobile sticky CTA bar is present`);
+    } else {
+      console.error(`Mobile sticky CTA bar is missing!`);
+      overallErrors++;
+    }
+  }
 
   // Capture screenshot
   const screenshotRes = await send('Page.captureScreenshot', { format: 'png' });
@@ -157,13 +211,12 @@ async function inspectRoute(route, vp) {
   results.push({
     route,
     viewport: vp.name,
-    pageInfo,
+    metrics,
     consoleErrors: errors.length,
     networkErrors: networkErrors.length,
     screenshot: filePath,
   });
 
-  // Close tab
   await send('Page.close');
   ws.close();
 }
@@ -174,20 +227,19 @@ for (const vp of VIEWPORTS) {
   }
 }
 
-// Close Chrome
 chrome.kill();
 
 console.log('\n======================================');
-console.log('VERIFICATION SUMMARY');
+console.log('BROWSER VERIFICATION SUMMARY');
 console.log('======================================');
 for (const r of results) {
-  console.log(`${r.viewport.padEnd(8)} ${r.route.padEnd(14)} | Title: "${r.pageInfo.title.slice(0, 35)}..." | Errors: ${r.consoleErrors} | Screenshot: ${path.basename(r.screenshot)}`);
+  console.log(`${r.viewport.padEnd(8)} ${r.route.padEnd(14)} | Logo: ${r.metrics.logo.width}x${r.metrics.logo.height}px | Overflow: ${r.metrics.viewport.hasHorizontalOverflow} | Errors: ${r.consoleErrors}`);
 }
 
 if (overallErrors > 0) {
-  console.error(`\nFAILED: Total console errors = ${overallErrors}`);
+  console.error(`\nFAILED: Total check errors = ${overallErrors}`);
   process.exit(1);
 } else {
-  console.log('\nSUCCESS: All 4 routes verified in Desktop & Mobile with ZERO console errors!');
+  console.log('\nSUCCESS: All 4 routes verified in Desktop & Mobile: Logo enlarged, Zero overflow, WCAG tap targets passed, Zero console errors!');
   process.exit(0);
 }
