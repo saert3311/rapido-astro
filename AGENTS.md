@@ -23,7 +23,7 @@ Manage the background server with `npx astro dev stop`, `npx astro dev status`, 
 - **Dev server (background):** `npx astro dev --background` (serves at `http://localhost:4321`)
 - **Production build & type-check:** `npm run build` (runs `astro build` → `./dist/`)
 - **Preview production build:** `npm run preview`
-- **Browser verification:** Inspect `/`, `/outlet`, and `/contacto` (`1440×900` & `390×844`) via headless Chrome / DevTools before committing UI changes; console must have zero warnings or errors.
+- **Browser verification:** Inspect `/`, `/paqueteria`, `/outlet`, and `/contacto` (`1440×900` & `390×844`) via headless Chrome / DevTools before committing UI changes; console must have zero warnings or errors.
 
 ## Project Structure
 
@@ -36,11 +36,12 @@ Manage the background server with `npx astro dev stop`, `npx astro dev status`, 
     ├── styles/global.css          # @import "tailwindcss", @theme tokens, utilities
     ├── layouts/Layout.astro       # HTML shell (pt-24), Google Fonts, fixed grain overlay
     ├── pages/
-    │   ├── index.astro            # Home: 7/5 split hero, hairline ledger, 7/5 Bento grid
+    │   ├── index.astro            # Home: 7/5 split hero, dual gateway cards, hairline ledger
+    │   ├── paqueteria.astro       # Parcel hub: 5 official carriers, 3-step guide, logistics FAQ
     │   ├── outlet.astro           # Outlet & 2nd-hand: inspection ledger + 7/5 Bento showcase
-    │   └── contacto.astro         # Contact: hairline channel ledger, form, store info
+    │   └── contacto.astro         # Contact: hairline channel ledger, form, store info & map
     └── components/
-        ├── Header.astro           # Sticky h-24 navbar, official logo, 3-page nav, live status
+        ├── Header.astro           # Sticky h-24 navbar, official logo, 4-page nav, live status
         ├── Footer.astro           # Dark footer with mobile sticky-CTA bottom clearance
         ├── StoreLocator.astro     # Schedule table + map hub with Liquid Glass overlays
         ├── FaqAccordion.astro     # Native <details name="..."> exclusive accordion
