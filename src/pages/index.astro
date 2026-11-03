@@ -27,10 +27,10 @@ const ledgerFeatures = [
   },
   {
     index: '04',
-    icon: 'directions_car',
-    title: 'Aparcamiento en la Puerta',
-    metric: 'CARGA FÁCIL',
-    description: 'Estacionamiento cómodo justo en la entrada de la tienda para cargar bultos pesados o hacer gestiones rápidas en 1 minuto.',
+    icon: 'train',
+    title: 'Estación a 5 Minutos a Pie',
+    metric: '5 MIN A PIE',
+    description: `A 500 m de la ${SITE.location.stationName} (Cercanías C-1/C-2 y MetroBus). Llegada directa en solo 5 minutos de tren desde Valencia Nord.`,
   },
 ];
 
@@ -48,7 +48,7 @@ const homeFaqs = [
   {
     icon: 'pin_drop',
     question: `¿Dónde está ubicada la tienda y cómo llegar desde Valencia?`,
-    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>, a solo <strong>${SITE.location.driveTimeLabel} de Valencia capital por la V-31</strong>. Dispones de espacio para parar y aparcar justo en la misma puerta del local, facilitando la recogida de paquetes voluminosos y compras de electrodomésticos.`,
+    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>, a solo <strong>5 minutos a pie de la ${SITE.location.stationName}</strong> (líneas C-1 y C-2 de Cercanías Renfe y MetroBus, a 5 min directos desde la estación Valencia Nord). También dispones de rápido acceso por carretera desde la V-31.`,
   },
 ];
 ---
@@ -187,7 +187,7 @@ const homeFaqs = [
               </h3>
 
               <p class="font-sans text-base text-text-muted leading-relaxed mb-6">
-                Recogida y devolución express para <strong class="text-surface-dark font-medium">Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express</strong>. Devoluciones de Amazon sin imprimir etiquetas, parking en la misma puerta y atención rápida en sala.
+                Recogida y devolución express para <strong class="text-surface-dark font-medium">Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express</strong>. Devoluciones de Amazon sin imprimir etiquetas, a 5 min a pie de la Estación Alfafar-Benetússer y atención rápida en sala.
               </p>
 
               <!-- Tags de Agencias -->
@@ -318,7 +318,7 @@ const homeFaqs = [
               {SITE.location.fullAddress}
             </h3>
             <p class="font-sans text-sm sm:text-base text-text-muted leading-relaxed">
-              Horario comercial: <strong class="text-surface-dark font-semibold">Lunes a Viernes de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h</strong> y <strong class="text-surface-dark font-semibold">Sábados de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h</strong>. {SITE.location.parkingNote} y acceso a {SITE.location.driveTimeLabel} desde Valencia por la V-31.
+              Horario comercial: <strong class="text-surface-dark font-semibold">Lunes a Viernes de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h</strong> y <strong class="text-surface-dark font-semibold">Sábados de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h</strong>. {SITE.location.stationNote}.
             </p>
           </div>
 

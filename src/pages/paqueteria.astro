@@ -58,10 +58,10 @@ const practicalSteps = [
   },
   {
     step: '03',
-    icon: 'directions_car',
-    title: 'Aparcamiento en la Puerta',
-    metric: 'CARGA CÓMODA',
-    description: `Parada fácil y espacio de carga justo en la entrada de ${SITE.location.shortStreet}. Ideal para recoger paquetes grandes o pesados sin tener que cargarlos lejos.`,
+    icon: 'train',
+    title: 'A 5 Min de la Estación',
+    metric: 'ACCESO A PIE',
+    description: `A 500 m de la ${SITE.location.stationName} (Cercanías C-1/C-2 y MetroBus). Ideal para recoger o enviar paquetes en tu trayecto diario.`,
   },
 ];
 
@@ -91,7 +91,7 @@ const paqueteriaFaqs = [
 
 <Layout
   title={`Punto de Paquetería en Alfafar · ${SITE.brand.name} — Amazon, InPost, GLS, SEUR, CTT`}
-  description={`Punto oficial de recogida y devolución de paquetería en Alfafar (${SITE.location.fullAddress}). Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express con aparcamiento en la puerta y horario ininterrumpido.`}
+  description={`Punto oficial de recogida y devolución de paquetería en Alfafar (${SITE.location.fullAddress}). Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express a 5 min a pie de la estación y horario ininterrumpido.`}
   currentPage="paqueteria"
 >
   <div class="flex flex-col w-full">
@@ -107,7 +107,7 @@ const paqueteriaFaqs = [
             </div>
 
             <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tighter leading-[1.04] text-surface-dark" style="--index: 1;">
-              Recoge y devuelve tus <span class="text-primary">paquetes</span> sin colas y con aparcamiento en puerta.
+              Recoge y devuelve tus <span class="text-primary">paquetes</span> sin colas y a 5 min de la estación.
             </h1>
 
             <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
@@ -141,8 +141,8 @@ const paqueteriaFaqs = [
                 <span class="font-sans text-xs text-text-muted mt-1">Operadores homologados</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
-                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight">En puerta</span>
-                <span class="font-sans text-xs text-text-muted mt-1">Aparcamiento para carga</span>
+                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight">5 min a pie</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Estación Alfafar-Benetússer</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
                 <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">09:30–20h</span>
@@ -241,23 +241,23 @@ const paqueteriaFaqs = [
             </article>
           ))}
 
-          <!-- Tarjeta de valor complementario: Parking & Horario -->
+          <!-- Tarjeta de valor complementario: Estación & Horario -->
           <article class="p-6 sm:p-8 flex flex-col justify-between bg-surface-dark text-on-primary">
             <div>
               <div class="flex items-center justify-between mb-5">
-                <span class="font-mono text-xs font-semibold text-primary-fixed">/INFO</span>
+                <span class="font-mono text-xs font-semibold text-primary-fixed">/ACCESO</span>
                 <span class="inline-flex items-center px-2.5 py-1 rounded bg-white/10 font-mono text-[11px] font-semibold text-primary-fixed">
-                  GRATUITO
+                  5 MIN A PIE
                 </span>
               </div>
               <div class="w-10 h-10 rounded-lg bg-primary/25 text-primary-fixed flex items-center justify-center mb-4">
-                <span class="material-symbols-outlined text-[22px]" aria-hidden="true">timer</span>
+                <span class="material-symbols-outlined text-[22px]" aria-hidden="true">train</span>
               </div>
               <h3 class="font-display text-xl font-bold text-white mb-2">
-                Horario Ininterrumpido
+                Conexión Inmediata
               </h3>
               <p class="font-sans text-sm text-surface-variant leading-relaxed mb-4">
-                Lunes a viernes de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h y sábados de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h.
+                A 500 metros de la Estación Alfafar-Benetússer (Cercanías C-1/C-2 y MetroBus). Horario L–V de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h y Sáb de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h.
               </p>
             </div>
             <a
@@ -325,7 +325,7 @@ const paqueteriaFaqs = [
                 {SITE.location.fullAddress}
               </p>
               <p class="font-sans text-xs text-text-muted mt-0.5">
-                {SITE.location.parkingNote} · Acceso directo a {SITE.location.driveTimeLabel} desde Valencia por V-31
+                {SITE.location.stationNote}
               </p>
             </div>
           </div>
