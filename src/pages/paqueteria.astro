@@ -1,0 +1,391 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import { SITE } from '../config/site';
+
+const carrierDetails = [
+  {
+    name: 'Amazon Hub Counter',
+    badge: 'Oficial',
+    icon: 'package_2',
+    highlight: 'Sin imprimir etiqueta',
+    description: 'Punto oficial para recoger tus pedidos de Amazon y gestionar devoluciones rápidas mostrando únicamente el código QR de tu móvil, sin necesidad de empaquetar ni imprimir etiquetas.',
+  },
+  {
+    name: 'InPost',
+    badge: 'Punto Pack',
+    icon: 'local_shipping',
+    highlight: 'Vinted y Wallapop',
+    description: 'Envía y recoge paquetes de tus compras en plataformas como Vinted, Wallapop y tiendas online asociadas a la red de taquillas y Puntos Pack InPost.',
+  },
+  {
+    name: 'GLS',
+    badge: 'ParcelShop',
+    icon: 'inventory',
+    highlight: 'Nacional e Internacional',
+    description: 'Servicio de entrega y expedición de envíos urgentes y paquetería estándar para toda España y Europa con seguimiento en tiempo real.',
+  },
+  {
+    name: 'SEUR',
+    badge: 'Pickup',
+    icon: 'mark_email_read',
+    highlight: 'Red SEUR',
+    description: 'Recogidas y devoluciones cómodas de la red de comercio electrónico y transporte express SEUR sin esperar al repartidor en casa.',
+  },
+  {
+    name: 'CTT Express',
+    badge: 'Punto CTT',
+    icon: 'electric_moped',
+    highlight: 'Envíos Urgentes',
+    description: 'Punto oficial de custodia y entrega para la red CTT Express en Alfafar y el área metropolitana de Valencia.',
+  },
+];
+
+const practicalSteps = [
+  {
+    step: '01',
+    icon: 'qr_code_scanner',
+    title: 'Recogida con Código o DNI',
+    metric: 'EN 60 SEGUNDOS',
+    description: 'Muestra en caja el código de barras, PIN o QR que te envía el operador en tu teléfono, o tu documento de identidad para retirar tu paquete.',
+  },
+  {
+    step: '02',
+    icon: 'assignment_return',
+    title: 'Devoluciones Sin Papel',
+    metric: 'CERO COMPLICACIONES',
+    description: 'Para compras en Amazon y agencias compatibles, entrega el producto y escaneamos el código de devolución directamente desde la pantalla de tu móvil.',
+  },
+  {
+    step: '03',
+    icon: 'directions_car',
+    title: 'Aparcamiento en la Puerta',
+    metric: 'CARGA CÓMODA',
+    description: `Parada fácil y espacio de carga justo en la entrada de ${SITE.location.shortStreet}. Ideal para recoger paquetes grandes o pesados sin tener que cargarlos lejos.`,
+  },
+];
+
+const paqueteriaFaqs = [
+  {
+    icon: 'receipt_long',
+    question: '¿Puedo devolver paquetes de Amazon sin imprimir la etiqueta en papel?',
+    answer: 'Sí. Como punto oficial <strong>Amazon Hub Counter</strong>, solo necesitas seleccionar nuestro punto en la app de Amazon y mostrar el código QR de devolución en caja. Nosotros nos encargamos de identificar el bulto y procesar la custodia sin coste para ti.',
+  },
+  {
+    icon: 'group',
+    question: '¿Puede otra persona recoger un paquete por mí?',
+    answer: 'Sí. La persona que venga a retirar el envío debe presentar el <strong>código de recogida (QR, PIN o número de seguimiento)</strong> enviado por la agencia de transporte o, en su defecto, una autorización junto a la copia o fotografía de tu DNI/NIE.',
+  },
+  {
+    icon: 'schedule',
+    question: '¿Cuánto tiempo permanece custodiado mi paquete antes de devolverse?',
+    answer: `Los paquetes permanecen en nuestras instalaciones habitualmente <strong>entre 7 y 14 días naturales</strong> según las políticas de cada operador (Amazon, InPost, GLS, SEUR o CTT). Te recomendamos retirarlo cuanto antes para evitar la devolución automática al remitente.`,
+  },
+  {
+    icon: 'price_check',
+    question: '¿Tiene algún coste o comisión recoger o entregar paquetes en la tienda?',
+    answer: 'Ninguno. El servicio de recogida y depósito de paquetería de nuestros 5 operadores oficiales es <strong>100% gratuito</strong> para el usuario final.',
+  },
+];
+---
+
+<Layout
+  title={`Punto de Paquetería en Alfafar · ${SITE.brand.name} — Amazon, InPost, GLS, SEUR, CTT`}
+  description={`Punto oficial de recogida y devolución de paquetería en Alfafar (${SITE.location.fullAddress}). Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express con aparcamiento en la puerta y horario ininterrumpido.`}
+  currentPage="paqueteria"
+>
+  <div class="flex flex-col w-full">
+    <!-- 1. Hero Asimétrico (7/5 Split) -->
+    <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <!-- Columna Editorial Izquierda (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col items-start text-left">
+            <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span>PUNTO OFICIAL MULTI-OPERADOR · ALFAFAR (VALENCIA)</span>
+            </div>
+
+            <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold tracking-tighter leading-[1.04] text-surface-dark" style="--index: 1;">
+              Recoge y devuelve tus <span class="text-primary">paquetes</span> sin colas y con aparcamiento en puerta.
+            </h1>
+
+            <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
+              En <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> somos punto oficial autorizado para <strong class="text-surface-dark font-semibold">Amazon Hub Counter, InPost, GLS, SEUR y CTT Express</strong>. Olvídate de esperar al repartidor en casa: recoge tus compras o tramita tus devoluciones en 60 segundos en {SITE.location.shortStreet}.
+            </p>
+
+            <!-- Botones de Acción -->
+            <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 3;">
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href={SITE.location.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">near_me</span>
+                <span>Cómo llegar a la tienda</span>
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href="#operadores"
+              >
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">inventory_2</span>
+                <span>Ver 5 Operadores Oficiales</span>
+              </a>
+            </div>
+
+            <!-- Banda de Telemetría -->
+            <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
+              <div class="flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">{SITE.carriers.length} Agencias</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Operadores homologados</span>
+              </div>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight">En puerta</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Aparcamiento para carga</span>
+              </div>
+              <div class="pl-4 sm:pl-8 flex flex-col">
+                <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight tabular-nums">09:30–20h</span>
+                <span class="font-sans text-xs text-text-muted mt-1">Horario ininterrumpido L–V</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Visual Derecha (5 Cols con Tarjeta Diffusion) -->
+          <div class="lg:col-span-5 stagger-item" style="--index: 2;">
+            <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
+              <img
+                class="w-full h-full object-cover"
+                alt="Mostrador y zona de paquetería de Rápido Pack Valencia en Alfafar"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
+                fetchpriority="high"
+                width="640"
+                height="720"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/90 via-surface-dark/30 to-transparent"></div>
+
+              <!-- Badges Flotantes -->
+              <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                <div class="liquid-glass px-3.5 py-2 rounded-xl flex items-center gap-2 text-on-primary text-xs font-mono">
+                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">verified</span>
+                  <span>HUB OFICIAL AUTORIZADO</span>
+                </div>
+                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold">
+                  Alfafar
+                </span>
+              </div>
+
+              <!-- Panel Inferior -->
+              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-start gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
+                  <span class="material-symbols-outlined text-[20px]" aria-hidden="true">qr_code_scanner</span>
+                </div>
+                <div>
+                  <p class="font-display text-sm font-bold text-white leading-snug">
+                    Devoluciones Amazon sin imprimir
+                  </p>
+                  <p class="font-sans text-xs text-surface-variant mt-0.5">
+                    Muestra el código en el móvil; nosotros nos encargamos del embalaje y custodia.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Directorio de Operadores Oficiales -->
+    <section class="w-full bg-surface-alt py-16 lg:py-24 border-b border-border-subtle" id="operadores">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              01 // Red de Transporte Homologada
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Tus principales compras y devoluciones en un solo lugar.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Sin tener que desplazarte a diferentes polígonos ni esperar entregas fallidas. Centraliza la recogida y depósito de tus envíos con las agencias líderes del mercado.
+          </p>
+        </div>
+
+        <!-- Hairline Grid de Operadores -->
+        <div class="border-t border-b border-border-subtle divide-y md:divide-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:divide-x divide-border-subtle bg-surface-container-lowest">
+          {carrierDetails.map((carrier, index) => (
+            <article class="p-6 sm:p-8 flex flex-col justify-between group hover:bg-mint-wash/30 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-5">
+                  <span class="font-mono text-xs font-semibold text-text-muted group-hover:text-primary transition-colors">
+                    /0{index + 1}
+                  </span>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded bg-surface-alt group-hover:bg-mint-wash font-mono text-[11px] font-semibold text-primary transition-colors">
+                    {carrier.badge}
+                  </span>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-mint-wash text-primary flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{carrier.icon}</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-surface-dark mb-1">
+                  {carrier.name}
+                </h3>
+                <span class="inline-block font-mono text-xs font-medium text-primary mb-3">
+                  {carrier.highlight}
+                </span>
+                <p class="font-sans text-sm text-text-muted leading-relaxed">
+                  {carrier.description}
+                </p>
+              </div>
+            </article>
+          ))}
+
+          <!-- Tarjeta de valor complementario: Parking & Horario -->
+          <article class="p-6 sm:p-8 flex flex-col justify-between bg-surface-dark text-on-primary">
+            <div>
+              <div class="flex items-center justify-between mb-5">
+                <span class="font-mono text-xs font-semibold text-primary-fixed">/INFO</span>
+                <span class="inline-flex items-center px-2.5 py-1 rounded bg-white/10 font-mono text-[11px] font-semibold text-primary-fixed">
+                  GRATUITO
+                </span>
+              </div>
+              <div class="w-10 h-10 rounded-lg bg-primary/25 text-primary-fixed flex items-center justify-center mb-4">
+                <span class="material-symbols-outlined text-[22px]" aria-hidden="true">timer</span>
+              </div>
+              <h3 class="font-display text-xl font-bold text-white mb-2">
+                Horario Ininterrumpido
+              </h3>
+              <p class="font-sans text-sm text-surface-variant leading-relaxed mb-4">
+                Lunes a viernes de {SITE.schedule.weekdays.open} a {SITE.schedule.weekdays.close} h y sábados de {SITE.schedule.saturday.open} a {SITE.schedule.saturday.close} h.
+              </p>
+            </div>
+            <a
+              href={SITE.location.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 font-mono text-xs text-primary-fixed hover:text-white font-semibold transition-colors mt-2"
+            >
+              <span>Ver localización en Google Maps →</span>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Guía Paso a Paso (Cómo Funciona) -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle" id="como-funciona">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
+          <div class="lg:col-span-7">
+            <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+              02 // Operativa Rápida en Sala
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+              Proceso pensado para ahorrarte tiempo en cada visita.
+            </h2>
+          </div>
+          <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
+            Sin tickets complicados ni trámites lentos. Diseñado para que aparques en la puerta, recojas o entregues tu bulto y sigas con tu día.
+          </p>
+        </div>
+
+        <div class="border-t border-b border-border-subtle divide-y md:divide-y-0 md:grid md:grid-cols-3 md:divide-x divide-border-subtle bg-surface-container-lowest">
+          {practicalSteps.map((step) => (
+            <article class="p-6 sm:p-8 flex flex-col justify-between group hover:bg-mint-wash/20 transition-colors">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="font-mono text-xs font-semibold text-text-muted group-hover:text-primary transition-colors">
+                    /{step.step}
+                  </span>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded bg-surface-alt font-mono text-[11px] font-semibold text-primary">
+                    {step.metric}
+                  </span>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-mint-wash text-primary flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-[22px]" aria-hidden="true">{step.icon}</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-surface-dark mb-2.5">
+                  {step.title}
+                </h3>
+                <p class="font-sans text-sm text-text-muted leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Tarjeta Informativa Compacta de Visita -->
+        <div class="mt-8 p-6 rounded-2xl bg-surface-alt border border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5 sm:mt-0" aria-hidden="true">pin_drop</span>
+            <div>
+              <p class="font-display text-base font-bold text-surface-dark">
+                {SITE.location.fullAddress}
+              </p>
+              <p class="font-sans text-xs text-text-muted mt-0.5">
+                {SITE.location.parkingNote} · Acceso directo a {SITE.location.driveTimeLabel} desde Valencia por V-31
+              </p>
+            </div>
+          </div>
+          <a
+            href={SITE.location.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-xs rounded-lg transition-all active:scale-[0.98] shrink-0"
+          >
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">directions</span>
+            <span>Ruta en Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FAQs Dedicadas de Paquetería -->
+    <section class="w-full bg-surface-container-lowest py-16 lg:py-24 border-b border-border-subtle">
+      <FaqAccordion
+        badge="03 // Preguntas Frecuentes de Paquetería"
+        title="Dudas sobre recogidas, devoluciones y agencias en Alfafar"
+        subtitle="Todo lo que necesitas saber antes de traer o recoger tus paquetes en nuestro punto oficial."
+        items={paqueteriaFaqs}
+        groupName="paqueteria-faq"
+      />
+    </section>
+
+    <!-- 5. Banner de Conversión Cruzada (Hacia Outlet) -->
+    <section class="w-full bg-surface-dark text-on-primary py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div class="max-w-2xl text-left">
+          <span class="inline-flex items-center gap-2 font-mono text-xs text-primary-fixed uppercase tracking-wider bg-white/10 px-3 py-1.5 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-primary-fixed" aria-hidden="true"></span>
+            ¿Vienes a recoger un paquete?
+          </span>
+          <h2 class="mt-3 font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            Descubre nuestro Outlet y Segunda Mano en la misma visita
+          </h2>
+          <p class="mt-2 font-sans text-base text-surface-variant">
+            Aprovecha tu parada para revisar nuestras estanterías con electrodomésticos, tecnología y herramientas hasta un 70% más baratos frente a PVP, listos para probar en mesa con enchufe.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3.5 w-full lg:w-auto shrink-0">
+          <a
+            class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
+            href="/outlet"
+          >
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">sell</span>
+            <span>Ver Sección Outlet</span>
+          </a>
+          <a
+            class="inline-flex items-center justify-center gap-2 px-6 py-4 bg-white/10 hover:bg-white/15 text-white border border-white/15 font-label-button text-sm rounded-xl transition-all active:scale-[0.98] text-center"
+            href="/contacto"
+          >
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">mail</span>
+            <span>Contactar con la Tienda</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
