@@ -58,7 +58,7 @@ import { SITE } from '../config/site';
           type="tel"
           inputmode="tel"
           required
-          pattern="[0-9+\s()-]{9,15}"
+          pattern="[0-9 \-\+\(\)]{9,15}"
           autocomplete="tel"
           placeholder={SITE.contact.phoneDisplay}
           aria-describedby="phone-hint"
