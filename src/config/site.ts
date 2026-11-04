@@ -12,8 +12,8 @@ const rawPhone = '640 39 74 34';
 const digitsPhone = rawPhone.replace(/\D/g, '');
 const countryCode = '34';
 
-const fullStreet = 'Carrer del Comte Ronrée, 8';
-const shortStreet = 'C/ Comte Ronrée, 8';
+const fullStreet = 'Carrer del Comte Ronrée 8';
+const shortStreet = 'C/ Comte Ronrée 8';
 const postalCode = '46910';
 const city = 'Alfafar';
 const province = 'Valencia';
@@ -54,8 +54,8 @@ export const SITE = {
     fullAddress,
     stationName: 'Estación Alfafar-Benetússer',
     stationWalkMinutes: 5,
-    stationWalkLabel: '5 min a pie',
-    stationNote: 'A 5 min a pie de la Estación Alfafar-Benetússer (Cercanías / MetroBus)',
+    stationWalkLabel: '1 min a pie',
+    stationNote: 'A 5 min por la Estación Alfafar-Benetússer (Cercanías / MetroBus)',
     stationLine: 'Cercanías C-1 / C-2 (directo 5 min desde Valencia Nord)',
     driveTimeMinutes: 8,
     driveTimeLabel: '8 min',
@@ -87,11 +87,10 @@ export const SITE = {
   },
 
   carriers: [
-    { name: 'Amazon Hub Counter', badge: 'Oficial', desc: 'Recogidas y devoluciones sin imprimir etiqueta' },
-    { name: 'InPost', badge: 'Punto Pack', desc: 'Envíos y recogidas de comercio electrónico' },
+    { name: 'INPOST', badge: 'Punto Pack', desc: 'Envíos y recogidas de comercio electrónico' },
     { name: 'GLS', badge: 'ParcelShop', desc: 'Paquetería nacional e internacional exprés' },
     { name: 'SEUR', badge: 'Pickup', desc: 'Red de puntos de conveniencia SEUR' },
-    { name: 'CTT Express', badge: 'Punto CTT', desc: 'Servicio oficial de paquetería urgente' },
+    { name: 'KANGURO', badge: 'Punto Kanguro', desc: 'Red de entregas y recogidas inteligentes' },
   ],
 } as const;
 

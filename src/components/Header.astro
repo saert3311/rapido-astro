@@ -22,8 +22,8 @@ const navLinks = [
   Saltar al contenido principal
 </a>
 
-<header class="fixed top-0 left-0 right-0 w-full z-40 bg-surface-container-lowest/95 backdrop-blur-md border-b border-border-subtle/80 shadow-[inset_0_-1px_0_rgba(17,24,32,0.04)]">
-  <div class="h-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-space-md">
+<header class="fixed top-0 left-0 right-0 w-full z-40 bg-emerald-200/80 backdrop-blur-md border-b border-primary/25 shadow-xs">
+  <div class="h-28 sm:h-32 lg:h-36 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 lg:gap-6">
     <div class="flex items-center gap-5">
       <a
         class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-md py-1"
@@ -33,16 +33,16 @@ const navLinks = [
         <img
           src="/logo-rapido-pack-valencia.png"
           alt={SITE.brand.name}
-          width="206"
-          height="144"
-          class="h-[76px] sm:h-[84px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+          width="172"
+          height="120"
+          class="h-[96px] sm:h-[108px] lg:h-[120px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
         />
       </a>
 
       <!-- Live Store Status Indicator (Valencia Time) -->
       <div
         id="header-live-status"
-        class="hidden lg:inline-flex items-center gap-2 pl-5 border-l border-border-subtle text-xs font-mono text-text-muted whitespace-nowrap"
+        class="hidden xl:inline-flex items-center gap-2 pl-5 border-l border-primary/20 text-xs font-mono font-medium text-text-muted whitespace-nowrap"
         aria-live="polite"
         data-weekday-open={SITE.schedule.weekdays.openMinutes}
         data-weekday-close={SITE.schedule.weekdays.closeMinutes}
@@ -58,16 +58,16 @@ const navLinks = [
       </div>
     </div>
 
-    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-2 whitespace-nowrap">
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-1.5 lg:gap-2.5 whitespace-nowrap">
       {navLinks.map((link) => (
         <a
           href={link.href}
           aria-current={link.active ? 'page' : undefined}
           class:list={[
-            'px-4 py-2.5 rounded-lg font-label-button text-sm whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+            'px-4 py-2.5 rounded-xl font-label-button text-lg font-bold uppercase tracking-wide whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             link.active
-              ? 'bg-mint-wash text-primary font-semibold'
-              : 'text-secondary hover:text-surface-dark hover:bg-surface-alt',
+              ? 'bg-white text-primary shadow-xs border border-primary/20'
+              : 'text-surface-dark/80 hover:text-primary hover:bg-white/60',
           ]}
         >
           {link.label}
@@ -75,42 +75,32 @@ const navLinks = [
       ))}
     </nav>
 
-    <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
+    <div class="flex items-center gap-2.5 lg:gap-3 shrink-0 whitespace-nowrap">
       <a
-        class="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg border border-border-subtle hover:border-primary/40 text-surface-dark font-mono text-xs font-semibold whitespace-nowrap transition-all active:scale-[0.98]"
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-primary/20 bg-white/70 hover:bg-white text-surface-dark font-mono text-sm font-bold whitespace-nowrap transition-all active:scale-[0.98]"
         href={SITE.contact.phoneHref}
       >
-        <span class="material-symbols-outlined text-[16px] text-primary leading-none" aria-hidden="true">call</span>
+        <span class="material-symbols-outlined text-[18px] text-primary leading-none" aria-hidden="true">call</span>
         <span class="tabular-nums">{SITE.contact.phoneDisplay}</span>
-      </a>
-
-      <a
-        class="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-sm rounded-lg whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        href={SITE.location.mapsUrl}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <span class="material-symbols-outlined text-[18px] text-primary-fixed leading-none" aria-hidden="true">near_me</span>
-        <span>Cómo llegar</span>
       </a>
 
       <!-- Mobile Menu Disclosure -->
       <details class="md:hidden relative group">
         <summary
           aria-label="Abrir menú de navegación"
-          class="list-none flex items-center justify-center w-11 h-11 rounded-lg border border-border-subtle text-surface-dark hover:bg-surface-alt cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
+          class="list-none flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-white/70 text-surface-dark hover:bg-white cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
         >
-          <span class="material-symbols-outlined text-[24px] group-open:!hidden" aria-hidden="true">menu</span>
-          <span class="material-symbols-outlined text-[24px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
+          <span class="material-symbols-outlined text-[26px] group-open:!hidden" aria-hidden="true">menu</span>
+          <span class="material-symbols-outlined text-[26px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
         </summary>
         <nav
           aria-label="Navegación móvil"
-          class="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-72 max-w-xs bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-2xl p-3 flex flex-col gap-1.5"
+          class="absolute right-0 mt-3 w-[calc(100vw-2rem)] sm:w-80 max-w-xs bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-2xl p-3 flex flex-col gap-1.5"
         >
           <!-- Live Store Status for Mobile -->
           <div
             id="header-mobile-live-status"
-            class="px-3.5 py-2.5 rounded-xl bg-surface-alt/70 border border-border-subtle flex items-center gap-2 text-xs font-mono text-text-muted mb-1"
+            class="px-4 py-3 rounded-xl bg-surface-alt/70 border border-border-subtle flex items-center gap-2 text-xs font-mono font-medium text-text-muted mb-1"
             aria-live="polite"
             data-mobile-status
           >
@@ -123,28 +113,28 @@ const navLinks = [
               href={link.href}
               aria-current={link.active ? 'page' : undefined}
               class:list={[
-                'px-4 py-3 min-h-[44px] flex items-center justify-between rounded-xl font-label-button text-sm transition-colors active:scale-[0.99]',
+                'px-4 py-3.5 min-h-[48px] flex items-center justify-between rounded-xl font-label-button text-base font-bold uppercase tracking-wide transition-colors active:scale-[0.99]',
                 link.active
-                  ? 'bg-mint-wash text-primary font-semibold'
-                  : 'text-surface-dark hover:bg-surface-alt',
+                  ? 'bg-mint-wash text-primary font-bold'
+                  : 'text-surface-dark hover:bg-surface-alt font-bold',
               ]}
             >
               <span>{link.label}</span>
               {link.active && (
-                <span class="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true"></span>
+                <span class="w-2 h-2 rounded-full bg-primary" aria-hidden="true"></span>
               )}
             </a>
           ))}
           <div class="pt-2.5 mt-1 border-t border-border-subtle flex flex-col gap-2">
             <a
-              class="w-full inline-flex items-center justify-center gap-2 px-3.5 py-3 min-h-[44px] bg-surface-alt text-surface-dark font-mono text-xs font-semibold rounded-xl active:scale-[0.99] transition-transform"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 min-h-[48px] bg-surface-alt text-surface-dark font-mono text-sm font-bold rounded-xl active:scale-[0.99] transition-transform"
               href={SITE.contact.phoneHref}
             >
               <span class="material-symbols-outlined text-[18px] text-primary" aria-hidden="true">call</span>
               <span>{SITE.contact.phoneDisplay}</span>
             </a>
             <a
-              class="w-full inline-flex items-center justify-center gap-1.5 px-3.5 py-3 min-h-[44px] bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm rounded-xl active:scale-[0.99] transition-all shadow-sm"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 min-h-[48px] bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base font-bold rounded-xl active:scale-[0.99] transition-all shadow-sm"
               href={SITE.location.mapsUrl}
               rel="noopener noreferrer"
               target="_blank"

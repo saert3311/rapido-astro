@@ -7,13 +7,12 @@ const headerContent = readFileSync(path.resolve('src/components/Header.astro'), 
 const footerContent = readFileSync(path.resolve('src/components/Footer.astro'), 'utf-8');
 
 test('Header logo has enlarged dimensions for higher prominence (TDD Target)', () => {
-  // Target: Logo must be larger than the old h-16 (64px) on mobile and larger than sm:h-[72px] (72px) on desktop.
-  // Target minimums: h-[74px] or higher on mobile, sm:h-[82px] or higher on desktop.
-  const hasEnlargedMobile = /h-\[(7[4-9]|8[0-9])px\]|h-20|h-\[76px\]|h-\[78px\]/.test(headerContent);
-  const hasEnlargedDesktop = /sm:h-\[(8[2-9]|9[0-9])px\]|sm:h-24|sm:h-\[84px\]/.test(headerContent);
+  // Target: Logo is 120px on desktop and enlarged on mobile (>=90px).
+  const hasEnlargedMobile = /h-\[(?:9[0-9]|1[0-1][0-9])px\]|h-24|h-\[(7[4-9]|8[0-9])px\]/.test(headerContent);
+  const hasEnlargedDesktop = /h-\[120px\]|(?:sm:|md:|lg:)h-\[120px\]/.test(headerContent);
 
-  assert.ok(hasEnlargedMobile, 'Header logo must have height >= 74px on mobile (currently h-16 / 64px)');
-  assert.ok(hasEnlargedDesktop, 'Header logo must have height >= 82px on desktop (currently sm:h-[72px])');
+  assert.ok(hasEnlargedMobile, 'Header logo must have enlarged height on mobile');
+  assert.ok(hasEnlargedDesktop, 'Header logo must have 120px height on desktop');
 });
 
 test('Footer logo has enlarged dimensions', () => {

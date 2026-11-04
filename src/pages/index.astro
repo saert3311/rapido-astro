@@ -7,7 +7,7 @@ const ledgerFeatures = [
   {
     index: '01',
     icon: 'local_shipping',
-    title: 'Mercancía Todas las Semanas',
+    title: 'OUTLET de Mercancía Todas las Semanas',
     metric: 'ROTACIÓN CONTINUA',
     description: 'Renovamos nuestras estanterías continuamente con nuevos lotes de outlet, excedentes de primeras marcas y segunda mano revisada.',
   },
@@ -28,9 +28,9 @@ const ledgerFeatures = [
   {
     index: '04',
     icon: 'train',
-    title: 'Estación a 5 Minutos a Pie',
-    metric: '5 MIN A PIE',
-    description: `A 500 m de la ${SITE.location.stationName} (Cercanías C-1/C-2 y MetroBus). Llegada directa en solo 5 minutos de tren desde Valencia Nord.`,
+    title: 'Estación a 1 Minuto a Pie',
+    metric: '1 MIN A PIE',
+    description: `A 100 m de la ${SITE.location.stationName} (Cercanías C-1/C-2 y MetroBus). Llegada directa en solo 1 minuto de tren desde Valencia Nord.`,
   },
 ];
 
@@ -48,7 +48,7 @@ const homeFaqs = [
   {
     icon: 'pin_drop',
     question: `¿Dónde está ubicada la tienda y cómo llegar desde Valencia?`,
-    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>, a solo <strong>5 minutos a pie de la ${SITE.location.stationName}</strong> (líneas C-1 y C-2 de Cercanías Renfe y MetroBus, a 5 min directos desde la estación Valencia Nord). También dispones de rápido acceso por carretera desde la V-31.`,
+    answer: `Estamos en <strong>${SITE.location.fullAddress}</strong>, a solo <strong>1 minuto a pie de la ${SITE.location.stationName}</strong> (líneas C-1 y C-2 de Cercanías Renfe y MetroBus, a 5 min directos desde la estación Valencia Nord). También dispones de rápido acceso por carretera desde la V-31.`,
   },
 ];
 ---
@@ -61,9 +61,9 @@ const homeFaqs = [
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <!-- Columna Editorial Izquierda (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-start text-left">
-            <div class="stagger-item inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
-              <span class="w-2 h-2 rounded-full bg-primary"></span>
-              <span>PAQUETERÍA OFICIAL & OUTLET SEMANAL · ALFAFAR, VALENCIA</span>
+            <div class="stagger-item inline-flex max-w-full items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-[11px] sm:text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
+              <span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+              <span class="truncate">PAQUETERÍA OFICIAL & OUTLET SEMANAL · ALFAFAR, VALENCIA</span>
             </div>
 
             <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold tracking-tighter leading-[1.03] text-surface-dark" style="--index: 1;">
@@ -71,7 +71,7 @@ const homeFaqs = [
             </h1>
 
             <p class="stagger-item mt-5 font-sans text-base sm:text-lg text-text-muted leading-relaxed max-w-[60ch]" style="--index: 2;">
-              Bienvenido a <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> en {SITE.location.shortStreet}. Gestiona tus envíos de Amazon, InPost, GLS, SEUR y CTT sin esperas y encuentra oportunidades de outlet y segunda mano hasta un <strong class="text-surface-dark font-semibold">-{SITE.brand.maxDiscountPct}% PVP</strong> con mesas de prueba con enchufe.
+              Bienvenido a <strong class="text-surface-dark font-semibold">{SITE.brand.name}</strong> en {SITE.location.shortStreet}. Gestiona tus envíos de INPOST, GLS, SEUR y KANGURO sin esperas y encuentra oportunidades de outlet y segunda mano hasta un <strong class="text-surface-dark font-semibold">-{SITE.brand.maxDiscountPct}% PVP</strong> con mesas de prueba con enchufe.
             </p>
 
             <!-- Botones de Acción Hacia los Dos Pilares -->
@@ -96,7 +96,7 @@ const homeFaqs = [
             <div class="stagger-item mt-10 pt-7 border-t border-border-subtle w-full grid grid-cols-3 gap-4 sm:gap-8 divide-x divide-border-subtle" style="--index: 4;">
               <div class="flex flex-col">
                 <span class="font-mono text-xl sm:text-2xl font-bold text-surface-dark tracking-tight">{SITE.carriers.length} Operadores</span>
-                <span class="font-sans text-xs text-text-muted mt-1">Amazon, InPost, GLS, SEUR, CTT</span>
+                <span class="font-sans text-xs text-text-muted mt-1">INPOST, GLS, SEUR, KANGURO</span>
               </div>
               <div class="pl-4 sm:pl-8 flex flex-col">
                 <span class="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight tabular-nums">Semanal</span>
@@ -111,39 +111,36 @@ const homeFaqs = [
 
           <!-- Columna Visual Derecha (5 Cols) -->
           <div class="lg:col-span-5 stagger-item" style="--index: 2;">
-            <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6]">
+            <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.6] group">
               <img
-                class="w-full h-full object-cover"
-                alt={`Interior de la tienda ${SITE.brand.name} en Alfafar`}
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnEht2Eb9QvC4upP9sSNRjPxo_dSrirRJEdm0-jsFXr6qTggNqyXZ-fA1OKH5hhL7UJM9fe8xiY0KDdi_3QA1qnv9VqWq--YXxwiyCvQDHPQhrg7U4tO5vQhGt8Ti1t8vzz1XzMVS0R6pLxi7ayZSBi7sOLz-XTdkJeeY_gaaeCIK-P0ihDsCDeEV7og8cRPxqHJ46zgRA5ReKLKrQ4JDu2PI_pYuUr3E0I_JNw3Yk"
+                class="w-full h-full object-cover object-[53%_center] transition-transform duration-500 group-hover:scale-[1.02]"
+                alt={`Fachada y entrada oficial de la tienda ${SITE.brand.name} en Alfafar`}
+                src="/fachada-rapido-pack-valencia.webp"
                 fetchpriority="high"
-                width="640"
+                width="1142"
                 height="720"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/90 via-surface-dark/25 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/35 via-transparent to-surface-dark/10 pointer-events-none"></div>
 
-              <div class="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
-                <div class="liquid-glass px-3.5 py-2 rounded-xl flex items-center gap-2 text-on-primary text-xs font-mono">
-                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">storefront</span>
-                  <span>TIENDA FÍSICA EN ALFAFAR</span>
+              <!-- Top Floating Badge: Compact and placed at right so it doesn't cover the central sign -->
+              <div class="absolute top-3.5 right-3.5 flex items-center gap-2 pointer-events-none">
+                <div class="liquid-glass px-3 py-1.5 rounded-xl text-primary-fixed font-mono text-xs font-semibold flex items-center gap-1.5 shadow-lg">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary ring-2 ring-primary-fixed/40"></span>
+                  <span>{SITE.location.shortStreet}</span>
                 </div>
-                <span class="liquid-glass px-3 py-2 rounded-xl text-primary-fixed font-mono text-xs font-semibold">
-                  {SITE.location.shortStreet}
-                </span>
               </div>
 
-              <div class="absolute bottom-4 left-4 right-4 liquid-glass p-4 rounded-2xl text-on-primary flex items-start gap-3">
-                <div class="w-10 h-10 rounded-xl bg-primary/25 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed shrink-0">
-                  <span class="material-symbols-outlined text-[20px]" aria-hidden="true">power</span>
+              <!-- Bottom Floating Status Pill: Sleek low profile so entrance threshold is shown -->
+              <div class="absolute bottom-3.5 left-3.5 right-3.5 liquid-glass px-3.5 py-2 rounded-xl text-on-primary flex items-center justify-between gap-2 pointer-events-none">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary-fixed text-[16px]" aria-hidden="true">storefront</span>
+                  <span class="font-display text-xs font-bold text-white">
+                    Entrada Directa · Tienda Física
+                  </span>
                 </div>
-                <div>
-                  <p class="font-display text-sm font-bold text-white leading-snug">
-                    Mesas con tomas de enchufe libres
-                  </p>
-                  <p class="font-sans text-xs text-surface-variant mt-0.5">
-                    Abre el producto, conéctalo a la corriente y pruébalo antes de pagar.
-                  </p>
-                </div>
+                <span class="font-mono text-[11px] text-primary-fixed uppercase tracking-wider shrink-0">
+                  {SITE.schedule.summaryBadge}
+                </span>
               </div>
             </div>
           </div>
@@ -178,7 +175,7 @@ const homeFaqs = [
                   <span class="material-symbols-outlined text-[26px]" aria-hidden="true">package_2</span>
                 </div>
                 <span class="inline-flex items-center px-3 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider">
-                  5 Agencias Homologadas
+                  4 Agencias Homologadas
                 </span>
               </div>
 
@@ -187,7 +184,7 @@ const homeFaqs = [
               </h3>
 
               <p class="font-sans text-base text-text-muted leading-relaxed mb-6">
-                Recogida y devolución express para <strong class="text-surface-dark font-medium">Amazon Hub Counter, InPost Punto Pack, GLS, SEUR y CTT Express</strong>. Devoluciones de Amazon sin imprimir etiquetas, a 5 min a pie de la Estación Alfafar-Benetússer y atención rápida en sala.
+                Recogida y devolución express para <strong class="text-surface-dark font-medium">INPOST, GLS, SEUR y KANGURO</strong>. Gestión ágil de paquetes, a 1 min a pie de la Estación Alfafar-Benetússer y atención directa en sala.
               </p>
 
               <!-- Tags de Agencias -->

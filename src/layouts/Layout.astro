@@ -37,7 +37,7 @@ const {
     rel="stylesheet"
   />
 </head>
-<body class="bg-surface font-sans text-body-regular text-on-surface min-h-[100svh] flex flex-col antialiased selection:bg-mint-wash selection:text-primary">
+<body class="bg-surface font-sans text-body-regular text-on-surface min-h-[100svh] flex flex-col antialiased selection:bg-mint-wash selection:text-primary overflow-x-clip">
   <!-- Performance-safe fixed tactile noise layer (Section 5: DOM Cost) -->
   <div
     aria-hidden="true"
@@ -47,7 +47,7 @@ const {
 
   <Header currentPage={currentPage} />
 
-  <main id="main-content" class="w-full pt-24 bg-surface flex-1">
+  <main id="main-content" class="w-full pt-28 sm:pt-32 lg:pt-36 bg-surface flex-1">
     <slot />
   </main>
 

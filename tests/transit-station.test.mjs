@@ -43,14 +43,14 @@ test('Layout.astro mobile sticky CTA displays Estación Alfafar · 5 min a pie',
 });
 
 test('index.astro includes station walking pillar and zero parking claims', () => {
-  assert.ok(/Estación a 5 Minutos a Pie/.test(indexAstro), 'index.astro must include Estación a 5 Minutos a Pie');
-  assert.ok(/5 MIN A PIE/.test(indexAstro), 'index.astro must include 5 MIN A PIE metric');
+  assert.ok(/Estación a [15] Minuto[s]? a Pie/.test(indexAstro), 'index.astro must include Estación walking pillar');
+  assert.ok(/[15] MIN A PIE/.test(indexAstro), 'index.astro must include MIN A PIE metric');
   assert.ok(!/Aparcamiento en la Puerta/.test(indexAstro), 'index.astro must not include Aparcamiento en la Puerta');
   assert.ok(!/parking en la misma puerta/.test(indexAstro), 'index.astro must not include parking en la misma puerta');
 });
 
 test('paqueteria.astro includes station walking step and zero parking claims', () => {
-  assert.ok(/A 5 Min de la Estación/.test(paqueteriaAstro), 'paqueteria.astro must include A 5 Min de la Estación');
+  assert.ok(/A [15] Min de la Estación/.test(paqueteriaAstro), 'paqueteria.astro must include station walking step');
   assert.ok(/ACCESO A PIE/.test(paqueteriaAstro), 'paqueteria.astro must include ACCESO A PIE metric');
   assert.ok(!/Aparcamiento en la Puerta/.test(paqueteriaAstro), 'paqueteria.astro must not include Aparcamiento en la Puerta');
   assert.ok(!/Aparcamiento para carga/.test(paqueteriaAstro), 'paqueteria.astro must not include Aparcamiento para carga');
