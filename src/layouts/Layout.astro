@@ -8,12 +8,14 @@ interface Props {
   title: string;
   description?: string;
   currentPage?: 'home' | 'paqueteria' | 'outlet' | 'contacto';
+  preloadImage?: string;
 }
 
 const {
   title,
   description = SITE.brand.metaDescription,
   currentPage = 'home',
+  preloadImage,
 } = Astro.props;
 ---
 
@@ -34,6 +36,9 @@ const {
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
+  {preloadImage && (
+    <link rel="preload" as="image" href={preloadImage} type="image/webp" fetchpriority="high" />
+  )}
 </head>
 <body class="bg-surface font-sans text-body-regular text-on-surface min-h-[100svh] flex flex-col antialiased selection:bg-mint-wash selection:text-primary overflow-x-clip">
   <!-- Performance-safe fixed tactile noise layer (Section 5: DOM Cost) -->

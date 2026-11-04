@@ -1,0 +1,9 @@
+# Static assets with hash in filename or immutable media
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
