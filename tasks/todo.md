@@ -56,12 +56,12 @@
 ## Task 4: Layout Global, Metadatos Canónicos, Redes Sociales y Schema.org JSON-LD (`src/layouts/Layout.astro`)
 **Description:** Modificar `src/layouts/Layout.astro` para inyectar la URL canónica autorreferenciada, las metaetiquetas OpenGraph y Twitter Cards, y el script semántico JSON-LD `Store` / `LocalBusiness` con los datos exactos de Alfafar.
 **Acceptance criteria:**
-- [ ] Inyección de `<link rel="canonical" href={canonicalURL} />`.
-- [ ] Metaetiquetas `og:site_name`, `og:title`, `og:description`, `og:url`, `og:type`, `og:locale`, `og:image`.
-- [ ] Metaetiquetas `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`.
-- [ ] `<script type="application/ld+json">` con `@type: ["Store", "LocalBusiness"]`, geolocalización, dirección, horarios de apertura y teléfono.
+- [x] Inyección de `<link rel="canonical" href={canonicalURL} />`.
+- [x] Metaetiquetas `og:site_name`, `og:title`, `og:description`, `og:url`, `og:type`, `og:locale`, `og:image`.
+- [x] Metaetiquetas `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`.
+- [x] `<script type="application/ld+json">` con `@type: ["Store", "LocalBusiness"]`, geolocalización, dirección, horarios de apertura y teléfono.
 **Verification:**
-- [ ] Tests relevantes de Schema, Canónicas y OpenGraph en `npm test` pasan a verde.
+- [x] Tests relevantes de Schema, Canónicas y OpenGraph en `npm test` pasan a verde.
 **Dependencies:** Task 1, Task 3
 **Files likely touched:**
 - `src/layouts/Layout.astro`
@@ -72,11 +72,11 @@
 ## Task 5: Páginas Legales y Cumplimiento Normativo E-E-A-T / RGPD
 **Description:** Crear `src/pages/aviso-legal.astro` y `src/pages/privacidad.astro` siguiendo el diseño tipográfico y de componentes del sitio. Añadir enlaces legales en `Footer.astro` y cláusula informativa con enlace en `ContactForm.astro`.
 **Acceptance criteria:**
-- [ ] `src/pages/aviso-legal.astro` y `src/pages/privacidad.astro` creadas con diseño coherente con Tailwind v4.
-- [ ] `Footer.astro` incluye enlaces visibles a `/aviso-legal` y `/privacidad`.
-- [ ] `ContactForm.astro` incluye texto informativo sobre el tratamiento de datos y enlace a la política de privacidad.
+- [x] `src/pages/aviso-legal.astro` y `src/pages/privacidad.astro` creadas con diseño coherente con Tailwind v4.
+- [x] `Footer.astro` incluye enlaces visibles a `/aviso-legal` y `/privacidad`.
+- [x] `ContactForm.astro` incluye texto informativo sobre el tratamiento de datos y enlace a la política de privacidad.
 **Verification:**
-- [ ] Tests de páginas legales y RGPD en `npm test` pasan a verde.
+- [x] Tests de páginas legales y RGPD en `npm test` pasan a verde.
 **Dependencies:** Task 1, Task 3, Task 4
 **Files likely touched:**
 - `src/pages/aviso-legal.astro`
@@ -90,11 +90,11 @@
 ## Task 6: Calibración On-Page SERP de Títulos y Descripciones en las 4 Rutas
 **Description:** Calibrar los valores de `title` (entre 45 y 60 caracteres) y `description` (entre 135 y 155 caracteres) en `index.astro`, `paqueteria.astro`, `outlet.astro` y `contacto.astro` para eliminar cualquier truncamiento en las SERPs de Google.
 **Acceptance criteria:**
-- [ ] `<title>` de cada una de las 4 páginas principales está dentro del rango óptimo de 45–60 caracteres.
-- [ ] `<meta name="description">` de cada página está dentro del rango óptimo de 135–155 caracteres.
-- [ ] Los términos de alta intención de búsqueda local aparecen al inicio del título.
+- [x] `<title>` de cada una de las 4 páginas principales está dentro del rango óptimo de 45–60 caracteres.
+- [x] `<meta name="description">` de cada página está dentro del rango óptimo de 135–155 caracteres.
+- [x] Los términos de alta intención de búsqueda local aparecen al inicio del título.
 **Verification:**
-- [ ] Test de longitud de títulos y descripciones en `npm test` pasa al 100%.
+- [x] Test de longitud de títulos y descripciones en `npm test` pasa al 100%.
 **Dependencies:** Task 3, Task 4
 **Files likely touched:**
 - `src/pages/index.astro`
@@ -108,14 +108,14 @@
 ## Task 7: Verificación TDD Green, Build Estático y Re-Auditoría SEO
 **Description:** Ejecutar la suite completa de pruebas, realizar la compilación estática de producción `npm run build`, verificar los artefactos generados en `dist/`, comprobar el comportamiento en navegador y actualizar el informe de auditoría confirmando el SEO Health Index >95/100.
 **Acceptance criteria:**
-- [ ] `npm test` pasa al 100% (todas las pruebas verdes).
-- [ ] `npm run build` compila con 0 errores TypeScript y genera `dist/` completo con `robots.txt`, sitemaps y HTMLs con JSON-LD.
-- [ ] Verificación de navegador sin advertencias ni errores en consola.
-- [ ] Informe de SEO actualizado con la puntuación superando los 95 puntos.
+- [x] `npm test` pasa al 100% (todas las pruebas verdes).
+- [x] `npm run build` compila con 0 errores TypeScript y genera `dist/` completo con `robots.txt`, sitemaps y HTMLs con JSON-LD.
+- [x] Verificación de navegador sin advertencias ni errores en consola.
+- [x] Informe de SEO actualizado con la puntuación superando los 95 puntos.
 **Verification:**
-- [ ] `npm test`
-- [ ] `npm run build`
-- [ ] `node scripts/verify-browser.mjs`
+- [x] `npm test`
+- [x] `npm run build`
+- [x] `node scripts/verify-browser.mjs`
 **Dependencies:** Tasks 1-6
 **Files likely touched:**
 - `tasks/todo.md`

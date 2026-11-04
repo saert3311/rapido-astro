@@ -33,7 +33,7 @@ export const SITE = {
     cityTag: 'Valencia · Alfafar',
     tagline: 'Tienda Outlet, Segunda Mano y Punto de Paquetería',
     metaDescription:
-      'Outlet físico y punto de paquetería en Alfafar (Valencia). Primeras marcas y productos de segunda mano con hasta -70% PVP revisados en tienda con banco de pruebas con enchufe. Stock renovado todas las semanas.',
+      'Punto oficial de paquetería y tienda outlet de segunda mano en Alfafar (Valencia). Chollos hasta -70% con banco de pruebas. A 5 min de la estación.',
     maxDiscountPct: 70,
     restockFrequency: 'Semanal',
   },

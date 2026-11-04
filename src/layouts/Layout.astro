@@ -7,8 +7,9 @@ import { SITE } from '../config/site';
 interface Props {
   title: string;
   description?: string;
-  currentPage?: 'home' | 'paqueteria' | 'outlet' | 'contacto';
+  currentPage?: 'home' | 'paqueteria' | 'outlet' | 'contacto' | 'legal';
   preloadImage?: string;
+  socialImage?: string;
 }
 
 const {
@@ -16,7 +17,57 @@ const {
   description = SITE.brand.metaDescription,
   currentPage = 'home',
   preloadImage,
+  socialImage = '/fachada-rapido-pack-valencia.webp',
 } = Astro.props;
+
+const siteBase = Astro.site ? Astro.site.toString() : SITE.brand.canonicalBase;
+const canonicalURL = new URL(Astro.url.pathname, siteBase).href;
+const socialImageURL = new URL(socialImage, siteBase).href;
+
+const schemaStore = {
+  '@context': 'https://schema.org',
+  '@type': ['Store', 'LocalBusiness'],
+  '@id': `${SITE.brand.canonicalBase}/#store`,
+  name: SITE.brand.name,
+  legalName: SITE.brand.name,
+  url: SITE.brand.canonicalBase,
+  logo: `${SITE.brand.canonicalBase}/logo-rapido-pack-valencia.png`,
+  image: socialImageURL,
+  telephone: `+34${SITE.contact.phoneRaw}`,
+  email: SITE.contact.email,
+  priceRange: '€',
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Cash, Credit Card, Mobile Payment',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.location.street,
+    addressLocality: SITE.location.city,
+    postalCode: SITE.location.postalCode,
+    addressRegion: SITE.location.province,
+    addressCountry: 'ES',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: SITE.location.geo.latitude,
+    longitude: SITE.location.geo.longitude,
+  },
+  hasMap: SITE.location.mapsUrl,
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: SITE.schedule.weekdays.open,
+      closes: SITE.schedule.weekdays.close,
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: SITE.schedule.saturday.open,
+      closes: SITE.schedule.saturday.close,
+    },
+  ],
+  sameAs: [SITE.location.mapsUrl],
+};
 ---
 
 <!DOCTYPE html>
@@ -27,6 +78,27 @@ const {
   <meta name="description" content={description} />
   <link rel="icon" type="image/png" href="/logo-rapido-pack-valencia.png" />
   <title>{title}</title>
+
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:site_name" content={SITE.brand.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:image" content={socialImageURL} />
+  <meta property="og:image:alt" content={SITE.brand.name} />
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={socialImageURL} />
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schemaStore)} />
 
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
@@ -48,7 +120,7 @@ const {
     style="background-image: radial-gradient(#111820 0.75px, transparent 0.75px); background-size: 16px 16px;"
   ></div>
 
-  <Header currentPage={currentPage} />
+  <Header currentPage={currentPage === 'legal' ? undefined : currentPage} />
 
   <main id="main-content" class="w-full pt-28 sm:pt-32 lg:pt-36 bg-surface flex-1">
     <slot />

@@ -1,0 +1,129 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+import { LEGAL } from '../config/legal';
+
+const title = `Política de Privacidad · ${SITE.brand.name}`;
+const description = `Información sobre el tratamiento de datos personales conforme al RGPD y la LOPDGDD por ${SITE.brand.name} en Alfafar. Derechos de acceso y rectificación.`;
+---
+
+<Layout title={title} description={description} currentPage="legal">
+  <div class="w-full bg-surface-container-lowest border-b border-border-subtle py-12 lg:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider">
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">security</span>
+          Protección de Datos (RGPD)
+        </span>
+      </div>
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-surface-dark tracking-tight text-balance">
+        Política de Privacidad
+      </h1>
+      <p class="mt-4 font-sans text-base sm:text-lg text-secondary leading-relaxed text-pretty">
+        En {SITE.brand.name} nos comprometemos a garantizar la seguridad y confidencialidad de tus datos de carácter personal, en estricto cumplimiento del Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).
+      </p>
+    </div>
+  </div>
+
+  <section class="py-12 lg:py-16 bg-surface">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- 01. Responsable del Tratamiento -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-2 block">
+          01 // Responsable
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark mb-4">
+          1. Responsable del Tratamiento de tus Datos
+        </h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-sm">
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Identidad</dt>
+            <dd class="text-on-surface font-medium mt-1">{LEGAL.legalName}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">NIF / CIF</dt>
+            <dd class="text-on-surface font-mono font-medium mt-1">{LEGAL.nif}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle sm:col-span-2">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Dirección Postal</dt>
+            <dd class="text-on-surface font-medium mt-1">{LEGAL.address}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Correo de Privacidad</dt>
+            <dd class="mt-1">
+              <a href={`mailto:${LEGAL.dpoEmail}`} class="text-primary hover:underline font-mono">{LEGAL.dpoEmail}</a>
+            </dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Teléfono</dt>
+            <dd class="mt-1">
+              <a href={`tel:${SITE.contact.phoneRaw}`} class="text-primary hover:underline font-mono">{LEGAL.phone}</a>
+            </dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- 02. Finalidad y Legitimación -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          02 // Finalidad
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          2. Finalidad del Tratamiento y Base Jurídica
+        </h2>
+        <div class="space-y-3 font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          <p>
+            Tratamos los datos personales facilitados a través de nuestro formulario de contacto o canales directos (correo electrónico y teléfono) con las siguientes finalidades:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-on-surface">
+            <li><strong>Atención de consultas:</strong> Responder a solicitudes de información sobre disponibilidad de lotes outlet, horarios o gestiones de paquetería en Alfafar.</li>
+            <li><strong>Base de legitimación:</strong> El consentimiento inequívoco otorgado al marcar la casilla de aceptación previa al envío del formulario (art. 6.1.a RGPD).</li>
+          </ul>
+          <p>
+            No realizamos envíos de publicidad no solicitada ni elaboramos perfiles comerciales automatizados con tus datos de contacto.
+          </p>
+        </div>
+      </article>
+
+      <!-- 03. Conservación y Cesión -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          03 // Conservación
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          3. Conservación de los Datos y Destinatarios
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Los datos personales se conservarán durante el tiempo estrictamente necesario para atender y resolver tu solicitud de información, procediéndose a su posterior supresión una vez finalizada la gestión, salvo obligación legal.
+        </p>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          No se ceden datos a terceros salvo obligación legal. Para el servicio oficial de paquetería (<strong class="text-on-surface">InPost, GLS, SEUR y Kanguro</strong>), la gestión de expedición y entrega se rige por las políticas de privacidad y los contratos de transporte de cada operador logístico correspondiente.
+        </p>
+      </article>
+
+      <!-- 04. Derechos del Usuario -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          04 // Tus Derechos
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          4. Ejercicio de Derechos RGPD
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Puedes ejercer en cualquier momento tus derechos de <strong>acceso, rectificación, supresión, limitación del tratamiento, portabilidad y oposición</strong> enviando una comunicación escrita, acompañada de acreditación de identidad, a:
+        </p>
+        <div class="p-4 bg-surface-alt/60 rounded-xl border border-border-subtle font-mono text-xs space-y-1">
+          <p class="text-on-surface font-semibold">{LEGAL.legalName} — Atención de Derechos RGPD</p>
+          <p class="text-secondary">{LEGAL.address}</p>
+          <p class="text-primary"><a href={`mailto:${LEGAL.dpoEmail}`} class="hover:underline">{LEGAL.dpoEmail}</a></p>
+        </div>
+        <p class="font-sans text-sm text-secondary leading-relaxed">
+          Asimismo, si consideras que tus derechos no han sido debidamente atendidos, tienes derecho a presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" class="text-primary underline">Agencia Española de Protección de Datos (AEPD)</a>.
+        </p>
+        <div class="pt-4 border-t border-border-subtle text-xs font-mono text-secondary">
+          Última actualización: {LEGAL.lastUpdated}
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>

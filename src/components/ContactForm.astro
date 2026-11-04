@@ -153,7 +153,7 @@ import { SITE } from '../config/site';
       </div>
     </div>
 
-    <!-- Privacy Checkbox -->
+    <!-- Privacy Checkbox & RGPD Informative Notice -->
     <div class="field flex flex-col pt-1">
       <div class="flex items-start gap-2.5">
         <input
@@ -165,9 +165,12 @@ import { SITE } from '../config/site';
           aria-errormessage="privacy-error"
         />
         <label class="font-sans text-xs text-secondary cursor-pointer select-none leading-relaxed" for="privacy-check">
-          He leído y acepto la <span class="text-on-surface font-semibold underline">política de privacidad</span> y el tratamiento de mis datos exclusivamente para atender esta solicitud. <span class="text-primary" aria-hidden="true">*</span>
+          He leído y acepto la <a href="/privacidad" target="_blank" class="text-on-surface font-semibold underline decoration-primary hover:text-primary transition-colors">política de privacidad</a> y el tratamiento de mis datos exclusivamente para responder a esta solicitud. <span class="text-primary" aria-hidden="true">*</span>
         </label>
       </div>
+      <p class="font-mono text-[11px] text-text-muted mt-2 ml-6.5 leading-normal">
+        Responsable: {SITE.brand.name} · Finalidad: Gestión de consultas y contacto · Derechos: Acceso, rectificación y supresión en {SITE.contact.email}.
+      </p>
     </div>
 
     <!-- Submit Button & Full Interaction Cycle (Rule 5: Loading + Success + Tactile States) -->

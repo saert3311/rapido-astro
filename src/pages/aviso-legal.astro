@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+import { LEGAL } from '../config/legal';
+
+const title = `Aviso Legal y LSSI-CE · ${SITE.brand.name}`;
+const description = `Información legal, titularidad mercantil y condiciones generales de uso del sitio web oficial de ${SITE.brand.name} en ${SITE.location.city} (${SITE.location.province}).`;
+---
+
+<Layout title={title} description={description} currentPage="legal">
+  <div class="w-full bg-surface-container-lowest border-b border-border-subtle py-12 lg:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider">
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">gavel</span>
+          Cumplimiento LSSI-CE
+        </span>
+      </div>
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-surface-dark tracking-tight text-balance">
+        Aviso Legal
+      </h1>
+      <p class="mt-4 font-sans text-base sm:text-lg text-secondary leading-relaxed text-pretty">
+        En cumplimiento con el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se ponen a disposición de los usuarios los datos identificativos del titular de este sitio web.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-12 lg:py-16 bg-surface">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- 01. Datos Identificativos -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-2 block">
+          01 // Titularidad
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark mb-4">
+          1. Datos Identificativos del Responsable
+        </h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans text-sm">
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Nombre comercial</dt>
+            <dd class="text-on-surface font-medium mt-1">{LEGAL.tradeName}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">NIF / CIF</dt>
+            <dd class="text-on-surface font-mono font-medium mt-1">{LEGAL.nif}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle sm:col-span-2">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Domicilio social y establecimiento físico</dt>
+            <dd class="text-on-surface font-medium mt-1">{LEGAL.address}</dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Correo de contacto</dt>
+            <dd class="mt-1">
+              <a href={`mailto:${LEGAL.email}`} class="text-primary hover:underline font-mono">{LEGAL.email}</a>
+            </dd>
+          </div>
+          <div class="p-3.5 bg-surface-alt/50 rounded-xl border border-border-subtle">
+            <dt class="font-mono text-xs text-secondary uppercase font-semibold">Teléfono de atención</dt>
+            <dd class="mt-1">
+              <a href={`tel:${SITE.contact.phoneRaw}`} class="text-primary hover:underline font-mono">{LEGAL.phone}</a>
+            </dd>
+          </div>
+        </dl>
+      </article>
+
+      <!-- 02. Objeto y Condiciones de Uso -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          02 // Condiciones
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          2. Objeto y Condiciones Generales de Uso
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          El presente sitio web tiene por finalidad informar a los usuarios sobre los servicios de punto oficial de paquetería multirred (<strong class="text-on-surface">InPost, GLS, SEUR y Kanguro</strong>) y la exposición de artículos outlet de primeras marcas y productos de segunda mano revisados físicamente en nuestro establecimiento de Alfafar.
+        </p>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          El acceso y navegación por este sitio web atribuye la condición de usuario, implicando la aceptación plena de las presentes disposiciones. La utilización del sitio web se realiza bajo la exclusiva responsabilidad del usuario.
+        </p>
+      </article>
+
+      <!-- 03. Naturaleza Presencial del Comercio -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          03 // Alcance Comercial
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          3. Carácter Presencial de la Actividad Comercial
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          {SITE.brand.name} comercializa sus artículos de outlet y segunda mano <strong class="text-on-surface">exclusivamente de manera física y presencial</strong> en su local comercial de Alfafar. No se realizan operaciones de venta electrónica, pasarelas de pago online ni envíos de stock comercial a domicilio.
+        </p>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Los productos expuestos en la web son ilustrativos de las categorías habituales y las entradas periódicas de mercancía. La disponibilidad real, el precio final y el estado específico de cada unidad se verifican presencialmente por el cliente en el banco de pruebas habilitado en la tienda.
+        </p>
+      </article>
+
+      <!-- 04. Propiedad Intelectual -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          04 // Propiedad Intelectual
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          4. Propiedad Intelectual e Industrial
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Todos los contenidos de este sitio web, incluyendo textos, fotografías, logotipos corporativos, combinaciones cromáticas, estructura y diseño visual, son titularidad de {LEGAL.tradeName} o de terceros debidamente autorizados, encontrándose protegidos por las leyes de propiedad intelectual e industrial.
+        </p>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Las marcas comerciales y logotipos de las compañías de transporte (<strong class="text-on-surface">InPost, GLS, SEUR, Kanguro</strong>) pertenecen a sus legítimos titulares y se mencionan exclusivamente con carácter identificativo de la red oficial de puntos de recogida y entrega.
+        </p>
+      </article>
+
+      <!-- 05. Ley y Jurisdicción -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          05 // Jurisdicción
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          5. Legislación Aplicable y Fuero
+        </h2>
+        <p class="font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          Para la resolución de cualquier controversia relativa a este sitio web o a las actividades en él desarrolladas, será de aplicación la legislación española vigente, sometiéndose expresamente las partes a los Juzgados y Tribunales de la ciudad de Valencia.
+        </p>
+        <div class="pt-4 border-t border-border-subtle text-xs font-mono text-secondary">
+          Última actualización: {LEGAL.lastUpdated}
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>
