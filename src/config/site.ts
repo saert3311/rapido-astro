@@ -28,6 +28,8 @@ export const SITE = {
   brand: {
     name: 'Rápido Pack Valencia',
     shortName: 'Rápido Pack',
+    domain: 'https://rapidopackvalencia.es',
+    canonicalBase: 'https://rapidopackvalencia.es',
     cityTag: 'Valencia · Alfafar',
     tagline: 'Tienda Outlet, Segunda Mano y Punto de Paquetería',
     metaDescription:
@@ -41,8 +43,8 @@ export const SITE = {
     phoneRaw: digitsPhone,
     phoneHref: `tel:${digitsPhone}`,
     whatsappHref: `https://wa.me/${countryCode}${digitsPhone}`,
-    email: 'contacto@rapidopack.es',
-    emailHref: 'mailto:contacto@rapidopack.es',
+    email: 'contacto@rapidopackvalencia.es',
+    emailHref: 'mailto:contacto@rapidopackvalencia.es',
   },
 
   location: {
@@ -52,6 +54,10 @@ export const SITE = {
     city,
     province,
     fullAddress,
+    geo: {
+      latitude: 39.4216,
+      longitude: -0.3855,
+    },
     stationName: 'Estación Alfafar-Benetússer',
     stationWalkMinutes: 1,
     stationWalkLabel: '1 min a pie',

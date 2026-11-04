@@ -3,11 +3,11 @@
 ## Task 1: Dominio, Coordenadas y Configuración Legal (`src/config/site.ts` & `src/config/legal.ts`)
 **Description:** Actualizar el dominio base a `https://rapidopackvalencia.es`, el correo a `contacto@rapidopackvalencia.es`, añadir coordenadas geográficas (`lat`, `lng`) a `SITE.location`, y crear `src/config/legal.ts` con titularidad, domicilio, correo y marcador editable para el NIF/CIF.
 **Acceptance criteria:**
-- [ ] `SITE.brand.domain` y `SITE.contact.email` apuntan a `rapidopackvalencia.es`.
-- [ ] `SITE.location.geo` exporta `latitude: 39.4216` y `longitude: -0.3855`.
-- [ ] `src/config/legal.ts` exporta `LEGAL` con razón social, titular, dirección, correo y `nif: '[NIF/CIF pendiente de asignación]'`.
+- [x] `SITE.brand.domain` y `SITE.contact.email` apuntan a `rapidopackvalencia.es`.
+- [x] `SITE.location.geo` exporta `latitude: 39.4216` y `longitude: -0.3855`.
+- [x] `src/config/legal.ts` exporta `LEGAL` con razón social, titular, dirección, correo y `nif: '[NIF/CIF pendiente de asignación]'`.
 **Verification:**
-- [ ] `npm run build` o comprobación de tipos TypeScript.
+- [x] `npm run build` o comprobación de tipos TypeScript.
 **Dependencies:** None
 **Files likely touched:**
 - `src/config/site.ts`
@@ -19,10 +19,10 @@
 ## Task 2: Infraestructura de Indexación (`astro.config.mjs`, `@astrojs/sitemap` y `public/robots.txt`)
 **Description:** Configurar `site: 'https://rapidopackvalencia.es'` en `astro.config.mjs`, instalar e integrar `@astrojs/sitemap`, y crear `public/robots.txt` permitiendo todo el rastreo y apuntando al sitemap oficial.
 **Acceptance criteria:**
-- [ ] `astro.config.mjs` contiene `site: 'https://rapidopackvalencia.es'` y la integración `@astrojs/sitemap()`.
-- [ ] `public/robots.txt` contiene `User-agent: *`, `Allow: /` y `Sitemap: https://rapidopackvalencia.es/sitemap-index.xml`.
+- [x] `astro.config.mjs` contiene `site: 'https://rapidopackvalencia.es'` y la integración `@astrojs/sitemap()`.
+- [x] `public/robots.txt` contiene `User-agent: *`, `Allow: /` y `Sitemap: https://rapidopackvalencia.es/sitemap-index.xml`.
 **Verification:**
-- [ ] `npm run build` genera `dist/robots.txt` y `dist/sitemap-index.xml`.
+- [x] `npm run build` genera `dist/robots.txt` y `dist/sitemap-index.xml`.
 **Dependencies:** Task 1
 **Files likely touched:**
 - `astro.config.mjs`
@@ -35,10 +35,10 @@
 ## Task 3: Suite TDD de Pruebas Automatizadas (`tests/seo.test.mjs`) [Fase RED]
 **Description:** Crear una suite de pruebas automatizada con el Node.js test runner que verifique los 9 hallazgos de auditoría (robots.txt, sitemap, canónicas, OpenGraph/Twitter, longitud de titles, longitud de descripciones, Schema.org JSON-LD, páginas legales y RGPD en footer y formulario).
 **Acceptance criteria:**
-- [ ] `tests/seo.test.mjs` define pruebas unitarias e integrales para los 9 criterios de la especificación.
-- [ ] `npm test` ejecuta la suite (entra en fase RED para los requerimientos aún no implementados).
+- [x] `tests/seo.test.mjs` define pruebas unitarias e integrales para los 9 criterios de la especificación.
+- [x] `npm test` ejecuta la suite (entra en fase RED para los requerimientos aún no implementados).
 **Verification:**
-- [ ] `npm test` reporta fallos esperados correspondientes a las fases pendientes.
+- [x] `npm test` reporta fallos esperados correspondientes a las fases pendientes.
 **Dependencies:** Task 1, Task 2
 **Files likely touched:**
 - `tests/seo.test.mjs`
@@ -47,9 +47,9 @@
 ---
 
 ## Checkpoint: Tras Tasks 1-3
-- [ ] Configuración y dominio centralizados en `site.ts` y `legal.ts`.
-- [ ] `robots.txt` e integración de sitemap creados.
-- [ ] Suite TDD definida en estado RED con aserciones rigurosas.
+- [x] Configuración y dominio centralizados en `site.ts` y `legal.ts`.
+- [x] `robots.txt` e integración de sitemap creados.
+- [x] Suite TDD definida en estado RED con aserciones rigurosas.
 
 ---
 

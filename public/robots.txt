@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rapidopackvalencia.es/sitemap-index.xml
