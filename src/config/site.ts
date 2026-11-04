@@ -53,7 +53,7 @@ export const SITE = {
     province,
     fullAddress,
     stationName: 'Estación Alfafar-Benetússer',
-    stationWalkMinutes: 5,
+    stationWalkMinutes: 1,
     stationWalkLabel: '1 min a pie',
     stationNote: 'A 5 min por la Estación Alfafar-Benetússer (Cercanías / MetroBus)',
     stationLine: 'Cercanías C-1 / C-2 (directo 5 min desde Valencia Nord)',

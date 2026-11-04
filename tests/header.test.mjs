@@ -142,9 +142,11 @@ describe('Header component - Logo & Typography specifications (TDD)', () => {
     // Header action area should not have desktop "Cómo llegar" button
     const actionAreaMatch = headerSource.match(/<div class="flex items-center gap-2\.5[\s\S]*?<\/div>\s*<\/div>\s*<\/header>/);
     assert.ok(actionAreaMatch, 'Header right action area must exist');
+    // Header desktop action area outside <details> should not have "Cómo llegar" button
+    const desktopActionArea = actionAreaMatch[0].split('<details')[0];
     assert.ok(
-      !actionAreaMatch[0].includes('Cómo llegar</span>\n      </a>'),
-      'Header topbar must not have desktop "Cómo llegar" button'
+      !desktopActionArea.includes('Cómo llegar'),
+      'Header desktop topbar must not have desktop "Cómo llegar" button'
     );
   });
 });
