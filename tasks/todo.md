@@ -1,87 +1,83 @@
-# Tasks: Transición a "Tienda Online Próximamente" (`SPEC-online-store-coming-soon`)
+# Tasks: Integración Parametrizada de Google Tag Manager (`SPEC-google-tag-manager`)
 
-## Task 1: Suite TDD de Pruebas Automatizadas (`tests/online-store-copy.test.mjs`) [Fase RED]
-**Description:** Crear un archivo de prueba automatizado con Node.js test runner que verifique la ausencia de "no disponemos de tienda online", "100% presencial", y "No se realizan operaciones de venta electrónica" en `src/`, la presencia del anuncio "tienda online próximamente" en `index.astro`, `outlet.astro` y `aviso-legal.astro`, la presencia del chip en el Hero de `index.astro`, y la no existencia de archivos no solicitados de catálogo/vitrina.
+## Task 1: Suite TDD de Pruebas Automatizadas (`tests/gtm.test.mjs`) [Fase RED]
+**Description:** Crear una suite de pruebas con el test runner nativo de Node.js (`node:test`) que verifique:
+1. `SITE.analytics.gtmId` está definido y configurado con `'GTM-PGBXBVXJ'`.
+2. `src/components/GoogleTagManager.astro` existe y contiene los elementos `<script is:inline>` requeridos por la especificación.
+3. `src/layouts/Layout.astro` importa e incluye `<GoogleTagManager />` dentro de `<head>`.
+4. La compilación estática de producción genera el snippet de GTM en los archivos HTML (`dist/index.html`).
 **Acceptance criteria:**
-- [x] `tests/online-store-copy.test.mjs` creado con las aserciones de la spec.
-- [x] `node --test tests/online-store-copy.test.mjs` falla inicialmente señalando los textos a cambiar (Fase RED).
+- [ ] Archivo `tests/gtm.test.mjs` creado.
+- [ ] Ejecución inicial `node --test tests/gtm.test.mjs` falla (Fase RED), evidenciando la falta del componente y configuración.
 **Verification:**
-- [x] `node --test tests/online-store-copy.test.mjs`
+- `node --test tests/gtm.test.mjs`
 **Dependencies:** None
 **Files likely touched:**
-- `tests/online-store-copy.test.mjs`
+- `tests/gtm.test.mjs`
 **Estimated scope:** Small (1 file)
 
 ---
 
-## Task 2: Actualización de Reglas de Negocio en Documentación (`AGENTS.md`)
-**Description:** Modificar el Gotcha nº 7 (Business Domain Boundaries) en `AGENTS.md` para reflejar que la tienda online oficial está en desarrollo y puede anunciarse como "próximamente", manteniendo las fronteras de no añadir carrito ni prometer reservas telefónicas.
+## Task 2: Configuración y Parametrización en `src/config/site.ts`
+**Description:** Extender el objeto de configuración `SITE` en `src/config/site.ts` con una propiedad `analytics: { gtmId: string }`, permitiendo override mediante `import.meta.env.PUBLIC_GTM_ID || 'GTM-PGBXBVXJ'`.
 **Acceptance criteria:**
-- [x] `AGENTS.md` actualizado sin afirmar que el negocio vende exclusivamente "100% in-person forever" sin e-commerce.
+- [ ] `SITE.analytics.gtmId` está disponible y tipado.
+- [ ] El valor por defecto es `'GTM-PGBXBVXJ'`.
 **Verification:**
-- [x] Inspección visual de `AGENTS.md`.
+- Test unitario en `tests/gtm.test.mjs`.
 **Dependencies:** Task 1
 **Files likely touched:**
-- `AGENTS.md`
+- `src/config/site.ts`
 **Estimated scope:** Small (1 file)
 
 ---
 
-## Task 3: Actualización de Portada (`src/pages/index.astro`)
-**Description:** Añadir el chip informativo en el Hero de `index.astro` ("Tienda online próximamente · Hoy en Alfafar") y actualizar la respuesta de la FAQ sobre compra online indicando que la tienda online está en desarrollo y llegará pronto.
+## Task 3: Componente Astro Dedicado (`src/components/GoogleTagManager.astro`)
+**Description:** Crear `src/components/GoogleTagManager.astro` que acepte props opcionales (`gtmId?: string`, `forceEnable?: boolean`). Evaluar gating mediante `import.meta.env.PROD || forceEnable || import.meta.env.PUBLIC_GTM_FORCE === 'true'`. Si está activo y `gtmId` está presente, renderizar los resource hints (`dns-prefetch` y `preconnect`) y los dos scripts con la directiva `is:inline`:
+1. `<script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${containerId}`}></script>`
+2. `<script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());</script>`
 **Acceptance criteria:**
-- [x] Hero de `index.astro` incluye el chip visual estilizado con tokens del proyecto.
-- [x] FAQ de `index.astro` actualizada indicando que la tienda online está en desarrollo.
-- [x] Cero menciones a "no disponemos de tienda online" ni "100% presencial".
+- [ ] Componente creado con directivas `is:inline`.
+- [ ] No incluye iframe `<noscript>`.
+- [ ] Respeta el gating de producción.
 **Verification:**
-- [x] `node --test tests/online-store-copy.test.mjs`
-**Dependencies:** Task 1
+- Test unitario en `tests/gtm.test.mjs`.
+**Dependencies:** Task 2
 **Files likely touched:**
-- `src/pages/index.astro`
+- `src/components/GoogleTagManager.astro`
 **Estimated scope:** Small (1 file)
 
 ---
 
-## Task 4: Actualización de Outlet (`src/pages/outlet.astro`)
-**Description:** Actualizar la FAQ sobre el listado online en `outlet.astro` ("Aún no. Hoy las unidades se venden en tienda... Nuestra tienda online está en camino y llegará pronto") y cambiar el badge de la imagen de chollos de "Venta 100% presencial" a "Hoy en tienda · Online próximamente".
+## Task 4: Inserción en el Layout Base (`src/layouts/Layout.astro`)
+**Description:** Importar `<GoogleTagManager />` en `src/layouts/Layout.astro` e insertarlo dentro de `<head>`, asegurando que todas las páginas del sitio reciban el contenedor sin repetición de código.
 **Acceptance criteria:**
-- [x] FAQ de `outlet.astro` actualizada.
-- [x] Badge L256 actualizado a "Hoy en tienda · Online próximamente".
-- [x] Cero menciones a "100% presencial".
+- [ ] `<GoogleTagManager />` importado e invocado en el `<head>` de `src/layouts/Layout.astro`.
+- [ ] Ningún otro layout secundario duplica la etiqueta.
 **Verification:**
-- [x] `node --test tests/online-store-copy.test.mjs`
-**Dependencies:** Task 1
+- Test unitario en `tests/gtm.test.mjs`.
+**Dependencies:** Task 3
 **Files likely touched:**
-- `src/pages/outlet.astro`
+- `src/layouts/Layout.astro`
 **Estimated scope:** Small (1 file)
 
 ---
 
-## Task 5: Actualización de Aviso Legal (`src/pages/aviso-legal.astro`)
-**Description:** Modificar la sección 3 de `aviso-legal.astro` (renombrar a "Actividad Comercial y Tienda Online en Desarrollo"), suprimiendo la cláusula "No se realizan operaciones de venta electrónica" e indicando que el comercio electrónico se encuentra en fase de desarrollo.
+## Task 5: Verificación TDD Green, Compilación Estática y Verificación en Navegador
+**Description:** Ejecutar el ciclo completo de verificación:
+1. `npm test` para asegurar que todas las suites (anteriores + nueva) pasan al 100%.
+2. `npm run build` para compilar el sitio en `./dist/` y validar que el snippet se emite en el HTML de producción con el ID correcto.
+3. Ejecutar `scripts/verify-browser.mjs` bajo preview local en modo headless para confirmar 0 errores de consola y 0 regresiones visuales.
 **Acceptance criteria:**
-- [x] Sección 3 de `aviso-legal.astro` actualizada sin "No se realizan operaciones de venta electrónica".
+- [ ] Todos los tests unitarios pasan (Fase GREEN).
+- [ ] `npm run build` finaliza con código 0 y `dist/index.html` contiene el snippet.
+- [ ] `scripts/verify-browser.mjs` pasa con 0 errores y 0 advertencias de consola.
 **Verification:**
-- [x] `node --test tests/online-store-copy.test.mjs`
-**Dependencies:** Task 1
+- `npm test`
+- `npm run build`
+- `node scripts/verify-browser.mjs`
+**Dependencies:** Task 4
 **Files likely touched:**
-- `src/pages/aviso-legal.astro`
-**Estimated scope:** Small (1 file)
-
----
-
-## Task 6: Verificación TDD Green, Build Estático y Verificación en Navegador
-**Description:** Ejecutar la suite completa de pruebas automáticas, compilar el sitio con `npm run build` verificando 0 errores, y comprobar las rutas afectadas en navegador real.
-**Acceptance criteria:**
-- [x] `node --test tests/online-store-copy.test.mjs` pasa al 100% (Fase GREEN).
-- [x] `npm test` pasa íntegramente con todas las suites (incluidas SEO y transit).
-- [x] `npm run build` compila con 0 errores TypeScript.
-- [x] `node scripts/verify-browser.mjs` verifica 0 errores en consola.
-**Verification:**
-- [x] `npm test`
-- [x] `npm run build`
-- [x] `node scripts/verify-browser.mjs`
-**Dependencies:** Tasks 1-5
-**Files likely touched:**
+- `tests/gtm.test.mjs`
 - `tasks/todo.md`
-**Estimated scope:** Small (1 file)
+**Estimated scope:** Medium
