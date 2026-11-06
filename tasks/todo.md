@@ -1,123 +1,87 @@
-# Tasks: Optimización SEO Integral (`SPEC-seo-optimization`)
+# Tasks: Transición a "Tienda Online Próximamente" (`SPEC-online-store-coming-soon`)
 
-## Task 1: Dominio, Coordenadas y Configuración Legal (`src/config/site.ts` & `src/config/legal.ts`)
-**Description:** Actualizar el dominio base a `https://rapidopackvalencia.es`, el correo a `contacto@rapidopackvalencia.es`, añadir coordenadas geográficas (`lat`, `lng`) a `SITE.location`, y crear `src/config/legal.ts` con titularidad, domicilio, correo y marcador editable para el NIF/CIF.
+## Task 1: Suite TDD de Pruebas Automatizadas (`tests/online-store-copy.test.mjs`) [Fase RED]
+**Description:** Crear un archivo de prueba automatizado con Node.js test runner que verifique la ausencia de "no disponemos de tienda online", "100% presencial", y "No se realizan operaciones de venta electrónica" en `src/`, la presencia del anuncio "tienda online próximamente" en `index.astro`, `outlet.astro` y `aviso-legal.astro`, la presencia del chip en el Hero de `index.astro`, y la no existencia de archivos no solicitados de catálogo/vitrina.
 **Acceptance criteria:**
-- [x] `SITE.brand.domain` y `SITE.contact.email` apuntan a `rapidopackvalencia.es`.
-- [x] `SITE.location.geo` exporta `latitude: 39.4216` y `longitude: -0.3855`.
-- [x] `src/config/legal.ts` exporta `LEGAL` con razón social, titular, dirección, correo y `nif: '[NIF/CIF pendiente de asignación]'`.
+- [ ] `tests/online-store-copy.test.mjs` creado con las aserciones de la spec.
+- [ ] `node --test tests/online-store-copy.test.mjs` falla inicialmente señalando los textos a cambiar (Fase RED).
 **Verification:**
-- [x] `npm run build` o comprobación de tipos TypeScript.
+- [ ] `node --test tests/online-store-copy.test.mjs`
 **Dependencies:** None
 **Files likely touched:**
-- `src/config/site.ts`
-- `src/config/legal.ts`
-**Estimated scope:** Small (2 files)
+- `tests/online-store-copy.test.mjs`
+**Estimated scope:** Small (1 file)
 
 ---
 
-## Task 2: Infraestructura de Indexación (`astro.config.mjs`, `@astrojs/sitemap` y `public/robots.txt`)
-**Description:** Configurar `site: 'https://rapidopackvalencia.es'` en `astro.config.mjs`, instalar e integrar `@astrojs/sitemap`, y crear `public/robots.txt` permitiendo todo el rastreo y apuntando al sitemap oficial.
+## Task 2: Actualización de Reglas de Negocio en Documentación (`AGENTS.md`)
+**Description:** Modificar el Gotcha nº 7 (Business Domain Boundaries) en `AGENTS.md` para reflejar que la tienda online oficial está en desarrollo y puede anunciarse como "próximamente", manteniendo las fronteras de no añadir carrito ni prometer reservas telefónicas.
 **Acceptance criteria:**
-- [x] `astro.config.mjs` contiene `site: 'https://rapidopackvalencia.es'` y la integración `@astrojs/sitemap()`.
-- [x] `public/robots.txt` contiene `User-agent: *`, `Allow: /` y `Sitemap: https://rapidopackvalencia.es/sitemap-index.xml`.
+- [ ] `AGENTS.md` actualizado sin afirmar que el negocio vende exclusivamente "100% in-person forever" sin e-commerce.
 **Verification:**
-- [x] `npm run build` genera `dist/robots.txt` y `dist/sitemap-index.xml`.
+- [ ] Inspección visual de `AGENTS.md`.
 **Dependencies:** Task 1
 **Files likely touched:**
-- `astro.config.mjs`
-- `package.json`
-- `public/robots.txt`
-**Estimated scope:** Small (3 files)
-
----
-
-## Task 3: Suite TDD de Pruebas Automatizadas (`tests/seo.test.mjs`) [Fase RED]
-**Description:** Crear una suite de pruebas automatizada con el Node.js test runner que verifique los 9 hallazgos de auditoría (robots.txt, sitemap, canónicas, OpenGraph/Twitter, longitud de titles, longitud de descripciones, Schema.org JSON-LD, páginas legales y RGPD en footer y formulario).
-**Acceptance criteria:**
-- [x] `tests/seo.test.mjs` define pruebas unitarias e integrales para los 9 criterios de la especificación.
-- [x] `npm test` ejecuta la suite (entra en fase RED para los requerimientos aún no implementados).
-**Verification:**
-- [x] `npm test` reporta fallos esperados correspondientes a las fases pendientes.
-**Dependencies:** Task 1, Task 2
-**Files likely touched:**
-- `tests/seo.test.mjs`
+- `AGENTS.md`
 **Estimated scope:** Small (1 file)
 
 ---
 
-## Checkpoint: Tras Tasks 1-3
-- [x] Configuración y dominio centralizados en `site.ts` y `legal.ts`.
-- [x] `robots.txt` e integración de sitemap creados.
-- [x] Suite TDD definida en estado RED con aserciones rigurosas.
-
----
-
-## Task 4: Layout Global, Metadatos Canónicos, Redes Sociales y Schema.org JSON-LD (`src/layouts/Layout.astro`)
-**Description:** Modificar `src/layouts/Layout.astro` para inyectar la URL canónica autorreferenciada, las metaetiquetas OpenGraph y Twitter Cards, y el script semántico JSON-LD `Store` / `LocalBusiness` con los datos exactos de Alfafar.
+## Task 3: Actualización de Portada (`src/pages/index.astro`)
+**Description:** Añadir el chip informativo en el Hero de `index.astro` ("Tienda online próximamente · Hoy en Alfafar") y actualizar la respuesta de la FAQ sobre compra online indicando que la tienda online está en desarrollo y llegará pronto.
 **Acceptance criteria:**
-- [x] Inyección de `<link rel="canonical" href={canonicalURL} />`.
-- [x] Metaetiquetas `og:site_name`, `og:title`, `og:description`, `og:url`, `og:type`, `og:locale`, `og:image`.
-- [x] Metaetiquetas `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`.
-- [x] `<script type="application/ld+json">` con `@type: ["Store", "LocalBusiness"]`, geolocalización, dirección, horarios de apertura y teléfono.
+- [ ] Hero de `index.astro` incluye el chip visual estilizado con tokens del proyecto.
+- [ ] FAQ de `index.astro` actualizada indicando que la tienda online está en desarrollo.
+- [ ] Cero menciones a "no disponemos de tienda online" ni "100% presencial".
 **Verification:**
-- [x] Tests relevantes de Schema, Canónicas y OpenGraph en `npm test` pasan a verde.
-**Dependencies:** Task 1, Task 3
-**Files likely touched:**
-- `src/layouts/Layout.astro`
-**Estimated scope:** Small (1 file)
-
----
-
-## Task 5: Páginas Legales y Cumplimiento Normativo E-E-A-T / RGPD
-**Description:** Crear `src/pages/aviso-legal.astro` y `src/pages/privacidad.astro` siguiendo el diseño tipográfico y de componentes del sitio. Añadir enlaces legales en `Footer.astro` y cláusula informativa con enlace en `ContactForm.astro`.
-**Acceptance criteria:**
-- [x] `src/pages/aviso-legal.astro` y `src/pages/privacidad.astro` creadas con diseño coherente con Tailwind v4.
-- [x] `Footer.astro` incluye enlaces visibles a `/aviso-legal` y `/privacidad`.
-- [x] `ContactForm.astro` incluye texto informativo sobre el tratamiento de datos y enlace a la política de privacidad.
-**Verification:**
-- [x] Tests de páginas legales y RGPD en `npm test` pasan a verde.
-**Dependencies:** Task 1, Task 3, Task 4
-**Files likely touched:**
-- `src/pages/aviso-legal.astro`
-- `src/pages/privacidad.astro`
-- `src/components/Footer.astro`
-- `src/components/ContactForm.astro`
-**Estimated scope:** Medium (4 files)
-
----
-
-## Task 6: Calibración On-Page SERP de Títulos y Descripciones en las 4 Rutas
-**Description:** Calibrar los valores de `title` (entre 45 y 60 caracteres) y `description` (entre 135 y 155 caracteres) en `index.astro`, `paqueteria.astro`, `outlet.astro` y `contacto.astro` para eliminar cualquier truncamiento en las SERPs de Google.
-**Acceptance criteria:**
-- [x] `<title>` de cada una de las 4 páginas principales está dentro del rango óptimo de 45–60 caracteres.
-- [x] `<meta name="description">` de cada página está dentro del rango óptimo de 135–155 caracteres.
-- [x] Los términos de alta intención de búsqueda local aparecen al inicio del título.
-**Verification:**
-- [x] Test de longitud de títulos y descripciones en `npm test` pasa al 100%.
-**Dependencies:** Task 3, Task 4
+- [ ] `node --test tests/online-store-copy.test.mjs`
+**Dependencies:** Task 1
 **Files likely touched:**
 - `src/pages/index.astro`
-- `src/pages/paqueteria.astro`
-- `src/pages/outlet.astro`
-- `src/pages/contacto.astro`
-**Estimated scope:** Medium (4 files)
+**Estimated scope:** Small (1 file)
 
 ---
 
-## Task 7: Verificación TDD Green, Build Estático y Re-Auditoría SEO
-**Description:** Ejecutar la suite completa de pruebas, realizar la compilación estática de producción `npm run build`, verificar los artefactos generados en `dist/`, comprobar el comportamiento en navegador y actualizar el informe de auditoría confirmando el SEO Health Index >95/100.
+## Task 4: Actualización de Outlet (`src/pages/outlet.astro`)
+**Description:** Actualizar la FAQ sobre el listado online en `outlet.astro` ("Aún no. Hoy las unidades se venden en tienda... Nuestra tienda online está en camino y llegará pronto") y cambiar el badge de la imagen de chollos de "Venta 100% presencial" a "Hoy en tienda · Online próximamente".
 **Acceptance criteria:**
-- [x] `npm test` pasa al 100% (todas las pruebas verdes).
-- [x] `npm run build` compila con 0 errores TypeScript y genera `dist/` completo con `robots.txt`, sitemaps y HTMLs con JSON-LD.
-- [x] Verificación de navegador sin advertencias ni errores en consola.
-- [x] Informe de SEO actualizado con la puntuación superando los 95 puntos.
+- [ ] FAQ de `outlet.astro` actualizada.
+- [ ] Badge L256 actualizado a "Hoy en tienda · Online próximamente".
+- [ ] Cero menciones a "100% presencial".
 **Verification:**
-- [x] `npm test`
-- [x] `npm run build`
-- [x] `node scripts/verify-browser.mjs`
-**Dependencies:** Tasks 1-6
+- [ ] `node --test tests/online-store-copy.test.mjs`
+**Dependencies:** Task 1
+**Files likely touched:**
+- `src/pages/outlet.astro`
+**Estimated scope:** Small (1 file)
+
+---
+
+## Task 5: Actualización de Aviso Legal (`src/pages/aviso-legal.astro`)
+**Description:** Modificar la sección 3 de `aviso-legal.astro` (renombrar a "Actividad Comercial y Tienda Online en Desarrollo"), suprimiendo la cláusula "No se realizan operaciones de venta electrónica" e indicando que el comercio electrónico se encuentra en fase de desarrollo.
+**Acceptance criteria:**
+- [ ] Sección 3 de `aviso-legal.astro` actualizada sin "No se realizan operaciones de venta electrónica".
+**Verification:**
+- [ ] `node --test tests/online-store-copy.test.mjs`
+**Dependencies:** Task 1
+**Files likely touched:**
+- `src/pages/aviso-legal.astro`
+**Estimated scope:** Small (1 file)
+
+---
+
+## Task 6: Verificación TDD Green, Build Estático y Verificación en Navegador
+**Description:** Ejecutar la suite completa de pruebas automáticas, compilar el sitio con `npm run build` verificando 0 errores, y comprobar las rutas afectadas en navegador real.
+**Acceptance criteria:**
+- [ ] `node --test tests/online-store-copy.test.mjs` pasa al 100% (Fase GREEN).
+- [ ] `npm test` pasa íntegramente con todas las suites (incluidas SEO y transit).
+- [ ] `npm run build` compila con 0 errores TypeScript.
+- [ ] `node scripts/verify-browser.mjs` verifica 0 errores en consola.
+**Verification:**
+- [ ] `npm test`
+- [ ] `npm run build`
+- [ ] `node scripts/verify-browser.mjs`
+**Dependencies:** Tasks 1-5
 **Files likely touched:**
 - `tasks/todo.md`
-- `seo-audit-report.md`
-**Estimated scope:** Small (2 files)
+**Estimated scope:** Small (1 file)

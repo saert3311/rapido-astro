@@ -1,42 +1,30 @@
-# Implementation Plan: Optimización SEO Integral y Resolución de Hallazgos (`SPEC-seo-optimization`)
+# Implementation Plan: Transición a "Tienda Online Próximamente" (`SPEC-online-store-coming-soon`)
 
 ## Overview
-Implementación guiada por especificación (TDD y vertical slicing) para resolver los 9 hallazgos identificados en el informe de auditoría SEO de Rápido Pack Valencia. El plan cubre la infraestructura de rastreo e indexación, marcado estructurado Schema.org JSON-LD, calibración on-page para SERP, metadatos sociales OpenGraph, y cumplimiento normativo RGPD/LSSI-CE con páginas legales dedicadas.
+Actualización sistemática de copys en Rápido Pack Valencia para eliminar las afirmaciones que negaban la existencia de venta online y reemplazarlas por el mensaje de que la tienda online oficial está en desarrollo y llegará próximamente, preservando la exclusividad presencial actual en la tienda de Alfafar sin añadir vitrinas, catálogos ni carritos e-commerce.
 
 ---
 
 ## Dependency Graph
 ```text
-Task 1: Dominio, Coordenadas y Configuración Legal (site.ts & legal.ts)
+Task 1: Suite TDD de Pruebas Automatizadas (tests/online-store-copy.test.mjs) [FASE RED]
     │
-    ├── Task 2: Infraestructura de Indexación (astro.config.mjs, @astrojs/sitemap & robots.txt)
-    │       │
-    │       └── Task 3: Suite TDD Automatizada (tests/seo.test.mjs) [FASE RED]
-    │               │
-    │               ├── Task 4: Metadatos Globales, Canónicas y Schema.org JSON-LD (Layout.astro)
-    │               │
-    │               ├── Task 5: Páginas Legales y Cumplimiento RGPD (aviso-legal.astro, privacidad.astro, Footer & Form)
-    │               │
-    │               └── Task 6: Calibración On-Page SERP en las 4 Rutas Principales (index, paqueteria, outlet, contacto)
-    │                       │
-    │                       └── Task 7: Verificación TDD Green, Build Estático y Re-Auditoría SEO
+    ├── Task 2: Actualización de Reglas de Negocio (AGENTS.md)
+    │
+    ├── Task 3: Actualización de Portada (src/pages/index.astro: Hero chip y FAQ)
+    │
+    ├── Task 4: Actualización de Outlet (src/pages/outlet.astro: FAQ y Badge)
+    │
+    ├── Task 5: Actualización Legal (src/pages/aviso-legal.astro: Sección 3)
+    │
+    └── Task 6: Verificación TDD Green, Build Estático y Verificación en Navegador
 ```
 
 ---
 
 ## Risks and Mitigations
-
 | Riesgo | Impacto | Mitigación |
 | :--- | :--- | :--- |
-| **Incompatibilidad de `@astrojs/sitemap` con Astro 7** | Alto | Probar la instalación oficial; si surgiera algún conflicto en Astro 7 estático, implementar la integración nativa o endpoint de sitemap estático conforme a la API de Astro. |
-| **URLs canónicas relativas o incompletas** | Medio | Utilizar `Astro.site` y `Astro.url.pathname` para componer URLs absolutas sin parámetros duplicados ni slash inconsistente. |
-| **Truncamiento de títulos por cambios en fuentes de Google** | Bajo | Mantener el rango estricto de 45–60 caracteres (menos de 580px de ancho visual en SERP). |
-| **Regresión en Core Web Vitals (LCP/CLS)** | Alto | El marcado JSON-LD y las metaetiquetas residen exclusivamente en `<head>` sin inyectar CSS pesado ni JavaScript de renderizado; el tiempo de respuesta y LCP se mantendrán < 600 ms. |
-
----
-
-## Verification Checkpoints
-
-- **Checkpoint 1 (Tras Tasks 1-3):** Configuración base lista, suite TDD `tests/seo.test.mjs` creada definiendo los 9 criterios (fase RED controlada).
-- **Checkpoint 2 (Tras Tasks 4-6):** Schema.org, metadatos, páginas legales y SERP implementados; `npm test` pasa al 100% (fase GREEN).
-- **Checkpoint 3 (Tras Task 7):** `npm run build` genera todos los artefactos estáticos (`dist/robots.txt`, `dist/sitemap-index.xml`, etc.), verificación de navegador sin errores y reevaluación del SEO Health Index (>95/100).
+| **Generar expectativas erróneas de compra online inmediata** | Medio | Redacción explícita: "ahora mismo la venta se realiza en tienda física; la tienda online está en desarrollo y llegará pronto". |
+| **Romper tests SEO existentes por longitud de descripciones** | Alto | El cambio solo afecta al cuerpo de FAQs, el badge y el chip del Hero; no se alteran los `<title>` ni las `description` calibrados para SERP. |
+| **Olvidar alguna mención de "no vendemos online" o "100% presencial"** | Bajo | La suite TDD escanea exhaustivamente `src/` asegurando 0 coincidencias residuales de esas frases. |
