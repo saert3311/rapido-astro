@@ -87,7 +87,7 @@ Manage the background server with `npx astro dev stop`, `npx astro dev status`, 
 4. **Native Accordion Animations:** `FaqAccordion.astro` relies on `:root { interpolate-size: allow-keywords; }` and `details::details-content` in `src/styles/global.css`. Keep the shared `name={groupName}` attribute on `<details>` for exclusive accordion behavior without JS height calculations.
 5. **Mobile Sticky CTA Clearance:** `src/pages/index.astro` renders a `md:hidden fixed bottom-3` bar. Keep `pb-20 md:pb-0` on `Footer.astro` so mobile viewports (`< 768px`) never clip footer content.
 6. **Cloudflare `wrangler.json` Previews Block:** Cloudflare CI runs `npx wrangler preview`; never remove `"previews": {}` or `"assets": { "directory": "./dist" }` from `wrangler.json`.
-7. **Business Domain Boundaries:** Rápido Pack Valencia sells **100% in-person** in Alfafar (no online catalog, no reservations, no e-commerce shipping), receives new 2nd-hand and outlet merchandise every week (avoid promising exact Monday 09:30 restock times), and operates an official parcel point (`InPost`, `GLS`, `SEUR`, `Kanguro`). Never add e-commerce cart/checkout flows or invent unverified store claims.
+7. **Business Domain Boundaries:** Rápido Pack Valencia currently sells in-person in Alfafar (the official online store is **in active development** and announced as 'próximamente' / coming soon; do not implement cart, checkout flows, catalog reservations, or promise exact launch dates), receives new 2nd-hand and outlet merchandise every week (avoid promising exact Monday 09:30 restock times), and operates an official parcel point (`InPost`, `GLS`, `SEUR`, `Kanguro`). Never add unverified store claims or cart dependencies.
 
 ## Documentation
 

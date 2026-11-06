@@ -41,9 +41,9 @@ const homeFaqs = [
     answer: `Somos un espacio comercial físico en ${SITE.location.city} que integra dos actividades bajo el mismo techo: un <strong>punto oficial de paquetería multirred</strong> (${SITE.carriers.map((c) => c.name).join(', ')}) y una <strong>tienda outlet de primeras marcas y segunda mano</strong> con reposición semanal y hasta un ${SITE.brand.maxDiscountPct}% de descuento frente a PVP.`,
   },
   {
-    icon: 'shopping_cart_off',
+    icon: 'storefront',
     question: '¿Se puede comprar online o reservar artículos por la web?',
-    answer: `No. La venta de outlet y segunda mano es <strong>100% presencial en nuestra tienda física de ${SITE.location.shortStreet}</strong>. Como el stock rota todas las semanas y cada unidad es única por estricto orden de llegada, no disponemos de tienda online ni reservas telefónicas.`,
+    answer: `Todavía no: ahora mismo la venta de outlet y segunda mano se hace en nuestra tienda física de ${SITE.location.shortStreet}, por orden de llegada, porque el stock rota cada semana. <strong>Estamos desarrollando nuestra tienda online y llegará pronto.</strong> Mientras tanto, pásate por la tienda para probar los productos in situ o escríbenos por WhatsApp para consultar dudas.`,
   },
   {
     icon: 'pin_drop',
@@ -61,9 +61,15 @@ const homeFaqs = [
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <!-- Columna Editorial Izquierda (7 Cols) -->
           <div class="lg:col-span-7 flex flex-col items-start text-left">
-            <div class="stagger-item inline-flex max-w-full items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-[11px] sm:text-xs font-semibold border border-primary/20 mb-6" style="--index: 0;">
-              <span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
-              <span class="truncate">PAQUETERÍA OFICIAL & OUTLET SEMANAL · ALFAFAR, VALENCIA</span>
+            <div class="stagger-item flex flex-wrap items-center gap-2 mb-6" style="--index: 0;">
+              <div class="inline-flex max-w-full items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-mint-wash text-primary font-mono text-[11px] sm:text-xs font-semibold border border-primary/20">
+                <span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+                <span class="truncate">PAQUETERÍA OFICIAL & OUTLET SEMANAL · ALFAFAR</span>
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-alt text-surface-dark font-mono text-[11px] sm:text-xs font-semibold border border-border-subtle shadow-xs">
+                <span class="material-symbols-outlined text-[14px] text-primary" aria-hidden="true">shopping_cart</span>
+                <span>Tienda online próximamente</span>
+              </span>
             </div>
 
             <h1 class="stagger-item font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold tracking-tighter leading-[1.03] text-surface-dark" style="--index: 1;">
