@@ -7,10 +7,10 @@
 3. `src/layouts/Layout.astro` importa e incluye `<GoogleTagManager />` dentro de `<head>`.
 4. La compilación estática de producción genera el snippet de GTM en los archivos HTML (`dist/index.html`).
 **Acceptance criteria:**
-- [ ] Archivo `tests/gtm.test.mjs` creado.
-- [ ] Ejecución inicial `node --test tests/gtm.test.mjs` falla (Fase RED), evidenciando la falta del componente y configuración.
+- [x] Archivo `tests/gtm.test.mjs` creado.
+- [x] Ejecución inicial `node --test tests/gtm.test.mjs` falla (Fase RED), evidenciando la falta del componente y configuración.
 **Verification:**
-- `node --test tests/gtm.test.mjs`
+- [x] `node --test tests/gtm.test.mjs`
 **Dependencies:** None
 **Files likely touched:**
 - `tests/gtm.test.mjs`
@@ -21,10 +21,10 @@
 ## Task 2: Configuración y Parametrización en `src/config/site.ts`
 **Description:** Extender el objeto de configuración `SITE` en `src/config/site.ts` con una propiedad `analytics: { gtmId: string }`, permitiendo override mediante `import.meta.env.PUBLIC_GTM_ID || 'GTM-PGBXBVXJ'`.
 **Acceptance criteria:**
-- [ ] `SITE.analytics.gtmId` está disponible y tipado.
-- [ ] El valor por defecto es `'GTM-PGBXBVXJ'`.
+- [x] `SITE.analytics.gtmId` está disponible y tipado.
+- [x] El valor por defecto es `'GTM-PGBXBVXJ'`.
 **Verification:**
-- Test unitario en `tests/gtm.test.mjs`.
+- [x] Test unitario en `tests/gtm.test.mjs`.
 **Dependencies:** Task 1
 **Files likely touched:**
 - `src/config/site.ts`
@@ -37,11 +37,11 @@
 1. `<script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${containerId}`}></script>`
 2. `<script is:inline>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date());</script>`
 **Acceptance criteria:**
-- [ ] Componente creado con directivas `is:inline`.
-- [ ] No incluye iframe `<noscript>`.
-- [ ] Respeta el gating de producción.
+- [x] Componente creado con directivas `is:inline`.
+- [x] No incluye iframe `<noscript>`.
+- [x] Respeta el gating de producción.
 **Verification:**
-- Test unitario en `tests/gtm.test.mjs`.
+- [x] Test unitario en `tests/gtm.test.mjs`.
 **Dependencies:** Task 2
 **Files likely touched:**
 - `src/components/GoogleTagManager.astro`
@@ -52,10 +52,10 @@
 ## Task 4: Inserción en el Layout Base (`src/layouts/Layout.astro`)
 **Description:** Importar `<GoogleTagManager />` en `src/layouts/Layout.astro` e insertarlo dentro de `<head>`, asegurando que todas las páginas del sitio reciban el contenedor sin repetición de código.
 **Acceptance criteria:**
-- [ ] `<GoogleTagManager />` importado e invocado en el `<head>` de `src/layouts/Layout.astro`.
-- [ ] Ningún otro layout secundario duplica la etiqueta.
+- [x] `<GoogleTagManager />` importado e invocado en el `<head>` de `src/layouts/Layout.astro`.
+- [x] Ningún otro layout secundario duplica la etiqueta.
 **Verification:**
-- Test unitario en `tests/gtm.test.mjs`.
+- [x] Test unitario en `tests/gtm.test.mjs`.
 **Dependencies:** Task 3
 **Files likely touched:**
 - `src/layouts/Layout.astro`
@@ -69,13 +69,13 @@
 2. `npm run build` para compilar el sitio en `./dist/` y validar que el snippet se emite en el HTML de producción con el ID correcto.
 3. Ejecutar `scripts/verify-browser.mjs` bajo preview local en modo headless para confirmar 0 errores de consola y 0 regresiones visuales.
 **Acceptance criteria:**
-- [ ] Todos los tests unitarios pasan (Fase GREEN).
-- [ ] `npm run build` finaliza con código 0 y `dist/index.html` contiene el snippet.
-- [ ] `scripts/verify-browser.mjs` pasa con 0 errores y 0 advertencias de consola.
+- [x] Todos los tests unitarios pasan (Fase GREEN).
+- [x] `npm run build` finaliza con código 0 y `dist/index.html` contiene el snippet.
+- [x] `scripts/verify-browser.mjs` pasa con 0 errores y 0 advertencias de consola.
 **Verification:**
-- `npm test`
-- `npm run build`
-- `node scripts/verify-browser.mjs`
+- [x] `npm test`
+- [x] `npm run build`
+- [x] `node scripts/verify-browser.mjs`
 **Dependencies:** Task 4
 **Files likely touched:**
 - `tests/gtm.test.mjs`

@@ -1,0 +1,28 @@
+---
+import { SITE } from '../config/site';
+
+interface Props {
+  gtmId?: string;
+  forceEnable?: boolean;
+}
+
+const { gtmId = SITE.analytics.gtmId, forceEnable = false } = Astro.props;
+
+// Render strictly in production builds unless explicitly enabled via prop or environment flag
+const shouldRender =
+  Boolean(gtmId) &&
+  (forceEnable || import.meta.env.PROD || import.meta.env.PUBLIC_GTM_FORCE === 'true');
+---
+
+{shouldRender && (
+  <>
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${gtmId}`}></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+  </>
+)}

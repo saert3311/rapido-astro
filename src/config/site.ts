@@ -98,6 +98,13 @@ export const SITE = {
     { name: 'SEUR', badge: 'Pickup', desc: 'Red de puntos de conveniencia SEUR' },
     { name: 'KANGURO', badge: 'Punto Kanguro', desc: 'Red de entregas y recogidas inteligentes' },
   ],
+
+  analytics: {
+    gtmId:
+      typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_GTM_ID
+        ? (import.meta.env.PUBLIC_GTM_ID as string)
+        : 'GTM-PGBXBVXJ',
+  },
 } as const;
 
 export type SiteConfig = typeof SITE;

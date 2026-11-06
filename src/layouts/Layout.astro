@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GoogleTagManager from '../components/GoogleTagManager.astro';
 import { SITE } from '../config/site';
 
 interface Props {
@@ -78,6 +79,9 @@ const schemaStore = {
   <meta name="description" content={description} />
   <link rel="icon" type="image/png" href="/logo-rapido-pack-valencia.png" />
   <title>{title}</title>
+
+  <!-- Google Tag Manager (Production Analytics Container) -->
+  <GoogleTagManager />
 
   <link rel="canonical" href={canonicalURL} />
 
