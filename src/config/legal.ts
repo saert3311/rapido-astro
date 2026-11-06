@@ -5,8 +5,8 @@
 
 export const LEGAL = {
   tradeName: 'Rápido Pack Valencia',
-  legalName: 'Rápido Pack Valencia',
-  nif: '[NIF/CIF pendiente de asignación]',
+  legalName: 'Juan Carlos Naranjo Espinosa',
+  nif: '24349144X',
   address: 'Carrer del Comte Ronrée, 8, 46910 Alfafar, Valencia (España)',
   email: 'contacto@rapidopackvalencia.es',
   phone: '640 39 74 34',
