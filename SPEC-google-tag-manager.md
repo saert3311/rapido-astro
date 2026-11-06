@@ -59,29 +59,42 @@ export const SITE = {
 import { SITE } from '../config/site';
 
 interface Props {
+  gtmId?: string;
   id?: string;
   forceEnable?: boolean;
 }
 
-const { id = import.meta.env.PUBLIC_GTM_ID || SITE.analytics.gtmId, forceEnable = false } = Astro.props;
+const { gtmId, id, forceEnable = false } = Astro.props;
+
+// Parameterized container ID with trim and format sanitization
+const rawId = (gtmId || id || SITE.analytics.gtmId || '').trim();
+const isValidId = /^[A-Z0-9-]+$/i.test(rawId);
 
 // Renderizar únicamente en producción (`import.meta.env.PROD`) a menos que se fuerce explícitamente
-const shouldRender = Boolean(id) && (import.meta.env.PROD || forceEnable || import.meta.env.PUBLIC_GTM_FORCE === 'true');
+const shouldRender =
+  isValidId &&
+  (forceEnable || import.meta.env.PROD || import.meta.env.PUBLIC_GTM_FORCE === 'true');
 ---
 
 {shouldRender && (
   <>
-    <!-- Google Tag Manager Resource Hints -->
+    <!-- Google Tag Manager Resource Hints (non-CORS preconnect matching classic script fetch) -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-    <!-- Google Tag Manager Snippet -->
-    <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${id}`}></script>
+    <!-- Google Tag Manager Data Layer & Event Initialization (Must precede async gtm.js) -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     </script>
+
+    <!-- Google Tag Manager Container Script -->
+    <script is:inline async src={`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(rawId)}`}></script>
   </>
 )}
 ```

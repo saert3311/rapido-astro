@@ -23,7 +23,7 @@ describe('Google Tag Manager Integration - TDD Suite', () => {
     );
   });
 
-  test('2. Component - GoogleTagManager.astro exists with is:inline scripts, resource hints and no noscript', () => {
+  test('2. Component - GoogleTagManager.astro has correct order, gtm.start, non-CORS preconnect, and is:inline', () => {
     const compPath = path.join(projectRoot, 'src/components/GoogleTagManager.astro');
     assert.ok(fs.existsSync(compPath), 'src/components/GoogleTagManager.astro must exist');
 
@@ -39,19 +39,41 @@ describe('Google Tag Manager Integration - TDD Suite', () => {
       );
     }
 
-    // Must contain required snippet logic
+    // Must contain required snippet logic with core GTM start event
     assert.match(content, /googletagmanager\.com\/gtm\.js\?id=/, 'Must load gtm.js with parameterized id');
     assert.match(content, /window\.dataLayer\s*=\s*window\.dataLayer\s*\|\|\s*\[\];/, 'Must initialize window.dataLayer');
-    assert.match(content, /function gtag\(\)\s*\{dataLayer\.push\(arguments\);\}/, 'Must define gtag function');
+    assert.match(content, /['"]gtm\.start['"]\s*:\s*new Date\(\)\.getTime\(\)/, 'Must push gtm.start timestamp');
+    assert.match(content, /event\s*:\s*['"]gtm\.js['"]/, 'Must push gtm.js event for Page View triggers');
+    assert.match(content, /function gtag\(\)\s*\{dataLayer\.push\(arguments\);\}/, 'Must define gtag helper function');
     assert.match(content, /gtag\('js',\s*new Date\(\)\);/, 'Must call gtag js initialization');
 
-    // Must include resource hints for connection performance
-    assert.match(content, /rel=["']preconnect["'][^>]*googletagmanager\.com/, 'Must preconnect to googletagmanager.com');
+    // Execution Order: dataLayer setup inline script MUST precede async gtm.js script
+    const inlineScriptIndex = content.indexOf('window.dataLayer');
+    const asyncScriptIndex = content.indexOf('src={`https://www.googletagmanager.com/gtm.js');
+    assert.ok(
+      inlineScriptIndex !== -1 && asyncScriptIndex !== -1 && inlineScriptIndex < asyncScriptIndex,
+      'Inline dataLayer script MUST appear before the external async gtm.js script to prevent race conditions'
+    );
+
+    // Preconnect MUST NOT have crossorigin because gtm.js is loaded without crossorigin (classic script fetch)
+    const preconnectMatch = content.match(/<link\s+rel=["']preconnect["'][^>]*>/);
+    assert.ok(preconnectMatch, 'Must declare preconnect to googletagmanager.com');
+    assert.ok(
+      !preconnectMatch[0].includes('crossorigin'),
+      'Preconnect for classic script must not declare crossorigin (avoids socket pool mismatch in Chromium)'
+    );
     assert.match(content, /rel=["']dns-prefetch["'][^>]*googletagmanager\.com/, 'Must dns-prefetch to googletagmanager.com');
 
     // Scope boundary: Strictly no noscript iframe (per user specification)
     assert.doesNotMatch(content, /<noscript>/i, 'GoogleTagManager.astro must NOT include <noscript>');
     assert.doesNotMatch(content, /<iframe/i, 'GoogleTagManager.astro must NOT include <iframe>');
+
+    // Sanitization and validation: ID format validation
+    assert.match(
+      content,
+      /\/\^\[A-Z0-9-\]\+\$\/i/,
+      'GoogleTagManager.astro must validate container ID format'
+    );
 
     // Gating logic: Must check production environment
     assert.match(
@@ -80,10 +102,9 @@ describe('Google Tag Manager Integration - TDD Suite', () => {
     );
   });
 
-  test('4. Production build artifact - dist/index.html includes GTM script when built in production', () => {
+  test('4. Production build artifact - dist/index.html includes GTM script and gtm.js event when built', () => {
     const distIndexPath = path.join(projectRoot, 'dist/index.html');
     if (!fs.existsSync(distIndexPath)) {
-      // If dist has not been built yet, this assertion passes conditionally or is validated during build step
       return;
     }
     const html = fs.readFileSync(distIndexPath, 'utf-8');
@@ -96,6 +117,16 @@ describe('Google Tag Manager Integration - TDD Suite', () => {
       html,
       /window\.dataLayer\s*=\s*window\.dataLayer/,
       'dist/index.html must include dataLayer initialization'
+    );
+    assert.match(
+      html,
+      /['"]gtm\.start['"]/,
+      'dist/index.html must include gtm.start timestamp'
+    );
+    assert.match(
+      html,
+      /event\s*:\s*['"]gtm\.js['"]/,
+      'dist/index.html must include event: "gtm.js"'
     );
   });
 });
