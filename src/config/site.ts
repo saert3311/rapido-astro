@@ -45,6 +45,10 @@ export const SITE = {
     whatsappHref: `https://wa.me/${countryCode}${digitsPhone}`,
     email: 'contacto@rapidopackvalencia.es',
     emailHref: 'mailto:contacto@rapidopackvalencia.es',
+    notificationEmail:
+      typeof process !== 'undefined' && process.env?.MAILJET_TO_EMAIL
+        ? process.env.MAILJET_TO_EMAIL
+        : 'contacto@rapidopackvalencia.es',
   },
 
   location: {
@@ -104,6 +108,13 @@ export const SITE = {
       typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_GTM_ID
         ? (import.meta.env.PUBLIC_GTM_ID as string)
         : 'GTM-PGBXBVXJ',
+  },
+
+  security: {
+    turnstileSiteKey:
+      typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_TURNSTILE_SITE_KEY
+        ? (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string)
+        : '1x00000000000000000000AA',
   },
 } as const;
 

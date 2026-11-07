@@ -1,21 +1,28 @@
-# Implementation Plan: Integración Parametrizada de Google Tag Manager (`SPEC-google-tag-manager`)
+# Implementation Plan: Integración de Mailjet y Turnstile en el Formulario de Contacto (`SPEC-mailjet-contact-form`)
 
 ## Overview
-Integración estricta y de alto rendimiento del contenedor de Google Tag Manager (`GTM-PGBXBVXJ`) en Astro 7 para Rápido Pack Valencia. El ID se parametriza en `src/config/site.ts`, permitiendo sobreescritura mediante `PUBLIC_GTM_ID`. Se implementa mediante un componente dedicado `src/components/GoogleTagManager.astro` con directivas `is:inline` (según documentación oficial de Astro), resource hints (`dns-prefetch` y `preconnect`), y gating de entorno para ejecutarse exclusivamente en producción (`import.meta.env.PROD`) salvo bandera explícita.
+Implementación completa de la infraestructura de backend y frontend para el formulario de contacto de Rápido Pack Valencia (`/contacto`):
+1. **Seguridad Anti-Spam:** Cloudflare Turnstile con validación de tokens en frontend y backend.
+2. **Envío Transaccional:** Mailjet Send API v3.1 con destinatario parametrizable (`MAILJET_TO_EMAIL` / `SITE.contact.email`) y plantilla HTML responsive con branding oficial.
+3. **Suscripción a Lista:** Mailjet Contacts List API v3 (`managecontact`) registrando `Name`, `Email` y propiedad `phone` (`String`).
+4. **Arquitectura Serverless:** Worker de Cloudflare (`src/worker.ts`) e integración en dev con middleware Vite en `astro.config.mjs` sin romper la compilación estática de Astro.
+5. **Experiencia de Usuario y Accesibilidad:** Estados reactivos de carga, éxito y error con WCAG 2.1 AA en `src/components/ContactForm.astro`.
 
 ---
 
 ## Dependency Graph
 ```text
-Task 1: Suite TDD de Pruebas Automatizadas (tests/gtm.test.mjs) [FASE RED]
+Task 1: Suite TDD de Pruebas Automatizadas (tests/contact-api.test.mjs) [FASE RED]
     │
-    ├── Task 2: Configuración y Parametrización (src/config/site.ts)
+    ├── Task 2: Configuración y Parametrización (src/config/site.ts y wrangler.json)
+    │       │
+    │       ├── Task 3: Clientes de Servicios (src/lib/turnstile.ts y src/lib/mailjet.ts)
+    │       │       │
+    │       │       └── Task 4: Handler del Endpoint y Worker (src/lib/contact-handler.ts, src/worker.ts, astro.config.mjs)
+    │       │
+    │       └── Task 5: Componente UI Frontend y Turnstile (src/components/ContactForm.astro)
     │
-    ├── Task 3: Componente Astro Dedicado (src/components/GoogleTagManager.astro)
-    │
-    ├── Task 4: Inserción en el Layout Base (src/layouts/Layout.astro)
-    │
-    └── Task 5: Verificación TDD Green, Build Estático y Verificación en Navegador
+    └── Task 6: Verificación TDD Green, Build Estático y Pruebas de Regresión
 ```
 
 ---
@@ -23,7 +30,8 @@ Task 1: Suite TDD de Pruebas Automatizadas (tests/gtm.test.mjs) [FASE RED]
 ## Risks and Mitigations
 | Riesgo | Impacto | Mitigación |
 | :--- | :--- | :--- |
-| **Vite envolviendo scripts en módulos ES (`type="module"`)** | Alto | Uso obligatorio de la directiva `is:inline` en los elementos `<script>` del componente Astro para mantener el alcance global `window.dataLayer` y `gtag`. |
-| **Inyección de tráfico de prueba local en analítica de producción** | Medio | Gating estricto mediante `import.meta.env.PROD === true`, renderizando el snippet únicamente en compilaciones estáticas de producción salvo `forceEnable` o `PUBLIC_GTM_FORCE='true'`. |
-| **Retraso de red en la carga del script externo de GTM** | Bajo | Preconexión y prefetch de DNS a `https://www.googletagmanager.com` en `<head>`. |
-| **Modificación difícil del ID de contenedor en el futuro** | Medio | Centralización en `src/config/site.ts` con fallback opcional a variable de entorno `PUBLIC_GTM_ID`. |
+| **Fallo en API de listas de Mailjet bloqueando al usuario** | Alto | El envío transaccional es la operación primaria. Si falla la lista de Mailjet pero el correo se envía, el handler responde 200 OK y registra la advertencia internamente. |
+| **Ejecución local en `astro dev` sin runtime de Worker** | Medio | Inclusión de un middleware ligero en `astro.config.mjs` durante desarrollo que ejecuta el mismo `handleContactRequest` para pruebas locales sin requerir despliegues continuos. |
+| **Token de Turnstile caducado o reusado** | Medio | Reseteo explícito del widget de Turnstile tras cada intento de envío (éxito o fallo) y validación única contra `challenges.cloudflare.com`. |
+| **Filtración de claves de API en el cliente** | Crítico | Las credenciales secretas de Mailjet y Turnstile se leen exclusivamente en el entorno del Worker (`env` / `process.env`), nunca en bundle cliente de Vite ni en `SITE.security`. |
+| **Regresión en compilación o tests existentes** | Alto | Preservar `wrangler.json` con `assets.directory: "./dist"` y `previews: {}`, ejecutando `npm test` y `npm run build` en cada hito. |

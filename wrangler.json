@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "rapido-astro",
   "compatibility_date": "2026-11-01",
+  "main": "src/worker.ts",
   "assets": {
     "directory": "./dist"
   },

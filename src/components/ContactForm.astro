@@ -1,6 +1,11 @@
 ---
 import { SITE } from '../config/site';
+
+const turnstileSiteKey = SITE.security?.turnstileSiteKey || '1x00000000000000000000AA';
 ---
+
+<!-- External Turnstile API with explicit rendering for strict lifecycle control -->
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 
 <div class="bg-surface-container-lowest p-6 sm:p-9 rounded-3xl border border-border-subtle diffusion-card">
   <div class="flex flex-col gap-1.5 mb-7 pb-5 border-b border-border-subtle">
@@ -15,7 +20,7 @@ import { SITE } from '../config/site';
     </p>
   </div>
 
-  <form class="flex flex-col gap-5" id="contact-form">
+  <form class="flex flex-col gap-5" id="contact-form" novalidate>
     <!-- Full Name (Rule 6: Label above input, gap-2 block) -->
     <div class="field flex flex-col gap-1.5">
       <label class="font-label-button text-sm text-on-surface" for="contact-name">
@@ -31,6 +36,7 @@ import { SITE } from '../config/site';
         type="text"
         required
         minlength="2"
+        maxlength="100"
         autocomplete="name"
         placeholder="Ej. Valeria Serrano"
         aria-describedby="name-hint"
@@ -58,7 +64,7 @@ import { SITE } from '../config/site';
           type="tel"
           inputmode="tel"
           required
-          pattern="[0-9 \-\+\(\)]{9,15}"
+          pattern="[0-9 \-\+\(\)]{9,20}"
           autocomplete="tel"
           placeholder={SITE.contact.phoneDisplay}
           aria-describedby="phone-hint"
@@ -142,6 +148,7 @@ import { SITE } from '../config/site';
         name="message"
         required
         minlength="10"
+        maxlength="2000"
         rows="4"
         placeholder="Cuéntanos qué necesitas consultar sobre productos de segunda mano, outlet o punto de paquetería..."
         aria-describedby="message-hint"
@@ -173,7 +180,20 @@ import { SITE } from '../config/site';
       </p>
     </div>
 
-    <!-- Submit Button & Full Interaction Cycle (Rule 5: Loading + Success + Tactile States) -->
+    <!-- Cloudflare Turnstile Anti-Spam Widget -->
+    <div class="field flex flex-col gap-1.5 pt-1">
+      <div
+        id="turnstile-widget"
+        class="cf-turnstile min-h-[65px]"
+        data-sitekey={turnstileSiteKey}
+      ></div>
+      <div id="turnstile-error" class="error-msg text-xs text-error font-medium items-center gap-1.5" role="alert">
+        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+        <span>Por favor, completa la verificación anti-spam antes de enviar el formulario.</span>
+      </div>
+    </div>
+
+    <!-- Submit Button & Full Interaction Cycle -->
     <div class="pt-2 flex flex-col gap-3">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <button
@@ -190,7 +210,7 @@ import { SITE } from '../config/site';
         </div>
       </div>
 
-      <!-- Skeletal Loading State (Rule 5) -->
+      <!-- Skeletal Loading State -->
       <div
         id="form-loading-skeleton"
         aria-hidden="true"
@@ -204,7 +224,8 @@ import { SITE } from '../config/site';
       <div
         role="status"
         aria-live="polite"
-        class="hidden p-5 rounded-2xl bg-mint-wash border border-primary/30 text-on-surface items-start justify-between gap-4 mt-1"
+        tabindex="-1"
+        class="hidden p-5 rounded-2xl bg-mint-wash border border-primary/30 text-on-surface items-start justify-between gap-4 mt-1 outline-none"
         id="form-feedback"
       >
         <div class="flex items-start gap-3">
@@ -212,7 +233,26 @@ import { SITE } from '../config/site';
           <div class="flex flex-col">
             <span class="font-display font-bold text-base text-surface-dark">Consulta registrada en {SITE.brand.name}</span>
             <span class="font-sans text-xs text-secondary mt-1 leading-relaxed">
-              Nuestro equipo de Alfafar te responderá en horario comercial. Si necesitas confirmación inmediata, llámanos al <a href={SITE.contact.phoneHref} class="font-mono font-semibold underline text-on-surface">{SITE.contact.phoneDisplay}</a>.
+              Hemos recibido tu mensaje correctamente. Nuestro equipo de Alfafar te responderá en horario comercial. Si necesitas confirmación inmediata, llámanos al <a href={SITE.contact.phoneHref} class="font-mono font-semibold underline text-on-surface">{SITE.contact.phoneDisplay}</a>.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Feedback Alert -->
+      <div
+        role="alert"
+        aria-live="assertive"
+        tabindex="-1"
+        class="hidden p-5 rounded-2xl bg-red-50/80 border border-error/30 text-on-surface items-start justify-between gap-4 mt-1 outline-none"
+        id="form-error-alert"
+      >
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-error text-[22px] shrink-0 mt-0.5" aria-hidden="true">error</span>
+          <div class="flex flex-col">
+            <span class="font-display font-bold text-base text-surface-dark">No se pudo enviar la consulta</span>
+            <span id="form-error-message" class="font-sans text-xs text-secondary mt-1 leading-relaxed">
+              Ha ocurrido un problema al procesar el mensaje. Por favor, revísalo o contacta directamente con nosotros en el <a href={SITE.contact.phoneHref} class="font-mono font-semibold underline text-on-surface">{SITE.contact.phoneDisplay}</a>.
             </span>
           </div>
         </div>
@@ -250,6 +290,9 @@ import { SITE } from '../config/site';
     const form = document.getElementById('contact-form');
     if (!form) return;
 
+    let turnstileWidgetId = null;
+    let currentTurnstileToken = '';
+
     const syncAria = (el) => {
       if (!el || typeof el.matches !== 'function' || !el.classList?.contains('form-control')) return;
       try {
@@ -262,6 +305,7 @@ import { SITE } from '../config/site';
       if (e.target?.hasAttribute?.('aria-invalid')) syncAria(e.target);
     });
 
+    // Fallback for browsers without :user-invalid support
     const UserInvalidFallback = (() => {
       const dirtyState = new WeakMap();
 
@@ -315,31 +359,168 @@ import { SITE } from '../config/site';
 
     UserInvalidFallback.init(form);
 
-    form.addEventListener('submit', (e) => {
+    // Turnstile lifecycle setup
+    const initTurnstile = () => {
+      const container = document.getElementById('turnstile-widget');
+      if (!container || !window.turnstile || turnstileWidgetId !== null) return;
+
+      try {
+        const sitekey = container.getAttribute('data-sitekey') || '1x00000000000000000000AA';
+        turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
+          sitekey: sitekey,
+          callback: (token) => {
+            currentTurnstileToken = token;
+            const turnstileError = document.getElementById('turnstile-error');
+            if (turnstileError) {
+              turnstileError.classList.add('hidden');
+              turnstileError.classList.remove('flex');
+            }
+          },
+          'expired-callback': () => {
+            currentTurnstileToken = '';
+          },
+          'error-callback': () => {
+            currentTurnstileToken = '';
+          },
+        });
+      } catch (e) {
+        // Safe failover
+      }
+    };
+
+    if (window.turnstile) {
+      initTurnstile();
+    } else {
+      const timer = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(timer);
+          initTurnstile();
+        }
+      }, 200);
+      setTimeout(() => clearInterval(timer), 6000);
+    }
+
+    const resetTurnstile = () => {
+      currentTurnstileToken = '';
+      if (window.turnstile && turnstileWidgetId !== null) {
+        try {
+          window.turnstile.reset(turnstileWidgetId);
+        } catch {}
+      }
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const feedback = document.getElementById('form-feedback');
+      const errorAlert = document.getElementById('form-error-alert');
+      const errorMessage = document.getElementById('form-error-message');
+      const turnstileError = document.getElementById('turnstile-error');
       const skeleton = document.getElementById('form-loading-skeleton');
       const submitBtn = document.getElementById('contact-submit-btn');
       const label = submitBtn?.querySelector('[data-submit-label]');
 
-      if (submitBtn && skeleton && feedback) {
-        feedback.classList.add('hidden');
-        feedback.classList.remove('flex');
-        skeleton.classList.remove('hidden');
-        skeleton.classList.add('flex');
-        submitBtn.setAttribute('disabled', 'true');
-        if (label) label.textContent = 'Registrando consulta...';
+      // Reset feedback visibility
+      feedback?.classList.add('hidden');
+      feedback?.classList.remove('flex');
+      errorAlert?.classList.add('hidden');
+      errorAlert?.classList.remove('flex');
+      turnstileError?.classList.add('hidden');
+      turnstileError?.classList.remove('flex');
 
-        setTimeout(() => {
-          skeleton.classList.add('hidden');
-          skeleton.classList.remove('flex');
-          feedback.classList.remove('hidden');
-          feedback.classList.add('flex');
-          submitBtn.removeAttribute('disabled');
-          if (label) label.textContent = 'Enviar Mensaje';
+      // Native validity check
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Check Turnstile token
+      let token = currentTurnstileToken;
+      if (!token && window.turnstile && turnstileWidgetId !== null) {
+        try {
+          token = window.turnstile.getResponse(turnstileWidgetId);
+        } catch {}
+      }
+      if (!token) {
+        const fallbackInput = form.querySelector('[name="cf-turnstile-response"]');
+        if (fallbackInput && fallbackInput.value) {
+          token = fallbackInput.value;
+        }
+      }
+
+      if (!token) {
+        if (turnstileError) {
+          turnstileError.classList.remove('hidden');
+          turnstileError.classList.add('flex');
+        }
+        return;
+      }
+
+      // Loading state
+      form.setAttribute('aria-busy', 'true');
+      submitBtn?.setAttribute('disabled', 'true');
+      if (label) label.textContent = 'Enviando consulta...';
+      skeleton?.classList.remove('hidden');
+      skeleton?.classList.add('flex');
+
+      const formData = new FormData(form);
+      const payload = {
+        name: String(formData.get('name') || ''),
+        phone: String(formData.get('phone') || ''),
+        email: String(formData.get('email') || ''),
+        subject: String(formData.get('subject') || ''),
+        message: String(formData.get('message') || ''),
+        privacy: formData.get('privacy') === 'on' || formData.get('privacy') === 'true',
+        turnstileToken: token,
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json().catch(() => null);
+
+        skeleton?.classList.add('hidden');
+        skeleton?.classList.remove('flex');
+        form.removeAttribute('aria-busy');
+        submitBtn?.removeAttribute('disabled');
+        if (label) label.textContent = 'Enviar Mensaje';
+
+        if (response.ok && data?.ok) {
+          // Success Feedback
+          feedback?.classList.remove('hidden');
+          feedback?.classList.add('flex');
+          feedback?.focus();
           form.reset();
+          resetTurnstile();
           form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
-        }, 320);
+        } else {
+          // Error Feedback
+          const msg = data?.error?.message || 'No se pudo enviar tu consulta en este momento. Por favor, revisa los datos o llámanos.';
+          if (errorMessage) errorMessage.textContent = msg;
+          errorAlert?.classList.remove('hidden');
+          errorAlert?.classList.add('flex');
+          errorAlert?.focus();
+          resetTurnstile();
+        }
+      } catch (networkError) {
+        skeleton?.classList.add('hidden');
+        skeleton?.classList.remove('flex');
+        form.removeAttribute('aria-busy');
+        submitBtn?.removeAttribute('disabled');
+        if (label) label.textContent = 'Enviar Mensaje';
+
+        if (errorMessage) {
+          errorMessage.textContent = 'Error de red o conexión. Por favor, llámanos directamente por teléfono o escribe por WhatsApp.';
+        }
+        errorAlert?.classList.remove('hidden');
+        errorAlert?.classList.add('flex');
+        errorAlert?.focus();
+        resetTurnstile();
       }
     });
   })();
