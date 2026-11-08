@@ -1,94 +1,93 @@
-# Tasks: Integración de Mailjet y Turnstile en el Formulario de Contacto (`SPEC-mailjet-contact-form`)
+# Tasks: Pantalla de Consentimiento de Cookies y Cláusulas Legales de Google Analytics (`SPEC-cookies-screen-analytics`)
 
-## Task 1: Suite TDD de Pruebas Automatizadas (`tests/contact-api.test.mjs`) [Fase RED]
+## Task 1: Suite TDD de Pruebas Automatizadas (`tests/cookies.test.mjs`) [Fase RED]
 - **Description:** Crear una suite de pruebas con el test runner nativo de Node.js (`node:test`) que verifique:
-  1. Validación del payload de contacto (campos requeridos, formato de email, longitud de mensaje, sanitización de teléfono).
-  2. Cliente de validación de Turnstile con tokens de prueba y mocks de Cloudflare siteverify.
-  3. Cliente de Mailjet: estructura del payload para la Send API v3.1 (Basic Auth, remitente, destinatario parametrizado, reply-to, HTML y TextPart) y la Contacts List API v3 (`managecontact` con `Action: addnoforce`, `Name`, `Email`, `Properties: { phone }`).
-  4. Función controladora `handleContactRequest` retornando 200 OK con payload válido, 400 en JSON inválido, 422 en campos incorrectos o Turnstile fallido, y tolerancia a fallos en la lista si el envío de correo tuvo éxito.
+  1. `src/components/CookieBanner.astro` existe, tiene accesibilidad (`role="region"` o `role="dialog"`, `aria-labelledby`, `aria-describedby`), botones de "Aceptar todas", "Rechazar" y sección de configuración.
+  2. `src/components/GoogleTagManager.astro` inicializa Google Consent Mode v2 con denegación por defecto (`analytics_storage: 'denied'`).
+  3. `src/pages/cookies.astro` existe, compila y contiene la información reglamentaria de cookies técnicas y de Google Analytics.
+  4. `src/pages/privacidad.astro` incluye la cláusula específica de Google Analytics (Google Ireland Limited, finalidad y legitimación).
+  5. `src/components/Footer.astro` incluye enlace a `/cookies` y botón/disparador para reabrir la configuración.
+  6. `src/layouts/Layout.astro` monta el componente `<CookieBanner />`.
 - **Acceptance criteria:**
-  - [x] Archivo `tests/contact-api.test.mjs` creado.
-  - [x] Ejecución inicial `node --test tests/contact-api.test.mjs` falla (Fase RED), evidenciando los módulos pendientes de implementación.
-- **Verify:** `node --test tests/contact-api.test.mjs`
-- **Files:** `tests/contact-api.test.mjs`
+  - [x] Archivo `tests/cookies.test.mjs` creado.
+  - [x] Ejecución inicial `node --test tests/cookies.test.mjs` falla (Fase RED), evidenciando los archivos y componentes que faltan.
+- **Verify:** `node --test tests/cookies.test.mjs`
+- **Files:** `tests/cookies.test.mjs`
 - **Dependencies:** None
 - **Estimated scope:** Medium (1 file)
 
 ---
 
-## Task 2: Configuración y Parametrización (`src/config/site.ts` y `wrangler.json`)
-- **Description:** 
-  1. Extender `src/config/site.ts` con `SITE.contact.notificationEmail` (para parametrizar el destinatario con fallback) y `SITE.security.turnstileSiteKey` (con clave de prueba oficial de Cloudflare como fallback).
-  2. Actualizar `wrangler.json` para declarar `"main": "src/worker.ts"` conservando `"assets": { "directory": "./dist" }` y `"previews": {}`.
+## Task 2: Configuración Legal y Google Consent Mode v2 (`src/config/legal.ts` y `src/components/GoogleTagManager.astro`)
+- **Description:**
+  1. En `src/config/legal.ts`, añadir datos del proveedor de analítica web (`analyticsProvider: 'Google Ireland Limited'`, `analyticsTool: 'Google Analytics (Google Tag Manager)'`).
+  2. En `src/components/GoogleTagManager.astro`, incorporar la inicialización de Google Consent Mode v2 antes del snippet de GTM, leyendo el consentimiento guardado previamente o estableciendo `analytics_storage: 'denied'` por defecto.
 - **Acceptance criteria:**
-  - [x] `SITE.contact.notificationEmail` y `SITE.security.turnstileSiteKey` exportados y tipados.
-  - [x] `wrangler.json` incluye `"main": "src/worker.ts"` sin eliminar la configuración de assets ni previews.
-- **Verify:** `node --test tests/contact-api.test.mjs`
-- **Files:** `src/config/site.ts`, `wrangler.json`
+  - [x] `src/config/legal.ts` exporta metadatos de analítica.
+  - [x] `src/components/GoogleTagManager.astro` ejecuta `gtag('consent', 'default', ...)` antes del evento `gtm.start`.
+- **Verify:** `node --test tests/cookies.test.mjs`
+- **Files:** `src/config/legal.ts`, `src/components/GoogleTagManager.astro`
 - **Dependencies:** Task 1
 - **Estimated scope:** Small (2 files)
 
 ---
 
-## Task 3: Implementación de Clientes de Servicio (`src/lib/turnstile.ts` y `src/lib/mailjet.ts`)
-- **Description:** 
-  1. Crear `src/lib/turnstile.ts` para verificar tokens contra `https://challenges.cloudflare.com/turnstile/v0/siteverify` utilizando `fetch` nativo, soportando claves de prueba oficiales.
-  2. Crear `src/lib/mailjet.ts` con:
-     - `sendTransactionalEmail(data, env)`: invoca Mailjet Send API v3.1 con Basic Auth, cabecera `Reply-To`, destinatario parametrizable y plantilla responsive en HTML + versión texto.
-     - `subscribeContactToList(data, env)`: invoca `POST /v3/REST/contactslist/{list_id}/managecontact` con `Action: "addnoforce"` y propiedades `Name`, `Email`, `Properties: { phone }`.
+## Task 3: Página Dedicada de Política de Cookies y Actualización de Privacidad (`src/pages/cookies.astro` y `src/pages/privacidad.astro`)
+- **Description:**
+  1. Crear `src/pages/cookies.astro` con maquetación en el sistema de diseño oficial: qué son las cookies, tipología (técnicas vs analíticas de Google), tabla de cookies (`_ga`, `_ga_*`, Turnstile, consentimiento local), plazos y guía de revocación en navegadores.
+  2. Actualizar `src/pages/privacidad.astro` incorporando una nueva sección/artículo "Tratamiento de Datos mediante Cookies y Analítica Web (Google Analytics)" detallando corresponsabilidad, finalidades estadísticas anónimas, base jurídica de consentimiento y transferencias internacionales.
 - **Acceptance criteria:**
-  - [x] Ambos clientes implementados utilizando Web APIs estándar (`fetch`, `btoa`/`Buffer`).
-  - [x] Manejo adecuado de respuestas y tipado estricto.
-- **Verify:** `node --test tests/contact-api.test.mjs`
-- **Files:** `src/lib/turnstile.ts`, `src/lib/mailjet.ts`
+  - [x] `src/pages/cookies.astro` creada y accesible.
+  - [x] `src/pages/privacidad.astro` incluye la sección legal de Google Analytics.
+- **Verify:** `node --test tests/cookies.test.mjs`
+- **Files:** `src/pages/cookies.astro`, `src/pages/privacidad.astro`
 - **Dependencies:** Task 2
 - **Estimated scope:** Medium (2 files)
 
 ---
 
-## Task 4: Handler de la API, Cloudflare Worker y Middleware Dev (`src/lib/contact-handler.ts`, `src/worker.ts`, `astro.config.mjs`)
+## Task 4: Componente de Banner Flotante y Panel de Configuración (`src/components/CookieBanner.astro` y `src/layouts/Layout.astro`)
 - **Description:**
-  1. Crear `src/lib/contact-handler.ts` con la función `handleContactRequest(request, env)` que orqueste la validación de entrada, validación de Turnstile, envío transaccional en Mailjet y adición a lista.
-  2. Crear `src/worker.ts` como entrypoint del Worker de Cloudflare interceptando `POST /api/contact`.
-  3. Añadir middleware de desarrollo en `astro.config.mjs` para permitir probar `POST /api/contact` localmente durante `npx astro dev`.
+  1. Crear `src/components/CookieBanner.astro` diseñado según `/design-taste-frontend` y `/frontend-ui-engineering`:
+     - Tarjeta compacta flotante (`diffusion-card`, bordes sutiles, esquinas `rounded-2xl`).
+     - Botón "Aceptar todas" (primario esmeralda).
+     - Botón "Rechazar no esenciales" (neutro con alto contraste y sin patrones oscuros).
+     - Desplegable interactivo para configuración granular con switches accesibles.
+     - Script inline para leer/guardar consentimiento en `localStorage`, actualizar `gtag('consent', 'update', ...)` y escuchar el evento `rpv:open-cookie-settings`.
+  2. Importar y montar `<CookieBanner />` en `src/layouts/Layout.astro`.
 - **Acceptance criteria:**
-  - [x] `handleContactRequest` procesa peticiones y retorna respuestas con el contrato exacto de la especificación.
-  - [x] `src/worker.ts` exporta `default { fetch }`.
-  - [x] La suite de pruebas de la API pasa al 100% (Fase GREEN).
-- **Verify:** `node --test tests/contact-api.test.mjs`
-- **Files:** `src/lib/contact-handler.ts`, `src/worker.ts`, `astro.config.mjs`
+  - [x] Banner interactivo implementado y montado en el layout base.
+  - [x] Respeta el consentimiento guardado sin parpadeos.
+- **Verify:** `node --test tests/cookies.test.mjs`
+- **Files:** `src/components/CookieBanner.astro`, `src/layouts/Layout.astro`
 - **Dependencies:** Task 3
-- **Estimated scope:** Medium (3 files)
+- **Estimated scope:** Medium (2 files)
 
 ---
 
-## Task 5: Componente UI Frontend, Turnstile y Accesibilidad (`src/components/ContactForm.astro`)
+## Task 5: Enlace a Política y Disparador de Configuración en el Footer (`src/components/Footer.astro`)
 - **Description:**
-  1. Integrar el script de Cloudflare Turnstile con carga asíncrona (`api.js?render=explicit`).
-  2. Renderizar el contenedor del widget Turnstile con gestión de token y reseteo.
-  3. Conectar el envío del formulario mediante `fetch('/api/contact')` con payload JSON.
-  4. Implementar los estados visuales y accesibles: botón de envío deshabilitado durante la carga con spinner/texto explicativo, skeleton loading, banner de confirmación accesible (`role="status"`, `aria-live="polite"`), y banner de error con reintento accesible (`role="alert"`).
-  5. Asegurar cumplimiento de WCAG 2.1 AA y tokens de diseño de Rápido Pack Valencia.
+  1. En `src/components/Footer.astro`, añadir el enlace a `/cookies` ("Política de Cookies") en la columna de Navegación y en los enlaces legales del pie inferior.
+  2. Añadir botón/enlace interactivo "Configurar cookies" que emita el evento `rpv:open-cookie-settings` para reabrir el banner en cualquier momento.
 - **Acceptance criteria:**
-  - [x] Formulario envía datos al endpoint `/api/contact`.
-  - [x] Estados de carga, éxito y error funcionan adecuadamente y son accesibles.
-  - [x] Widget de Turnstile se renderiza y se resetea al completar o fallar.
-- **Verify:** `npm run build`
-- **Files:** `src/components/ContactForm.astro`
+  - [x] El pie de página enlaza a `/cookies`.
+  - [x] Disparador de configuración de cookies funcional y accesible.
+- **Verify:** `node --test tests/cookies.test.mjs`
+- **Files:** `src/components/Footer.astro`
 - **Dependencies:** Task 4
-- **Estimated scope:** Medium (1 file)
+- **Estimated scope:** Small (1 file)
 
 ---
 
-## Task 6: Verificación TDD Green, Compilación Estática y Verificación en Navegador
+## Task 6: Verificación TDD Green, Compilación Estática y Verificación en Navegador Real
 - **Description:**
   1. Ejecutar la suite completa de tests automatizados (`npm test`).
-  2. Ejecutar `npm run build` para comprobar la compilación estática de Astro y la generación de tipos.
-  3. Ejecutar `scripts/verify-browser.mjs` en preview para auditar la consola del navegador y el renderizado visual.
+  2. Ejecutar `npm run build` para asegurar compilación estática de `./dist/cookies/index.html` sin errores.
+  3. Ejecutar `scripts/verify-browser.mjs` en preview de producción para validar la ausencia de errores en consola y el comportamiento responsivo en desktop (1440x900) y mobile (390x844).
 - **Acceptance criteria:**
-  - [x] Todos los tests de la suite pasan (51 tests totales en verde).
-  - [x] `npm run build` compila con 0 errores.
-  - [x] Verificación en navegador real sin errores de consola ni advertencias en desktop y mobile.
+  - [x] Todos los tests unitarios y de integración pasan (58 tests en verde).
+  - [x] Compilación de producción con código de salida 0 (7 páginas generadas).
+  - [x] 0 errores y 0 advertencias en la consola del navegador en todas las rutas auditadas (incluida `/cookies`).
 - **Verify:** `npm test`, `npm run build`, `node scripts/verify-browser.mjs`
 - **Files:** `tasks/todo.md`
 - **Dependencies:** Task 5

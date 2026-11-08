@@ -1,0 +1,236 @@
+---
+import { SITE } from '../config/site';
+---
+
+<aside
+  id="cookie-banner-container"
+  class="hidden fixed bottom-0 inset-x-0 sm:bottom-4 sm:right-4 sm:inset-x-auto z-50 w-full sm:max-w-md p-3 sm:p-0 pb-20 sm:pb-0 pointer-events-none"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-desc"
+>
+  <div class="pointer-events-auto bg-surface-container-lowest/95 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-border-subtle shadow-2xl p-5 sm:p-6 flex flex-col gap-4 text-on-surface transition-all duration-300 diffusion-card">
+    <!-- Header -->
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-mint-wash flex items-center justify-center text-primary shrink-0">
+          <span class="material-symbols-outlined text-[19px]" aria-hidden="true">cookie</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-mono text-[10px] uppercase tracking-wider text-primary font-semibold">
+            00 // Privacidad &amp; Cookies
+          </span>
+          <h2 id="cookie-banner-title" class="font-display text-base sm:text-lg font-bold text-surface-dark leading-tight">
+            Control de Cookies
+          </h2>
+        </div>
+      </div>
+      <button
+        type="button"
+        id="cookie-quick-close-btn"
+        class="text-text-muted hover:text-on-surface p-1 rounded-lg transition-colors cursor-pointer"
+        aria-label="Cerrar aviso de cookies temporalmente"
+      >
+        <span class="material-symbols-outlined text-[20px]" aria-hidden="true">close</span>
+      </button>
+    </div>
+
+    <!-- Description -->
+    <p id="cookie-banner-desc" class="font-sans text-xs sm:text-sm text-secondary leading-relaxed">
+      En {SITE.brand.name} utilizamos cookies técnicas necesarias para el funcionamiento seguro del sitio y cookies analíticas de Google para medir de forma agregada las visitas y mejorar nuestro catálogo.
+    </p>
+
+    <!-- Granular Settings Accordion (Hidden by default) -->
+    <div id="cookie-settings-panel" class="hidden flex-col gap-3 pt-2 border-t border-border-subtle">
+      <div class="flex flex-col gap-2.5 font-sans text-xs">
+        <!-- Technical Cookies -->
+        <div class="p-3 bg-surface-alt/50 rounded-xl border border-border-subtle flex items-start justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <span class="font-semibold text-on-surface">Cookies Técnicas y Seguridad</span>
+            <span class="text-text-muted text-[11px] leading-normal">
+              Imprescindibles para navegación, Turnstile anti-spam y guardar tus preferencias.
+            </span>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-mono text-[10px] font-semibold shrink-0">
+            Obligatorias
+          </span>
+        </div>
+
+        <!-- Analytics Cookies -->
+        <div class="p-3 bg-surface-alt/50 rounded-xl border border-border-subtle flex items-start justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <label for="cookie-analytics-toggle" class="font-semibold text-on-surface cursor-pointer select-none">
+              Cookies Analíticas (Google)
+            </label>
+            <span class="text-text-muted text-[11px] leading-normal">
+              Medición agregada anónima de tráfico web y secciones más vistas.
+            </span>
+          </div>
+          <div class="flex items-center shrink-0 pt-0.5">
+            <input
+              type="checkbox"
+              id="cookie-analytics-toggle"
+              class="h-4 w-4 rounded border-border-subtle text-primary accent-primary cursor-pointer"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 pt-1">
+        <a href="/cookies" class="text-primary hover:underline font-mono text-[11px] font-semibold">
+          Leer Política de Cookies &rarr;
+        </a>
+        <button
+          type="button"
+          id="cookie-save-settings-btn"
+          class="px-4 py-2 bg-surface-dark hover:bg-primary text-on-primary font-label-button text-xs rounded-lg transition-colors cursor-pointer"
+        >
+          Guardar selección
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Actions -->
+    <div id="cookie-main-actions" class="flex flex-col gap-2 pt-1 border-t border-border-subtle/60">
+      <div class="grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          id="cookie-accept-all-btn"
+          class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-xs sm:text-sm font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer shadow-sm"
+        >
+          <span>Aceptar todas</span>
+        </button>
+        <button
+          type="button"
+          id="cookie-reject-all-btn"
+          class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 bg-surface-alt hover:bg-surface-alt/80 text-on-surface border border-border-subtle font-label-button text-xs sm:text-sm font-semibold rounded-xl transition-all active:scale-[0.98] cursor-pointer"
+        >
+          <span>Rechazar</span>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between text-xs pt-1">
+        <button
+          type="button"
+          id="cookie-toggle-settings-btn"
+          class="inline-flex items-center gap-1 text-secondary hover:text-primary font-sans text-xs underline decoration-border-subtle hover:decoration-primary transition-colors cursor-pointer py-1"
+        >
+          <span class="material-symbols-outlined text-[15px]" aria-hidden="true">tune</span>
+          <span>Configurar preferencias</span>
+        </button>
+        <a href="/cookies" class="text-text-muted hover:text-primary font-sans text-[11px] underline decoration-border-subtle transition-colors">
+          Política de Cookies
+        </a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (() => {
+    const STORAGE_KEY = 'rpv_cookie_consent';
+    const banner = document.getElementById('cookie-banner-container');
+    const settingsPanel = document.getElementById('cookie-settings-panel');
+    const analyticsToggle = document.getElementById('cookie-analytics-toggle');
+    const toggleSettingsBtn = document.getElementById('cookie-toggle-settings-btn');
+    const quickCloseBtn = document.getElementById('cookie-quick-close-btn');
+
+    if (!banner) return;
+
+    const readStoredConsent = () => {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const updateConsentMode = (analyticsGranted) => {
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', {
+          analytics_storage: analyticsGranted ? 'granted' : 'denied',
+        });
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'cookie_consent_update',
+        analytics_storage: analyticsGranted ? 'granted' : 'denied',
+      });
+    };
+
+    const saveConsent = (analyticsGranted) => {
+      const state = {
+        version: '2026.1',
+        timestamp: new Date().toISOString(),
+        necessary: true,
+        analytics: Boolean(analyticsGranted),
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+
+      updateConsentMode(state.analytics);
+      banner.classList.add('hidden');
+    };
+
+    const showBanner = (openSettings = false) => {
+      banner.classList.remove('hidden');
+      const current = readStoredConsent();
+      if (analyticsToggle) {
+        analyticsToggle.checked = current ? current.analytics === true : false;
+      }
+      if (openSettings && settingsPanel) {
+        settingsPanel.classList.remove('hidden');
+        settingsPanel.classList.add('flex');
+      }
+    };
+
+    // Check initial state
+    const existingConsent = readStoredConsent();
+    if (!existingConsent) {
+      showBanner(false);
+    }
+
+    // Accept all
+    document.getElementById('cookie-accept-all-btn')?.addEventListener('click', () => {
+      saveConsent(true);
+    });
+
+    // Reject all (only necessary)
+    document.getElementById('cookie-reject-all-btn')?.addEventListener('click', () => {
+      saveConsent(false);
+    });
+
+    // Save customized settings
+    document.getElementById('cookie-save-settings-btn')?.addEventListener('click', () => {
+      const isGranted = analyticsToggle ? analyticsToggle.checked : false;
+      saveConsent(isGranted);
+    });
+
+    // Toggle settings panel
+    toggleSettingsBtn?.addEventListener('click', () => {
+      if (!settingsPanel) return;
+      const isHidden = settingsPanel.classList.contains('hidden');
+      if (isHidden) {
+        settingsPanel.classList.remove('hidden');
+        settingsPanel.classList.add('flex');
+        toggleSettingsBtn.innerHTML = '<span class="material-symbols-outlined text-[15px]" aria-hidden="true">expand_less</span><span>Ocultar configuración</span>';
+      } else {
+        settingsPanel.classList.add('hidden');
+        settingsPanel.classList.remove('flex');
+        toggleSettingsBtn.innerHTML = '<span class="material-symbols-outlined text-[15px]" aria-hidden="true">tune</span><span>Configurar preferencias</span>';
+      }
+    });
+
+    // Quick close
+    quickCloseBtn?.addEventListener('click', () => {
+      banner.classList.add('hidden');
+    });
+
+    // Global listener for reopening settings from Footer or Cookie page
+    window.addEventListener('rpv:open-cookie-settings', () => {
+      showBanner(true);
+    });
+  })();
+</script>

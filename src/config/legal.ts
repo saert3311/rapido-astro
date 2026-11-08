@@ -13,6 +13,8 @@ export const LEGAL = {
   dpoEmail: 'contacto@rapidopackvalencia.es',
   registryData: '[Inscripción mercantil pendiente de asignación]',
   hostingProvider: 'Cloudflare, Inc. (101 Townsend St, San Francisco, CA 94107, USA)',
+  analyticsProvider: 'Google Ireland Limited (Gordon House, Barrow Street, Dublín 4, Irlanda)',
+  analyticsTool: 'Google Analytics 4 / Google Tag Manager',
   lastUpdated: 'Noviembre de 2026',
 } as const;
 

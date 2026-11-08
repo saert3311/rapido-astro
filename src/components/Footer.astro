@@ -49,6 +49,7 @@ const currentYear = new Date().getFullYear();
           <li><a class="hover:text-white transition-colors" href="/contacto">Contacto</a></li>
           <li class="pt-2 border-t border-white/10"><a class="hover:text-white transition-colors text-xs" href="/aviso-legal">Aviso Legal</a></li>
           <li><a class="hover:text-white transition-colors text-xs" href="/privacidad">Política de Privacidad</a></li>
+          <li><a class="hover:text-white transition-colors text-xs" href="/cookies">Política de Cookies</a></li>
         </ul>
       </div>
 
@@ -78,13 +79,29 @@ const currentYear = new Date().getFullYear();
     <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-surface-variant font-mono text-xs">
       <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-center sm:text-left">
         <p>© {currentYear} {SITE.brand.name}. Todos los derechos reservados.</p>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
           <a class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4" href="/aviso-legal">Aviso Legal</a>
           <span class="text-white/25" aria-hidden="true">·</span>
           <a class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4" href="/privacidad">Privacidad</a>
+          <span class="text-white/25" aria-hidden="true">·</span>
+          <a class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4" href="/cookies">Cookies</a>
+          <span class="text-white/25" aria-hidden="true">·</span>
+          <button
+            type="button"
+            id="footer-cookie-settings-btn"
+            class="hover:text-white transition-colors underline decoration-white/20 underline-offset-4 cursor-pointer text-left font-mono"
+          >
+            Configurar cookies
+          </button>
         </div>
       </div>
       <p class="text-surface-variant/80">Outlet, Segunda Mano Verificada y Punto Oficial de Paquetería en Alfafar</p>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  document.getElementById('footer-cookie-settings-btn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('rpv:open-cookie-settings'));
+  });
+</script>

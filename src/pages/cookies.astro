@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+import { LEGAL } from '../config/legal';
+
+const title = `Política de Cookies · ${SITE.brand.name}`;
+const description = `Información sobre el uso de cookies técnicas y de analítica web (Google Analytics) en el sitio de ${SITE.brand.name} en Alfafar conforme a la normativa AEPD y RGPD.`;
+---
+
+<Layout title={title} description={description} currentPage="legal">
+  <div class="w-full bg-surface-container-lowest border-b border-border-subtle py-12 lg:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-mint-wash text-primary font-mono text-xs font-semibold uppercase tracking-wider">
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">cookie</span>
+          Normativa AEPD & LSSI-CE
+        </span>
+      </div>
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-surface-dark tracking-tight text-balance">
+        Política de Cookies
+      </h1>
+      <p class="mt-4 font-sans text-base sm:text-lg text-secondary leading-relaxed text-pretty">
+        En {SITE.brand.name} velamos por la transparencia y privacidad de nuestros usuarios. Te explicamos qué son las cookies, qué tipos utilizamos en este sitio web y cómo puedes gestionarlas o revocar tu consentimiento en cualquier momento.
+      </p>
+    </div>
+  </div>
+
+  <section class="py-12 lg:py-16 bg-surface">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- 01. Qué son las cookies -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          01 // Definición
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          1. ¿Qué son las Cookies?
+        </h2>
+        <div class="space-y-3 font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          <p>
+            Una cookie es un pequeño archivo de texto que los sitios web descargan en tu navegador, ordenador o teléfono móvil al acceder a determinadas páginas. Permiten al sitio web recordar información sobre tu visita (como tu idioma preferido o las opciones de consentimiento) para facilitar tu próxima visita y hacer que el sitio te resulte más útil.
+          </p>
+          <p>
+            Las cookies no dañan tu dispositivo y son esenciales para el funcionamiento de servicios seguros en Internet. Conforme a la Guía sobre el uso de cookies de la <strong class="text-on-surface">Agencia Española de Protección de Datos (AEPD)</strong> y el artículo 22.2 de la LSSI-CE, solo instalaremos cookies analíticas o no necesarias si contamos con tu previo consentimiento explícito.
+          </p>
+        </div>
+      </article>
+
+      <!-- 02. Tipos de cookies utilizadas -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-6">
+        <div>
+          <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+            02 // Inventario
+          </span>
+          <h2 class="font-display text-2xl font-bold text-surface-dark">
+            2. Cookies Utilizadas en este Sitio Web
+          </h2>
+          <p class="mt-2 font-sans text-sm sm:text-base text-secondary leading-relaxed">
+            Clasificamos las cookies empleadas en dos categorías claramente diferenciadas:
+          </p>
+        </div>
+
+        <!-- Tabla detallada -->
+        <div class="overflow-x-auto border border-border-subtle rounded-xl">
+          <table class="w-full text-left font-sans text-sm border-collapse">
+            <thead class="bg-surface-alt font-mono text-xs text-on-surface uppercase border-b border-border-subtle">
+              <tr>
+                <th scope="col" class="py-3 px-4">Cookie</th>
+                <th scope="col" class="py-3 px-4">Titular</th>
+                <th scope="col" class="py-3 px-4">Finalidad</th>
+                <th scope="col" class="py-3 px-4">Caducidad</th>
+                <th scope="col" class="py-3 px-4">Tipo</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-subtle text-xs sm:text-sm">
+              <tr class="hover:bg-surface-alt/40 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-semibold text-on-surface">rpv_cookie_consent</td>
+                <td class="py-3.5 px-4 text-secondary">Propia ({SITE.brand.shortName})</td>
+                <td class="py-3.5 px-4 text-secondary">Guarda las preferencias del usuario sobre la aceptación o rechazo de cookies.</td>
+                <td class="py-3.5 px-4 font-mono text-secondary">1 año</td>
+                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-surface-alt text-on-surface font-mono text-[11px] font-semibold">Técnica (Necesaria)</span></td>
+              </tr>
+              <tr class="hover:bg-surface-alt/40 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-semibold text-on-surface">cf_clearance / Turnstile</td>
+                <td class="py-3.5 px-4 text-secondary">Cloudflare, Inc.</td>
+                <td class="py-3.5 px-4 text-secondary">Protección anti-spam del formulario de contacto y mitigación de ataques automáticos (bot management).</td>
+                <td class="py-3.5 px-4 font-mono text-secondary">Sesión / 1 año</td>
+                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-surface-alt text-on-surface font-mono text-[11px] font-semibold">Seguridad (Necesaria)</span></td>
+              </tr>
+              <tr class="hover:bg-surface-alt/40 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-semibold text-primary">_ga</td>
+                <td class="py-3.5 px-4 text-secondary">Google Ireland Ltd. / Google LLC</td>
+                <td class="py-3.5 px-4 text-secondary">Métrica de usuarios únicos con fines puramente estadísticos y agregados de tráfico web.</td>
+                <td class="py-3.5 px-4 font-mono text-secondary">2 años</td>
+                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-mint-wash text-primary font-mono text-[11px] font-semibold">Analítica (Opcional)</span></td>
+              </tr>
+              <tr class="hover:bg-surface-alt/40 transition-colors">
+                <td class="py-3.5 px-4 font-mono font-semibold text-primary">_ga_*</td>
+                <td class="py-3.5 px-4 text-secondary">Google Ireland Ltd. / Google LLC</td>
+                <td class="py-3.5 px-4 text-secondary">Mantenimiento del estado de la sesión de navegación para analítica web agregada.</td>
+                <td class="py-3.5 px-4 font-mono text-secondary">2 años</td>
+                <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded bg-mint-wash text-primary font-mono text-[11px] font-semibold">Analítica (Opcional)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- 03. Gestión y Revocación del Consentimiento -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          03 // Tus Opciones
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          3. Cómo Modificar o Revocar tu Consentimiento
+        </h2>
+        <div class="space-y-4 font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          <p>
+            Puedes cambiar de opinión en cualquier instante. Si previamente aceptaste o rechazaste las cookies analíticas, puedes pulsar el siguiente botón para reabrir el panel de preferencias y modificar tu elección:
+          </p>
+
+          <div class="pt-1">
+            <button
+              type="button"
+              id="reopen-cookie-banner-btn"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-label-button text-sm transition-all active:scale-[0.98] cursor-pointer shadow-sm"
+            >
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">settings</span>
+              <span>Modificar Preferencias de Cookies</span>
+            </button>
+          </div>
+
+          <p class="text-xs text-text-muted mt-2">
+            También puedes pulsar en "Configurar cookies" situado al pie de cualquier página de nuestro sitio web.
+          </p>
+        </div>
+      </article>
+
+      <!-- 04. Desactivación mediante el navegador -->
+      <article class="p-6 sm:p-8 bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-sm space-y-4">
+        <span class="font-mono text-xs text-primary font-semibold uppercase tracking-wider mb-1 block">
+          04 // Navegadores
+        </span>
+        <h2 class="font-display text-2xl font-bold text-surface-dark">
+          4. Desactivación o Eliminación a través del Navegador
+        </h2>
+        <div class="space-y-3 font-sans text-sm sm:text-base text-secondary leading-relaxed">
+          <p>
+            Además de nuestro panel de configuración, puedes permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador web que utilices:
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-mono text-xs">
+            <li class="p-3 bg-surface-alt/60 rounded-xl border border-border-subtle">
+              <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold block">Google Chrome &rarr;</a>
+              <span class="text-text-muted">Configuración &gt; Privacidad y seguridad &gt; Cookies</span>
+            </li>
+            <li class="p-3 bg-surface-alt/60 rounded-xl border border-border-subtle">
+              <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold block">Mozilla Firefox &rarr;</a>
+              <span class="text-text-muted">Ajustes &gt; Privacidad &amp; Seguridad</span>
+            </li>
+            <li class="p-3 bg-surface-alt/60 rounded-xl border border-border-subtle">
+              <a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold block">Apple Safari &rarr;</a>
+              <span class="text-text-muted">Preferencias &gt; Privacidad</span>
+            </li>
+            <li class="p-3 bg-surface-alt/60 rounded-xl border border-border-subtle">
+              <a href="https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-semibold block">Microsoft Edge &rarr;</a>
+              <span class="text-text-muted">Configuración &gt; Permisos del sitio &gt; Cookies</span>
+            </li>
+          </ul>
+        </div>
+        <div class="pt-4 border-t border-border-subtle text-xs font-mono text-secondary">
+          Última actualización: {LEGAL.lastUpdated}
+        </div>
+      </article>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  document.getElementById('reopen-cookie-banner-btn')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('rpv:open-cookie-settings'));
+  });
+</script>

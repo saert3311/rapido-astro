@@ -1,28 +1,28 @@
-# Implementation Plan: Integración de Mailjet y Turnstile en el Formulario de Contacto (`SPEC-mailjet-contact-form`)
+# Implementation Plan: Pantalla de Consentimiento de Cookies y Cláusulas Legales de Google Analytics (`SPEC-cookies-screen-analytics`)
 
 ## Overview
-Implementación completa de la infraestructura de backend y frontend para el formulario de contacto de Rápido Pack Valencia (`/contacto`):
-1. **Seguridad Anti-Spam:** Cloudflare Turnstile con validación de tokens en frontend y backend.
-2. **Envío Transaccional:** Mailjet Send API v3.1 con destinatario parametrizable (`MAILJET_TO_EMAIL` / `SITE.contact.email`) y plantilla HTML responsive con branding oficial.
-3. **Suscripción a Lista:** Mailjet Contacts List API v3 (`managecontact`) registrando `Name`, `Email` y propiedad `phone` (`String`).
-4. **Arquitectura Serverless:** Worker de Cloudflare (`src/worker.ts`) e integración en dev con middleware Vite en `astro.config.mjs` sin romper la compilación estática de Astro.
-5. **Experiencia de Usuario y Accesibilidad:** Estados reactivos de carga, éxito y error con WCAG 2.1 AA en `src/components/ContactForm.astro`.
+Implementación completa del sistema de consentimiento de cookies y actualización del marco legal para Google Analytics en Rápido Pack Valencia:
+1. **Seguridad y Cumplimiento Normativo (AEPD / RGPD):** Google Consent Mode v2 con denegación preventiva por defecto (`analytics_storage: 'denied'`).
+2. **Diseño de Interfaz (`/design-taste-frontend` y `/frontend-ui-engineering`):** Tarjeta flotante compacta en esquina inferior derecha (`diffusion-card`), sin patrones oscuros (Aceptar y Rechazar con la misma facilidad), panel interactivo expandible para configuración granular (técnicas vs. analíticas), y adaptación móvil libre de colisiones con la barra fija (`pb-20 sm:pb-0`).
+3. **Página de Política de Cookies (`/cookies`):** Documento legal completo con tabla exhaustiva de cookies técnicas (Turnstile, consentimiento) y analíticas de Google (`_ga`, `_ga_*`), plazos de conservación y métodos de desactivación en navegadores.
+4. **Actualización de Privacidad (`/privacidad`):** Inclusión de Google Analytics (Google Ireland Limited), base legal (consentimiento art. 6.1.a RGPD) y transferencias internacionales bajo el Marco de Privacidad de Datos UE-EE.UU.
+5. **Acceso Permanente a Configuración:** Enlace y disparador en `Footer.astro` para revocar o alterar el consentimiento en cualquier momento.
 
 ---
 
 ## Dependency Graph
 ```text
-Task 1: Suite TDD de Pruebas Automatizadas (tests/contact-api.test.mjs) [FASE RED]
+Task 1: Suite TDD de Pruebas Automatizadas (tests/cookies.test.mjs) [FASE RED]
     │
-    ├── Task 2: Configuración y Parametrización (src/config/site.ts y wrangler.json)
-    │       │
-    │       ├── Task 3: Clientes de Servicios (src/lib/turnstile.ts y src/lib/mailjet.ts)
-    │       │       │
-    │       │       └── Task 4: Handler del Endpoint y Worker (src/lib/contact-handler.ts, src/worker.ts, astro.config.mjs)
-    │       │
-    │       └── Task 5: Componente UI Frontend y Turnstile (src/components/ContactForm.astro)
+    ├── Task 2: Configuración Legal y Google Consent Mode v2 (src/config/legal.ts y src/components/GoogleTagManager.astro)
     │
-    └── Task 6: Verificación TDD Green, Build Estático y Pruebas de Regresión
+    ├── Task 3: Página Dedicada de Política de Cookies y Actualización de Privacidad (src/pages/cookies.astro y src/pages/privacidad.astro)
+    │
+    ├── Task 4: Componente de Banner Flotante y Panel de Configuración (src/components/CookieBanner.astro y Layout.astro)
+    │
+    ├── Task 5: Enlace a Política y Disparador de Configuración en el Footer (src/components/Footer.astro)
+    │
+    └── Task 6: Verificación TDD Green, Build Estático y Verificación en Navegador Real (npm test, npm run build, node scripts/verify-browser.mjs)
 ```
 
 ---
@@ -30,8 +30,8 @@ Task 1: Suite TDD de Pruebas Automatizadas (tests/contact-api.test.mjs) [FASE RE
 ## Risks and Mitigations
 | Riesgo | Impacto | Mitigación |
 | :--- | :--- | :--- |
-| **Fallo en API de listas de Mailjet bloqueando al usuario** | Alto | El envío transaccional es la operación primaria. Si falla la lista de Mailjet pero el correo se envía, el handler responde 200 OK y registra la advertencia internamente. |
-| **Ejecución local en `astro dev` sin runtime de Worker** | Medio | Inclusión de un middleware ligero en `astro.config.mjs` durante desarrollo que ejecuta el mismo `handleContactRequest` para pruebas locales sin requerir despliegues continuos. |
-| **Token de Turnstile caducado o reusado** | Medio | Reseteo explícito del widget de Turnstile tras cada intento de envío (éxito o fallo) y validación única contra `challenges.cloudflare.com`. |
-| **Filtración de claves de API en el cliente** | Crítico | Las credenciales secretas de Mailjet y Turnstile se leen exclusivamente en el entorno del Worker (`env` / `process.env`), nunca en bundle cliente de Vite ni en `SITE.security`. |
-| **Regresión en compilación o tests existentes** | Alto | Preservar `wrangler.json` con `assets.directory: "./dist"` y `previews: {}`, ejecutando `npm test` y `npm run build` en cada hito. |
+| **Colisión visual en dispositivos móviles con el botón flotante "Cómo llegar"** | Alto | El banner aplica clases de separación `bottom-0 pb-20 sm:pb-4 sm:bottom-4 sm:right-4` y z-index controlado (`z-50`) para no tapar los elementos de navegación ni romper el scroll. |
+| **Carga de cookies analíticas antes del consentimiento del usuario** | Crítico | Se inicializa Google Consent Mode v2 con todos los permisos en `'denied'` antes de la carga de GTM; únicamente tras clic explícito en "Aceptar todas" o toggle analítico se ejecuta `gtag('consent', 'update', { analytics_storage: 'granted' })`. |
+| **Banner reapareciendo en cada recarga de página tras aceptar o rechazar** | Medio | Almacenamiento seguro en `localStorage` con lectura síncrona en el primer render para mantener el banner oculto si ya existe consentimiento válido registrado. |
+| **Patrón oscuro en el diseño de los botones** | Alto | Ambos botones ("Aceptar todas" y "Rechazar no esenciales") disponen de tipografía clara, tamaños táctiles mínimos WCAG (>= 44px) y contraste accesible sobre el fondo. |
+| **Regresión en pruebas previas del sitio** | Alto | Ejecución de `npm test` con los 51 tests existentes garantizando 0 regresiones. |

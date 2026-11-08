@@ -25,14 +25,31 @@ const shouldRender =
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-    <!-- Google Tag Manager Data Layer & Event Initialization (Must precede async gtm.js) -->
+    <!-- Google Tag Manager Data Layer, Consent Mode v2 & Event Initialization (Must precede async gtm.js) -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Google Consent Mode v2: Read stored consent or default to denied
+      var storedConsent = null;
+      try {
+        storedConsent = JSON.parse(localStorage.getItem('rpv_cookie_consent') || 'null');
+      } catch(e) {}
+
+      var isAnalyticsGranted = storedConsent && storedConsent.analytics === true;
+
+      gtag('consent', 'default', {
+        'analytics_storage': isAnalyticsGranted ? 'granted' : 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+
       window.dataLayer.push({
         'gtm.start': new Date().getTime(),
         event: 'gtm.js'
       });
-      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     </script>
 
