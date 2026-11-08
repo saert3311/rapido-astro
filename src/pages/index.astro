@@ -195,11 +195,11 @@ const homeFaqs = [
               </p>
 
               <!-- Tags de Agencias con Micro-Logos -->
-              <div class="flex flex-wrap gap-2 mb-8">
+              <div class="flex flex-wrap items-center gap-2.5 mb-8">
                 {SITE.carriers.map((c) => (
-                  <span class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium hover:border-primary/30 transition-colors">
+                  <span class="group h-9 px-3.5 inline-flex items-center justify-center rounded-lg bg-surface-alt border border-border-subtle/80 hover:border-primary/30 hover:bg-white transition-colors">
                     <CarrierLogo carrier={c.name} size="sm" />
-                    <span>{c.name}</span>
+                    <span class="sr-only">{c.name}</span>
                   </span>
                 ))}
               </div>

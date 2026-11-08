@@ -74,43 +74,59 @@ test('Carrier Logos & Schema SEO - TDD Suite', async (t) => {
     assert.ok(content.includes('Kanguro'), 'knowsAbout must include Kanguro');
   });
 
-  await t.test('5. Authentic Vector Brand Geometry & Official Palette Verification', () => {
+  await t.test('5. Authentic Vector Brand Geometry, Official Palette & Tight Centered ViewBoxes', () => {
     const componentPath = path.resolve('src/components/CarrierLogo.astro');
     const content = readFileSync(componentPath, 'utf-8');
 
-    // InPost: authentic yellow envelope/bird vector & wordmark paths
+    // InPost (adapted from inpost-logo-lm.avif): complete yellow crescent + 5 rays & wordmark with tight viewBox
     assert.ok(
-      content.includes('Fill-27') || content.includes('17.332778,36.1712445') || content.includes('#FFCB04'),
-      'InPost must contain authentic vector envelope/bird mascot geometry and #FFCB04 palette'
+      content.includes('viewBox="0 0.27 119.78 71.72"'),
+      'InPost must have tight centered viewBox="0 0.27 119.78 71.72"'
     );
     assert.ok(
-      content.includes('78.1958434,33.0033259') || content.includes('Fill-43') || content.includes('Fill-41'),
+      content.includes('47.7007144,13.9766729') && content.includes('Fill-29') && content.includes('Fill-36'),
+      'InPost must contain complete yellow crescent arc and all 5 rays from inpost-logo-lm.avif'
+    );
+    assert.ok(
+      content.includes('78.1958434,33.0033259') && content.includes('Fill-41'),
       'InPost must contain authentic vector letterforms'
     );
 
-    // GLS: authentic G-L-S vector paths and #061ab1 / #ffd100 palette
+    // GLS: authentic G-L-S vector paths, #061ab1 / #ffd100 palette, and tight centered viewBox
     assert.ok(
-      content.includes('#061ab1') || content.includes('061ab1'),
-      'GLS must use official Royal Blue #061ab1'
+      content.includes('viewBox="94.79 5.6 830.67 282.12"'),
+      'GLS must have tight centered viewBox="94.79 5.6 830.67 282.12"'
     );
     assert.ok(
-      content.includes('272.997') || content.includes('95.434'),
-      'GLS must contain authentic letterform geometry'
-    );
-
-    // SEUR: authentic Illustrator vector paths extracted from seur.com
-    assert.ok(
-      content.includes('135.5,56.2V9.5') || content.includes('184.8,36.2') || content.includes('92.8,47.6'),
-      'SEUR must contain authentic official letter paths from seur.com'
+      content.includes('#061ab1') && content.includes('#ffd100'),
+      'GLS must use official Royal Blue #061ab1 and Yellow #ffd100'
     );
 
-    // Kanguro: authentic logo from kanguro.com with circle and bowl gradient
+    // SEUR (adapted from seur.com/images/logo.png): 3 progressive blue bars + bold orange-red SEUR wordmark & tight viewBox
     assert.ok(
-      content.includes('kg-bowl') || content.includes('#7FD0FF'),
+      content.includes('viewBox="1 28 798 115"'),
+      'SEUR must have tight centered viewBox="1 28 798 115"'
+    );
+    assert.ok(
+      content.includes('#C5DDEF') && content.includes('#71B9E2') && content.includes('#0074C0'),
+      'SEUR must contain the 3 official progressive blue bars (#C5DDEF, #71B9E2, #0074C0)'
+    );
+    assert.ok(
+      content.includes('#FF5D29') && content.includes('M514,32 H594'),
+      'SEUR must contain the bold orange-red (#FF5D29) SEUR vector wordmark'
+    );
+
+    // Kanguro: authentic logo from kanguro.com with circle, bowl gradient, and tight centered viewBox
+    assert.ok(
+      content.includes('viewBox="15.46 10.46 163.17 39.48"'),
+      'Kanguro must have tight centered viewBox="15.46 10.46 163.17 39.48"'
+    );
+    assert.ok(
+      content.includes('kg-bowl') && content.includes('#7FD0FF'),
       'Kanguro must define authentic bowl gradient #7FD0FF from kanguro.com'
     );
     assert.ok(
-      content.includes('M 70 124 A 184 184') || content.includes('70 124'),
+      content.includes('M 70 124 A 184 184'),
       'Kanguro must contain authentic smile/pouch path geometry from kanguro.com'
     );
   });
