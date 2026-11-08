@@ -6,11 +6,13 @@ import sitemap from '@astrojs/sitemap';
 
 // Bridge public vars from wrangler.json into process.env at build time
 // so Astro pre-renders static assets with production keys even if CI lacks explicit build env vars
+let wranglerVars = /** @type {Record<string, string>} */ ({});
 try {
   const wranglerPath = new URL('./wrangler.json', import.meta.url);
   if (fs.existsSync(wranglerPath)) {
     const wrangler = JSON.parse(fs.readFileSync(wranglerPath, 'utf-8'));
     if (wrangler.vars && typeof wrangler.vars === 'object') {
+      wranglerVars = wrangler.vars;
       for (const [key, val] of Object.entries(wrangler.vars)) {
         if (key.startsWith('PUBLIC_') && !process.env[key]) {
           process.env[key] = String(val);
@@ -43,7 +45,8 @@ const devContactApiPlugin = {
             body: bodyStr,
           });
           const { handleContactRequest } = await import('./src/lib/contact-handler.ts');
-          const webRes = await handleContactRequest(webReq, process.env);
+          const devEnv = { ...wranglerVars, ...process.env };
+          const webRes = await handleContactRequest(webReq, devEnv);
           res.statusCode = webRes.status;
           webRes.headers.forEach((val, key) => res.setHeader(key, val));
           const resText = await webRes.text();
