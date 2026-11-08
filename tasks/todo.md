@@ -33,4 +33,4 @@
 
 ## Phase 5: Verificación, Build y Git Commits
 - [x] **Task 5.1**: Ejecutar suite completa `npm test` y build `npm run build` [COMPLETADO].
-- [ ] **Task 5.2**: Realizar commits atómicos en la rama `feature/carrier-logos` según `/git-workflow-and-versioning`.
+- [x] **Task 5.2**: Realizar commits atómicos en la rama `feature/carrier-logos` según `/git-workflow-and-versioning` [COMPLETADO].
