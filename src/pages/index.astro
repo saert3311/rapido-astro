@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
+import CarrierLogo from '../components/CarrierLogo.astro';
 import { SITE } from '../config/site';
 
 const ledgerFeatures = [
@@ -193,11 +194,12 @@ const homeFaqs = [
                 Recogida y devolución express para <strong class="text-surface-dark font-medium">INPOST, GLS, SEUR y KANGURO</strong>. Gestión ágil de paquetes, a 1 min a pie de la Estación Alfafar-Benetússer y atención directa en sala.
               </p>
 
-              <!-- Tags de Agencias -->
+              <!-- Tags de Agencias con Micro-Logos -->
               <div class="flex flex-wrap gap-2 mb-8">
                 {SITE.carriers.map((c) => (
-                  <span class="px-3 py-1 rounded-md bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium">
-                    {c.name}
+                  <span class="group inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-alt border border-border-subtle/80 font-mono text-xs text-secondary font-medium hover:border-primary/30 transition-colors">
+                    <CarrierLogo carrier={c.name} size="sm" />
+                    <span>{c.name}</span>
                   </span>
                 ))}
               </div>
