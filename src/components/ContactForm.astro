@@ -21,34 +21,70 @@ const turnstileSiteKey = SITE.security?.turnstileSiteKey || '0x4AAAAAAFWf9LvYLm4
   </div>
 
   <form class="flex flex-col gap-5" id="contact-form" novalidate>
-    <!-- Full Name (Rule 6: Label above input, gap-2 block) -->
-    <div class="field flex flex-col gap-1.5">
-      <label class="font-label-button text-sm text-on-surface" for="contact-name">
-        Nombre completo <span class="text-primary" aria-hidden="true">*</span>
-      </label>
-      <span id="name-hint" class="text-xs text-text-muted">
-        Indica tu nombre o razón social
-      </span>
-      <input
-        class="form-control w-full px-4 py-3 bg-surface-alt/50 focus:bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/60 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans text-sm"
-        id="contact-name"
-        name="name"
-        type="text"
-        required
-        minlength="2"
-        maxlength="100"
-        autocomplete="name"
-        placeholder="Ej. Valeria Serrano"
-        aria-describedby="name-hint"
-        aria-errormessage="name-error"
-      />
-      <div id="name-error" class="error-msg text-xs text-error font-medium items-center gap-1.5">
-        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
-        <span>Por favor, introduce tu nombre completo (mínimo 2 caracteres).</span>
+    <!-- Row 1: Nombre completo & Motivo de la consulta (Cuadrícula 2x2 ergonómica) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <!-- Full Name -->
+      <div class="field flex flex-col gap-1.5">
+        <label class="font-label-button text-sm text-on-surface" for="contact-name">
+          Nombre completo <span class="text-primary" aria-hidden="true">*</span>
+        </label>
+        <span id="name-hint" class="text-xs text-text-muted">
+          Indica tu nombre o razón social
+        </span>
+        <input
+          class="form-control w-full px-4 py-3 bg-surface-alt/50 focus:bg-surface-container-lowest text-on-surface border border-border-subtle placeholder:text-text-muted/60 rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans text-sm"
+          id="contact-name"
+          name="name"
+          type="text"
+          required
+          minlength="2"
+          maxlength="100"
+          autocomplete="name"
+          placeholder="Ej. Valeria Serrano"
+          aria-describedby="name-hint"
+          aria-errormessage="name-error"
+        />
+        <div id="name-error" class="error-msg text-xs text-error font-medium items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+          <span>Por favor, introduce tu nombre completo (mínimo 2 caracteres).</span>
+        </div>
+      </div>
+
+      <!-- Subject Select -->
+      <div class="field flex flex-col gap-1.5">
+        <label class="font-label-button text-sm text-on-surface" for="contact-subject">
+          Motivo de la consulta <span class="text-primary" aria-hidden="true">*</span>
+        </label>
+        <span id="subject-hint" class="text-xs text-text-muted">
+          Selecciona el área correspondiente
+        </span>
+        <div class="relative">
+          <select
+            class="form-control w-full appearance-none px-4 py-3 bg-surface-alt/50 focus:bg-surface-container-lowest text-on-surface border border-border-subtle rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans text-sm pr-10 cursor-pointer"
+            id="contact-subject"
+            name="subject"
+            required
+            aria-describedby="subject-hint"
+            aria-errormessage="subject-error"
+          >
+            <option disabled selected value="">Selecciona una opción</option>
+            <option value="lotes">Productos de segunda mano, outlet y lotes semanales</option>
+            <option value="paqueteria">Paquetería y recogidas (INPOST, GLS, SEUR, KANGURO)</option>
+            <option value="horarios">Horarios y ubicación del local</option>
+            <option value="otro">Otra consulta</option>
+          </select>
+          <span class="material-symbols-outlined text-[20px] text-secondary absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+            expand_more
+          </span>
+        </div>
+        <div id="subject-error" class="error-msg text-xs text-error font-medium items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
+          <span>Selecciona un motivo para tu consulta.</span>
+        </div>
       </div>
     </div>
 
-    <!-- Phone & Email -->
+    <!-- Row 2: Teléfono & Correo electrónico -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       <div class="field flex flex-col gap-1.5">
         <label class="font-label-button text-sm text-on-surface" for="contact-phone">
@@ -101,40 +137,7 @@ const turnstileSiteKey = SITE.security?.turnstileSiteKey || '0x4AAAAAAFWf9LvYLm4
       </div>
     </div>
 
-    <!-- Subject Select -->
-    <div class="field flex flex-col gap-1.5">
-      <label class="font-label-button text-sm text-on-surface" for="contact-subject">
-        Motivo de la consulta <span class="text-primary" aria-hidden="true">*</span>
-      </label>
-      <span id="subject-hint" class="text-xs text-text-muted">
-        Selecciona el área correspondiente
-      </span>
-      <div class="relative">
-        <select
-          class="form-control w-full appearance-none px-4 py-3 bg-surface-alt/50 focus:bg-surface-container-lowest text-on-surface border border-border-subtle rounded-xl focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all font-sans text-sm pr-10 cursor-pointer"
-          id="contact-subject"
-          name="subject"
-          required
-          aria-describedby="subject-hint"
-          aria-errormessage="subject-error"
-        >
-          <option disabled selected value="">Selecciona una opción</option>
-          <option value="lotes">Productos de segunda mano, outlet y lotes semanales</option>
-          <option value="paqueteria">Paquetería y recogidas (INPOST, GLS, SEUR, KANGURO)</option>
-          <option value="horarios">Horarios y ubicación del local</option>
-          <option value="otro">Otra consulta</option>
-        </select>
-        <span class="material-symbols-outlined text-[20px] text-secondary absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
-          expand_more
-        </span>
-      </div>
-      <div id="subject-error" class="error-msg text-xs text-error font-medium items-center gap-1.5">
-        <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
-        <span>Selecciona un motivo para tu consulta.</span>
-      </div>
-    </div>
-
-    <!-- Message Textarea -->
+    <!-- Row 3: Mensaje Textarea -->
     <div class="field flex flex-col gap-1.5">
       <label class="font-label-button text-sm text-on-surface" for="contact-message">
         Mensaje <span class="text-primary" aria-hidden="true">*</span>
@@ -180,13 +183,19 @@ const turnstileSiteKey = SITE.security?.turnstileSiteKey || '0x4AAAAAAFWf9LvYLm4
       </p>
     </div>
 
-    <!-- Cloudflare Turnstile Anti-Spam Widget -->
+    <!-- Cloudflare Turnstile Anti-Spam Widget with Security Reassurance Container -->
     <div class="field flex flex-col gap-1.5 pt-1">
-      <div
-        id="turnstile-widget"
-        class="cf-turnstile min-h-[65px]"
-        data-sitekey={turnstileSiteKey}
-      ></div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-surface-alt/40 border border-border-subtle/70">
+        <div
+          id="turnstile-widget"
+          class="cf-turnstile min-h-[65px]"
+          data-sitekey={turnstileSiteKey}
+        ></div>
+        <div class="flex items-center gap-2 text-text-muted font-mono text-xs pr-2 select-none">
+          <span class="material-symbols-outlined text-[18px] text-primary" aria-hidden="true">verified_user</span>
+          <span>Protección Cloudflare Turnstile · Envío seguro</span>
+        </div>
+      </div>
       <div id="turnstile-error" class="error-msg text-xs text-error font-medium items-center gap-1.5" role="alert">
         <span class="material-symbols-outlined text-[15px] shrink-0" aria-hidden="true">error</span>
         <span>Por favor, completa la verificación anti-spam antes de enviar el formulario.</span>

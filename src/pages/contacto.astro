@@ -144,7 +144,7 @@ const contactFaqs = [
             <ContactForm />
           </div>
 
-          <aside class="lg:col-span-5 flex flex-col gap-6">
+          <aside class="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-28">
             <!-- Parcel Point & Store Highlights Card -->
             <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-3xl border border-border-subtle diffusion-card flex flex-col gap-5">
               <div class="flex items-center justify-between gap-2 flex-wrap">
@@ -199,26 +199,45 @@ const contactFaqs = [
               </div>
             </div>
 
-            <!-- Store Atmosphere Preview Card -->
+            <!-- Store Atmosphere Preview Card with Local WebP & Transit Link -->
             <div class="bg-surface-container-lowest p-5 rounded-3xl border border-border-subtle diffusion-card flex items-center gap-4">
-              <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 bg-surface-container border border-border-subtle/50">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shrink-0 bg-surface-container border border-border-subtle/50 relative">
                 <img
                   class="w-full h-full object-cover"
-                  alt="Pasillo organizado de la tienda Rápido Pack Valencia en Alfafar"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF9qXGJUeSsSOKet9svtf0RfLhCz1GwKHQOBcWjaYORdiKCUwmT9EaGrrYG2qXK1qvW8PctUS13qoTCQbJjk-o9VFuSEJ-s_27duCla7OiO209-2BdzvG-nB3Nf8LRDWuXzVSVDw0FpOZw8c8mSKqVxA0OiUn0-qyMMwF67xYVsAMbvuMBn1z2xdMnUPfIFs28Ct7QqUtVdF02kUOKCPbVR6NTZCRJLSHWtNkEBXf1"
+                  alt={`Entrada oficial de ${SITE.brand.name} en Alfafar`}
+                  src="/fachada-rapido-pack-valencia.webp"
                   loading="lazy"
                   decoding="async"
-                  width="96"
-                  height="96"
+                  width="112"
+                  height="112"
                 />
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-dark/30 to-transparent pointer-events-none"></div>
               </div>
-              <div class="flex flex-col gap-1 min-w-0">
-                <span class="font-mono text-[11px] font-semibold text-primary uppercase">Transparencia total</span>
-                <h4 class="font-display text-base text-on-surface font-bold truncate">Comprueba antes de pagar</h4>
+              <div class="flex flex-col gap-1.5 min-w-0">
+                <div class="flex items-center gap-1.5 font-mono text-[11px] text-primary font-semibold uppercase">
+                  <span class="material-symbols-outlined text-[15px]" aria-hidden="true">train</span>
+                  <span>{SITE.location.stationName} ({SITE.location.stationWalkLabel})</span>
+                </div>
+                <h4 class="font-display text-base text-on-surface font-bold leading-snug">
+                  Visita directa en Alfafar
+                </h4>
                 <p class="font-sans text-xs text-text-muted leading-relaxed">
-                  Sin compras a ciegas: revisa el contenido y funcionamiento en Rápido Pack Valencia.
+                  {SITE.location.street} · Sin cita previa. L–V {SITE.schedule.weekdays.label}.
                 </p>
+                <a href={SITE.location.mapsUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-mono text-xs text-primary font-semibold hover:underline mt-0.5">
+                  <span>Cómo llegar en Google Maps</span>
+                  <span class="material-symbols-outlined text-[14px]" aria-hidden="true">arrow_forward</span>
+                </a>
               </div>
+            </div>
+
+            <!-- Store Live Activity Status -->
+            <div class="bg-surface-container-lowest p-4 rounded-2xl border border-border-subtle flex items-center justify-between text-xs font-mono text-text-muted">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
+                <span class="text-on-surface font-semibold">Atención en Sala Activa</span>
+              </div>
+              <span class="text-primary font-bold">L–V {SITE.schedule.weekdays.label}</span>
             </div>
           </aside>
         </div>
