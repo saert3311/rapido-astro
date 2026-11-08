@@ -1,28 +1,28 @@
-# Implementation Plan: Pantalla de Consentimiento de Cookies y Cláusulas Legales de Google Analytics (`SPEC-cookies-screen-analytics`)
+# Implementation Plan: Carrier Logos & SEO Schema (`SPEC-carrier-logos`)
 
 ## Overview
-Implementación completa del sistema de consentimiento de cookies y actualización del marco legal para Google Analytics en Rápido Pack Valencia:
-1. **Seguridad y Cumplimiento Normativo (AEPD / RGPD):** Google Consent Mode v2 con denegación preventiva por defecto (`analytics_storage: 'denied'`).
-2. **Diseño de Interfaz (`/design-taste-frontend` y `/frontend-ui-engineering`):** Tarjeta flotante compacta en esquina inferior derecha (`diffusion-card`), sin patrones oscuros (Aceptar y Rechazar con la misma facilidad), panel interactivo expandible para configuración granular (técnicas vs. analíticas), y adaptación móvil libre de colisiones con la barra fija (`pb-20 sm:pb-0`).
-3. **Página de Política de Cookies (`/cookies`):** Documento legal completo con tabla exhaustiva de cookies técnicas (Turnstile, consentimiento) y analíticas de Google (`_ga`, `_ga_*`), plazos de conservación y métodos de desactivación en navegadores.
-4. **Actualización de Privacidad (`/privacidad`):** Inclusión de Google Analytics (Google Ireland Limited), base legal (consentimiento art. 6.1.a RGPD) y transferencias internacionales bajo el Marco de Privacidad de Datos UE-EE.UU.
-5. **Acceso Permanente a Configuración:** Enlace y disparador en `Footer.astro` para revocar o alterar el consentimiento en cualquier momento.
+Implementación de los logotipos vectoriales de las cuatro agencias de paquetería homologadas (INPOST, GLS, SEUR, KANGURO) y enriquecimiento del marcado estructurado SEO local en Rápido Pack Valencia (`rapido-astro`), siguiendo `SPEC-carrier-logos.md`:
+1. **Componente Modular `CarrierLogo.astro`:** SVGs oficiales inline optimizados, con escalado homogéneo, `aria-hidden="true"`, acabado pizarra/monocromo en reposo (`grayscale opacity-75`) y transición fluida a color corporativo en `:hover` (`group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105`).
+2. **Página de Paquetería (`src/pages/paqueteria.astro`):** Sustitución de iconos genéricos de Google Symbols por `CarrierLogo` en la cuadrícula de agencias autorizadas, respetando la **Opción A** (sin enlaces externos salientes a las homes de las empresas para retener al usuario en la conversión local física).
+3. **Página de Inicio (`src/pages/index.astro`):** Integración de micro-logos en la tarjeta Gateway de Paquetería.
+4. **SEO Local (`src/layouts/Layout.astro`):** Enriquecimiento de `schemaStore` en JSON-LD con `knowsAbout` y las marcas oficiales gestionadas.
+5. **Tests Automatizados:** Nueva suite TDD en `tests/carrier-logos.test.mjs` para blindar la presencia de los logos, accesibilidad y schema.
 
 ---
 
 ## Dependency Graph
 ```text
-Task 1: Suite TDD de Pruebas Automatizadas (tests/cookies.test.mjs) [FASE RED]
+Task 1: Suite TDD de Pruebas Automatizadas (tests/carrier-logos.test.mjs) [FASE RED]
     │
-    ├── Task 2: Configuración Legal y Google Consent Mode v2 (src/config/legal.ts y src/components/GoogleTagManager.astro)
+    ├── Task 2: Componente SVG Vectorial (src/components/CarrierLogo.astro)
     │
-    ├── Task 3: Página Dedicada de Política de Cookies y Actualización de Privacidad (src/pages/cookies.astro y src/pages/privacidad.astro)
+    ├── Task 3: Integración en src/pages/paqueteria.astro (Cuadrícula de Operadores)
     │
-    ├── Task 4: Componente de Banner Flotante y Panel de Configuración (src/components/CookieBanner.astro y Layout.astro)
+    ├── Task 4: Integración en src/pages/index.astro (Gateway Card de Paquetería)
     │
-    ├── Task 5: Enlace a Política y Disparador de Configuración en el Footer (src/components/Footer.astro)
+    ├── Task 5: Enriquecimiento JSON-LD en src/layouts/Layout.astro
     │
-    └── Task 6: Verificación TDD Green, Build Estático y Verificación en Navegador Real (npm test, npm run build, node scripts/verify-browser.mjs)
+    └── Task 6: Verificación TDD Green, Build Estático y Git Commits Atómicos
 ```
 
 ---
@@ -30,8 +30,8 @@ Task 1: Suite TDD de Pruebas Automatizadas (tests/cookies.test.mjs) [FASE RED]
 ## Risks and Mitigations
 | Riesgo | Impacto | Mitigación |
 | :--- | :--- | :--- |
-| **Colisión visual en dispositivos móviles con el botón flotante "Cómo llegar"** | Alto | El banner aplica clases de separación `bottom-0 pb-20 sm:pb-4 sm:bottom-4 sm:right-4` y z-index controlado (`z-50`) para no tapar los elementos de navegación ni romper el scroll. |
-| **Carga de cookies analíticas antes del consentimiento del usuario** | Crítico | Se inicializa Google Consent Mode v2 con todos los permisos en `'denied'` antes de la carga de GTM; únicamente tras clic explícito en "Aceptar todas" o toggle analítico se ejecuta `gtag('consent', 'update', { analytics_storage: 'granted' })`. |
-| **Banner reapareciendo en cada recarga de página tras aceptar o rechazar** | Medio | Almacenamiento seguro en `localStorage` con lectura síncrona en el primer render para mantener el banner oculto si ya existe consentimiento válido registrado. |
-| **Patrón oscuro en el diseño de los botones** | Alto | Ambos botones ("Aceptar todas" y "Rechazar no esenciales") disponen de tipografía clara, tamaños táctiles mínimos WCAG (>= 44px) y contraste accesible sobre el fondo. |
-| **Regresión en pruebas previas del sitio** | Alto | Ejecución de `npm test` con los 51 tests existentes garantizando 0 regresiones. |
+| **Desbalance visual entre logos con diferentes proporciones** | Medio | Normalizar viewBox y usar clases `h-6 sm:h-7 w-auto object-contain` con centrado flex para mantener alineación óptica perfecta. |
+| **Layout Shift (CLS > 0) al renderizar SVGs** | Alto | SVGs inline con dimensiones fijas en CSS y viewBox explícito; cero peticiones de red asíncronas. |
+| **Confusión en lectores de pantalla (doble anuncio del nombre de la agencia)** | Medio | `aria-hidden="true"` en los SVGs porque el elemento `<h3>` adyacente ya contiene el nombre textual accesible de cada agencia. |
+| **Colisión o pérdida de la identidad esmeralda del sitio** | Alto | Filtro monocromo `grayscale opacity-75` en reposo; el color oficial solo se activa al interactuar (`group-hover`). |
+| **Fuga de tráfico y pérdida de conversión física local** | Alto | Cumplir estrictamente la Opción A: cero enlaces salientes hacia las páginas de inicio generales de las agencias. |
