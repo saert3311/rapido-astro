@@ -11,10 +11,10 @@ describe('Contact Form & Mailjet Integration - TDD Suite', () => {
       assert.equal(SITE.contact.notificationEmail, 'contacto@rapidopackvalencia.es');
     });
 
-    it('site.ts exports turnstileSiteKey with fallback to testing key', () => {
+    it('site.ts exports turnstileSiteKey defaulting to official production key', () => {
       assert.ok(SITE.security?.turnstileSiteKey, 'turnstileSiteKey must exist in SITE.security');
       assert.equal(typeof SITE.security.turnstileSiteKey, 'string');
-      assert.ok(SITE.security.turnstileSiteKey.length > 5);
+      assert.equal(SITE.security.turnstileSiteKey, '0x4AAAAAAFWf9LvYLm41PcPy');
     });
 
     it('wrangler.json configures main worker entrypoint while preserving assets and previews', () => {
@@ -246,6 +246,15 @@ describe('Contact Form & Mailjet Integration - TDD Suite', () => {
       assert.ok(formAstro.includes('fetch') || formAstro.includes('/api/contact'), 'Form script must fetch /api/contact');
       assert.ok(formAstro.includes('role="status"'), 'Form must contain role="status" feedback region');
       assert.ok(formAstro.includes('aria-live="polite"'), 'Form must contain aria-live="polite" region');
+    });
+
+    it('dist/contacto/index.html renders production Turnstile sitekey and does not bake dummy key', () => {
+      const contactoHtmlPath = path.resolve('dist/contacto/index.html');
+      if (fs.existsSync(contactoHtmlPath)) {
+        const html = fs.readFileSync(contactoHtmlPath, 'utf-8');
+        assert.ok(html.includes('data-sitekey="0x4AAAAAAFWf9LvYLm41PcPy"'), 'dist/contacto/index.html must have data-sitekey="0x4AAAAAAFWf9LvYLm41PcPy"');
+        assert.equal(html.includes('data-sitekey="1x00000000000000000000AA"'), false, 'dist/contacto/index.html must not bake dummy test key');
+      }
     });
   });
 });

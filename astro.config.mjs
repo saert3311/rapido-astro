@@ -1,7 +1,26 @@
 // @ts-check
+import fs from 'node:fs';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+
+// Bridge public vars from wrangler.json into process.env at build time
+// so Astro pre-renders static assets with production keys even if CI lacks explicit build env vars
+try {
+  const wranglerPath = new URL('./wrangler.json', import.meta.url);
+  if (fs.existsSync(wranglerPath)) {
+    const wrangler = JSON.parse(fs.readFileSync(wranglerPath, 'utf-8'));
+    if (wrangler.vars && typeof wrangler.vars === 'object') {
+      for (const [key, val] of Object.entries(wrangler.vars)) {
+        if (key.startsWith('PUBLIC_') && !process.env[key]) {
+          process.env[key] = String(val);
+        }
+      }
+    }
+  }
+} catch {
+  // Non-fatal if wrangler.json is unreadable or malformed
+}
 
 /** @type {import('vite').Plugin} */
 const devContactApiPlugin = {

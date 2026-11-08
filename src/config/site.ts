@@ -114,7 +114,9 @@ export const SITE = {
     turnstileSiteKey:
       typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_TURNSTILE_SITE_KEY
         ? (import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string)
-        : '1x00000000000000000000AA',
+        : typeof process !== 'undefined' && (process.env?.PUBLIC_TURNSTILE_SITE_KEY || process.env?.TURNSTILE_SITE_KEY)
+          ? ((process.env.PUBLIC_TURNSTILE_SITE_KEY || process.env.TURNSTILE_SITE_KEY) as string)
+          : '0x4AAAAAAFWf9LvYLm41PcPy',
   },
 } as const;
 

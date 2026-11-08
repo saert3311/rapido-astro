@@ -1,7 +1,7 @@
 ---
 import { SITE } from '../config/site';
 
-const turnstileSiteKey = SITE.security?.turnstileSiteKey || '1x00000000000000000000AA';
+const turnstileSiteKey = SITE.security?.turnstileSiteKey || '0x4AAAAAAFWf9LvYLm41PcPy';
 ---
 
 <!-- External Turnstile API with explicit rendering for strict lifecycle control -->
@@ -365,7 +365,7 @@ const turnstileSiteKey = SITE.security?.turnstileSiteKey || '1x00000000000000000
       if (!container || !window.turnstile || turnstileWidgetId !== null) return;
 
       try {
-        const sitekey = container.getAttribute('data-sitekey') || '1x00000000000000000000AA';
+        const sitekey = container.getAttribute('data-sitekey') || '0x4AAAAAAFWf9LvYLm41PcPy';
         turnstileWidgetId = window.turnstile.render('#turnstile-widget', {
           sitekey: sitekey,
           callback: (token) => {
