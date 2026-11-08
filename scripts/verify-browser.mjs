@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const PORT = 9222;
-const BASE_URL = 'http://127.0.0.1:4321';
+const BASE_URL = 'http://localhost:4321';
 const ROUTES = ['/', '/paqueteria', '/outlet', '/contacto', '/cookies'];
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900, deviceScaleFactor: 1, mobile: false },

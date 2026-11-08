@@ -73,4 +73,45 @@ test('Carrier Logos & Schema SEO - TDD Suite', async (t) => {
     assert.ok(content.includes('SEUR'), 'knowsAbout must include SEUR');
     assert.ok(content.includes('Kanguro'), 'knowsAbout must include Kanguro');
   });
+
+  await t.test('5. Authentic Vector Brand Geometry & Official Palette Verification', () => {
+    const componentPath = path.resolve('src/components/CarrierLogo.astro');
+    const content = readFileSync(componentPath, 'utf-8');
+
+    // InPost: authentic yellow envelope/bird vector & wordmark paths
+    assert.ok(
+      content.includes('Fill-27') || content.includes('17.332778,36.1712445') || content.includes('#FFCB04'),
+      'InPost must contain authentic vector envelope/bird mascot geometry and #FFCB04 palette'
+    );
+    assert.ok(
+      content.includes('78.1958434,33.0033259') || content.includes('Fill-43') || content.includes('Fill-41'),
+      'InPost must contain authentic vector letterforms'
+    );
+
+    // GLS: authentic G-L-S vector paths and #061ab1 / #ffd100 palette
+    assert.ok(
+      content.includes('#061ab1') || content.includes('061ab1'),
+      'GLS must use official Royal Blue #061ab1'
+    );
+    assert.ok(
+      content.includes('272.997') || content.includes('95.434'),
+      'GLS must contain authentic letterform geometry'
+    );
+
+    // SEUR: authentic Illustrator vector paths extracted from seur.com
+    assert.ok(
+      content.includes('135.5,56.2V9.5') || content.includes('184.8,36.2') || content.includes('92.8,47.6'),
+      'SEUR must contain authentic official letter paths from seur.com'
+    );
+
+    // Kanguro: authentic logo from kanguro.com with circle and bowl gradient
+    assert.ok(
+      content.includes('kg-bowl') || content.includes('#7FD0FF'),
+      'Kanguro must define authentic bowl gradient #7FD0FF from kanguro.com'
+    );
+    assert.ok(
+      content.includes('M 70 124 A 184 184') || content.includes('70 124'),
+      'Kanguro must contain authentic smile/pouch path geometry from kanguro.com'
+    );
+  });
 });

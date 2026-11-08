@@ -26,3 +26,4 @@ pnpm-debug.log*
 # browser verification artifacts
 .verification/
 .temp-chrome-profile/
+.temp-chrome-*/
