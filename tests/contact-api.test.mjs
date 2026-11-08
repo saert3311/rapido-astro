@@ -248,6 +248,32 @@ describe('Contact Form & Mailjet Integration - TDD Suite', () => {
       assert.ok(formAstro.includes('aria-live="polite"'), 'Form must contain aria-live="polite" region');
     });
 
+    it('ContactForm.astro preserves all required input IDs and includes Turnstile security reassurance container', () => {
+      const formAstro = fs.readFileSync(path.resolve('src/components/ContactForm.astro'), 'utf-8');
+      const requiredIds = [
+        'contact-name',
+        'contact-phone',
+        'contact-email',
+        'contact-subject',
+        'contact-message',
+        'privacy-check',
+        'turnstile-widget',
+        'turnstile-error',
+      ];
+      for (const id of requiredIds) {
+        assert.ok(formAstro.includes(`id="${id}"`), `Form must contain input/widget element with id="${id}"`);
+      }
+      assert.ok(formAstro.includes('Protección Cloudflare Turnstile'), 'Form must include security reassurance badge');
+      assert.ok(formAstro.includes('verified_user'), 'Form must include verified_user security icon');
+    });
+
+    it('contacto.astro uses sticky aside, local WebP storefront image, and zero external googleusercontent images', () => {
+      const contactoAstro = fs.readFileSync(path.resolve('src/pages/contacto.astro'), 'utf-8');
+      assert.ok(contactoAstro.includes('lg:sticky'), 'contacto.astro aside must include lg:sticky');
+      assert.ok(contactoAstro.includes('/fachada-rapido-pack-valencia.webp'), 'contacto.astro must use local /fachada-rapido-pack-valencia.webp');
+      assert.equal(contactoAstro.includes('googleusercontent.com'), false, 'contacto.astro must not use remote googleusercontent images');
+    });
+
     it('dist/contacto/index.html renders production Turnstile sitekey and does not bake dummy key', () => {
       const contactoHtmlPath = path.resolve('dist/contacto/index.html');
       if (fs.existsSync(contactoHtmlPath)) {
