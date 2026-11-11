@@ -37,8 +37,11 @@ test('StoreLocator.astro renders train/transit icon and station note', () => {
   assert.ok(!/local_parking/.test(storeLocatorAstro), 'StoreLocator must not display local_parking icon');
 });
 
-test('Layout.astro mobile sticky CTA displays Estación Alfafar · 5 min a pie', () => {
-  assert.ok(/Estación Alfafar · 5 min a pie/.test(layoutAstro), 'Layout mobile CTA must display Estación Alfafar · 5 min a pie');
+test('Layout.astro mobile sticky CTA displays unified Estación Alfafar transit label', () => {
+  assert.ok(
+    /Estación Alfafar\s*·\s*(?:\{SITE\.location\.stationWalkLabel\}|[15] min a pie)/.test(layoutAstro),
+    'Layout mobile CTA must display Estación Alfafar · stationWalkLabel (or [15] min a pie)'
+  );
   assert.ok(!/V-31 · 8 min/.test(layoutAstro), 'Layout mobile CTA must not show old car badge');
 });
 
@@ -60,6 +63,8 @@ test('Zero claims of "Aparcamiento en puerta" across all files in src/', () => {
   const forbiddenPatterns = [
     /Aparcamiento en la Puerta/i,
     /Aparcamiento en puerta/i,
+    /aparques en la puerta/i,
+    /aparcar en la puerta/i,
     /parking en la misma puerta/i,
     /aparcamiento libre sin zona azul/i,
   ];
