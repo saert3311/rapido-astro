@@ -8,36 +8,24 @@ interface Props {
 }
 
 const {
-  badge = '03 // Ubicación y Acceso Directo',
+  badge = '02 // Acceso y Horario',
   title = `Visita ${SITE.brand.name} en Alfafar`,
-  subtitle = `Situados en el centro urbano de Alfafar, a ${SITE.location.stationWalkLabel} de la ${SITE.location.stationName} (Cercanías C1/C2 y MetroBus).`,
+  subtitle = `${SITE.location.stationNote}.`,
 } = Astro.props;
 ---
 
-<section class="w-full bg-surface-alt py-16 lg:py-24" id="ubicacion">
+<section class="w-full bg-surface-alt py-16 lg:py-24 scroll-mt-28 sm:scroll-mt-32 lg:scroll-mt-36" id="ubicacion">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
-      <div class="max-w-2xl">
-        <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-          {badge}
-        </span>
-        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-          {title}
-        </h2>
-        <p class="font-sans text-base text-text-muted mt-2">
-          {subtitle}
-        </p>
-      </div>
-      <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-        <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
-          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">train</span>
-          <span>{SITE.location.stationNote}</span>
-        </span>
-        <span class="inline-flex items-center gap-2 px-3.5 py-2 bg-surface-container-lowest border border-border-subtle rounded-xl font-mono text-xs text-surface-dark font-medium">
-          <span class="material-symbols-outlined text-primary text-[16px]" aria-hidden="true">directions_walk</span>
-          <span>{SITE.location.stationWalkLabel}</span>
-        </span>
-      </div>
+    <div class="max-w-2xl mb-10">
+      <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
+        {badge}
+      </span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
+        {title}
+      </h2>
+      <p class="font-sans text-base text-text-muted mt-2 leading-relaxed">
+        {subtitle}
+      </p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
@@ -47,7 +35,7 @@ const {
           <div class="flex items-start justify-between gap-4 pb-5 border-b border-border-subtle">
             <div>
               <span class="font-mono text-xs font-semibold text-primary uppercase tracking-wider">
-                Tienda Física & Hub Paquetería
+                Tienda Física &amp; Paquetería
               </span>
               <h3 class="font-display text-2xl font-bold text-surface-dark mt-1">
                 {SITE.brand.name}
@@ -59,33 +47,34 @@ const {
             </div>
           </div>
 
-          <address class="not-italic py-5 border-b border-border-subtle flex items-start justify-between gap-4">
-            <div class="flex items-start gap-3">
-              <span class="material-symbols-outlined text-primary text-[22px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
-              <div>
-                <p class="font-display text-base text-surface-dark font-bold">{SITE.location.street}</p>
-                <p class="font-mono text-xs text-text-muted mt-0.5">{SITE.location.postalCode} {SITE.location.city} · {SITE.location.province}</p>
+          <address class="not-italic py-5 border-b border-border-subtle flex flex-col gap-3">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-start gap-2.5">
+                <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5" aria-hidden="true">location_on</span>
+                <div>
+                  <p class="font-display text-base text-surface-dark font-bold">{SITE.location.street}</p>
+                  <p class="font-mono text-xs text-text-muted mt-0.5">{SITE.location.postalCode} {SITE.location.city} · {SITE.location.province}</p>
+                </div>
               </div>
+              <a
+                href={SITE.contact.phoneHref}
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-alt hover:bg-mint-wash text-surface-dark hover:text-primary font-mono text-xs font-semibold transition-colors shrink-0"
+              >
+                <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">call</span>
+                <span>{SITE.contact.phoneDisplay}</span>
+              </a>
             </div>
-            <a
-              href={SITE.contact.phoneHref}
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-alt hover:bg-mint-wash text-surface-dark hover:text-primary font-mono text-xs font-semibold transition-colors shrink-0"
-            >
-              <span class="material-symbols-outlined text-[15px] text-primary" aria-hidden="true">call</span>
-              <span>{SITE.contact.phoneDisplay}</span>
-            </a>
+            <div class="flex items-center gap-2 text-xs font-sans text-secondary">
+              <span class="material-symbols-outlined text-primary text-[17px] shrink-0" aria-hidden="true">train</span>
+              <span>{SITE.location.stationNote}</span>
+            </div>
           </address>
 
           <!-- De-Boxed Schedule Ledger with Monospace Time Slots -->
           <div class="py-5">
-            <div class="flex items-center justify-between mb-3">
-              <p class="font-mono text-xs uppercase tracking-wider text-text-muted font-semibold">
-                Horario Comercial Ininterrumpido
-              </p>
-              <span class="font-mono text-[11px] font-semibold text-primary bg-mint-wash px-2.5 py-0.5 rounded-full">
-                Stock nuevo cada semana
-              </span>
-            </div>
+            <p class="font-mono text-xs uppercase tracking-wider text-text-muted font-semibold mb-3">
+              Horario Comercial Ininterrumpido
+            </p>
 
             <div class="divide-y divide-border-subtle border-t border-b border-border-subtle">
               <div class="flex items-center justify-between py-3 px-2 rounded-sm bg-mint-wash/50 text-surface-dark text-sm">
@@ -118,61 +107,20 @@ const {
         </a>
       </div>
 
-      <!-- Right Column: Map Hub (7 Cols) -->
-      <div class="lg:col-span-7 bg-surface-container-lowest rounded-3xl p-2.5 border border-border-subtle diffusion-card flex flex-col justify-between relative min-h-[440px]">
-        <div class="w-full h-full min-h-[420px] rounded-2xl relative overflow-hidden bg-surface-container flex flex-col justify-between p-4 sm:p-5">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHcHHryPs96Yr_U5zIZHCmdfyw-btQQmxlW1_DLl9r-BeINGVl6YDjbmTATQrEhG2p-IVbTp6nzC6tw4ZtL2HMHMpp1LHn5Y9Z0KxbSMgu9vaAxi3J1Rbbk23ucMUr-pgzwYfKpN0xfaK4SBIWTWSUns5l-1ejbTu1tE-06wft09dNKYuzFokUcyk6hdsch4Jke3m3bbwe34igSez6hmplWbU_KGUrPxtCy8CTPwCk"
-            alt={`Mapa de situación de ${SITE.brand.name} en ${SITE.location.street}, ${SITE.location.city}`}
-            decoding="async"
-            width="700"
-            height="460"
-            class="absolute inset-0 w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-surface-dark/15 pointer-events-none"></div>
-
-          <!-- Top Bar -->
-          <div class="relative z-10 flex items-center justify-between gap-2">
-            <div class="liquid-glass px-4 py-2.5 rounded-xl flex items-center gap-2.5 text-on-primary">
-              <span class="material-symbols-outlined text-primary-fixed text-[20px]" aria-hidden="true">pin_drop</span>
-              <div>
-                <p class="font-display text-xs leading-none font-bold">Alfafar · Zona Comercial</p>
-                <p class="font-mono text-[11px] text-surface-variant mt-1">{SITE.location.street}</p>
-              </div>
-            </div>
-            <div class="hidden sm:flex items-center gap-1.5 liquid-glass px-3.5 py-2 rounded-xl text-on-primary font-mono text-xs">
-              <span class="material-symbols-outlined text-[16px] text-primary-fixed" aria-hidden="true">train</span>
-              <span>Renfe Alfafar a 10 min</span>
-            </div>
-          </div>
-
-          <!-- Center Marker -->
-          <div class="relative z-10 my-auto mx-auto flex flex-col items-center pointer-events-none">
-            <div class="liquid-glass text-on-primary font-mono text-xs font-semibold px-3.5 py-1.5 rounded-lg mb-2 flex items-center gap-1.5">
-              <span>Rápido Pack Valencia</span>
-              <span class="material-symbols-outlined text-primary-fixed text-[14px]" aria-hidden="true">verified</span>
-            </div>
-            <div class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg ring-4 ring-surface-container-lowest">
-              <span class="material-symbols-outlined text-[20px]" aria-hidden="true">storefront</span>
-            </div>
-          </div>
-
-          <!-- Bottom Action Bar -->
-          <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 liquid-glass-light p-3.5 rounded-xl">
-            <div class="flex items-center gap-2 text-surface-dark text-xs font-mono font-semibold">
-              <span class="material-symbols-outlined text-primary text-[18px]" aria-hidden="true">navigation</span>
-              <span>A 1 min a pie de la Estación Alfafar-Benetússer</span>
-            </div>
-            <a
-              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-surface-dark hover:bg-primary text-on-primary font-mono text-xs font-semibold uppercase tracking-wider rounded-lg transition-all active:scale-[0.98]"
-              href="https://www.google.com/maps/place//data=!4m2!3m1!19sChIJw5ZDyrhPYA0RASxZojeQoD0"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <span>Ver en Google Maps</span>
-              <span class="material-symbols-outlined text-[15px]" aria-hidden="true">open_in_new</span>
-            </a>
-          </div>
+      <!-- Right Column: Native Lazy-Loaded Interactive Map (7 Cols) -->
+      <div class="lg:col-span-7 bg-surface-container-lowest rounded-3xl p-2.5 border border-border-subtle diffusion-card flex flex-col min-h-[420px]">
+        <div
+          id="map-container"
+          class="w-full h-full min-h-[420px] rounded-2xl overflow-hidden bg-surface-alt border border-border-subtle/70 flex flex-col"
+        >
+          <iframe
+            src={SITE.location.mapsEmbedUrl}
+            title={`Mapa interactivo de ${SITE.brand.name} en ${SITE.location.fullAddress}`}
+            class="w-full flex-1 min-h-[420px] border-0 block"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
     </div>
