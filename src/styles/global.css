@@ -185,11 +185,20 @@ details[open]::details-content {
   box-shadow: 0 20px 40px -15px rgba(17, 24, 32, 0.05), 0 1px 2px 0 rgba(17, 24, 32, 0.03);
 }
 
-/* Staggered entry cascade (transform & opacity only) */
+/* Prevent FOUC / CLS expansion of Material Symbols ligature text before font swap */
+.material-symbols-outlined {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Staggered entry cascade (transform & opacity only, never hiding LCP above-the-fold at opacity 0) */
 @keyframes reveal-up {
   from {
-    opacity: 0;
-    transform: translateY(12px);
+    opacity: 0.92;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -198,8 +207,8 @@ details[open]::details-content {
 }
 
 .stagger-item {
-  animation: reveal-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--index, 0) * 90ms);
+  animation: reveal-up 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--index, 0) * 60ms);
 }
 
 @media (prefers-reduced-motion: reduce) {

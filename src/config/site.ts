@@ -33,7 +33,7 @@ export const SITE = {
     cityTag: 'Valencia · Alfafar',
     tagline: 'Tienda Outlet, Segunda Mano y Punto de Paquetería',
     metaDescription:
-      'Punto oficial de paquetería y tienda outlet de segunda mano en Alfafar (Valencia). Chollos hasta -70% con banco de pruebas. A 5 min de la estación.',
+      'Punto oficial de paquetería y tienda outlet de segunda mano en Alfafar (Valencia). Chollos hasta -70% con banco de pruebas. A 1 min de la estación.',
     maxDiscountPct: 70,
     restockFrequency: 'Semanal',
   },
@@ -65,12 +65,13 @@ export const SITE = {
     stationName: 'Estación Alfafar-Benetússer',
     stationWalkMinutes: 1,
     stationWalkLabel: '1 min a pie',
-    stationNote: 'A 5 min por la Estación Alfafar-Benetússer (Cercanías / MetroBus)',
+    stationNote: 'A 1 min a pie de la Estación Alfafar-Benetússer (Cercanías / MetroBus)',
     stationLine: 'Cercanías C-1 / C-2 (directo 5 min desde Valencia Nord)',
     driveTimeMinutes: 8,
     driveTimeLabel: '8 min',
     transitNote: 'Desde Valencia Nord en 5 min de tren o por V-31',
     mapsUrl: `https://maps.google.com/?q=${encodeURIComponent(fullAddress)}`,
+    mapsEmbedUrl: `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&hl=es&z=17&output=embed`,
   },
 
   schedule: {
