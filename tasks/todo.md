@@ -35,14 +35,14 @@
 
 ## Phase 2: Core Pages (Home, Outlet, Paquetería, Contacto)
 
-- [ ] **Task 3**: Actualizar `src/pages/index.astro` y `src/pages/outlet.astro`
+- [x] **Task 3**: Actualizar `src/pages/index.astro` y `src/pages/outlet.astro`
   - **Description:** Sustituir todas las ocurrencias de `"tienda ... Alfafar"` y `"en Alfafar"` en portada y página de outlet por `"tienda física"`, reformular el bloque `02 // Confianza Física` de `index.astro` para eliminar el contraste negativo contra compras por internet, y ajustar SEO title/description de `outlet.astro` manteniendo los rangos válidos y las cadenas protegidas de `online-store-copy.test.mjs`.
   - **Acceptance criteria:**
-    - [ ] `index.astro` actualiza eyebrow (`00 // Tienda Física · Paquetería y Outlet`), H2 de servicios, alt de fachada, badge de venta física, sección `02` (coexistencia física + web), FAQs y subtítulo de FAQ sin frases antagónicas hacia internet.
-    - [ ] `outlet.astro` actualiza `title` (35–65 chars), `description` (120–160 chars), CTA (`Visitar Tienda Física`), texto descriptivo, `figcaption` (`Chollos del Día · Tienda Física`) y FAQs.
-    - [ ] Se conservan `"Tienda online próximamente"` en `index.astro` y `"Hoy en tienda · Online próximamente"` en `outlet.astro`.
+    - [x] `index.astro` actualiza eyebrow (`00 // Tienda Física · Paquetería y Outlet`), H2 de servicios, alt de fachada, badge de venta física, sección `02` (coexistencia física + web), FAQs y subtítulo de FAQ sin frases antagónicas hacia internet.
+    - [x] `outlet.astro` actualiza `title` (35–65 chars), `description` (120–160 chars), CTA (`Visitar Tienda Física`), texto descriptivo, `figcaption` (`Chollos del Día · Tienda Física`) y FAQs.
+    - [x] Se conservan `"Tienda online próximamente"` en `index.astro` y `"Hoy en tienda · Online próximamente"` en `outlet.astro`.
   - **Verification:**
-    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/online-store-copy.test.mjs`
+    - [x] Tests pass: `node --test tests/seo.test.mjs tests/online-store-copy.test.mjs`
     - [ ] Build succeeds: `npm run build`
   - **Dependencies:** Task 2
   - **Files likely touched:** `src/pages/index.astro`, `src/pages/outlet.astro`

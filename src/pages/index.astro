@@ -39,12 +39,12 @@ const homeFaqs = [
   {
     icon: 'storefront',
     question: `¿Qué es ${SITE.brand.name} y qué servicios ofrecéis?`,
-    answer: `Somos un espacio comercial físico en ${SITE.location.city} que integra dos actividades bajo el mismo techo: un <strong>punto oficial de paquetería multirred</strong> (${SITE.carriers.map((c) => c.name).join(', ')}) y una <strong>tienda outlet de primeras marcas y segunda mano</strong> con reposición semanal y hasta un ${SITE.brand.maxDiscountPct}% de descuento frente a PVP.`,
+    answer: `Somos una <strong>tienda física</strong> (${SITE.location.fullAddress}) diseñada para convivir con nuestra próxima <strong>tienda web</strong>, integrando bajo el mismo techo un <strong>punto oficial de paquetería multirred</strong> (${SITE.carriers.map((c) => c.name).join(', ')}) y una <strong>tienda outlet de primeras marcas y segunda mano</strong> con reposición semanal y hasta un ${SITE.brand.maxDiscountPct}% de descuento frente a PVP.`,
   },
   {
     icon: 'storefront',
     question: '¿Se puede comprar online o reservar artículos por la web?',
-    answer: `Todavía no: ahora mismo la venta de outlet y segunda mano se hace en nuestra tienda física de ${SITE.location.shortStreet}, por orden de llegada, porque el stock rota cada semana. <strong>Estamos desarrollando nuestra tienda online y llegará pronto.</strong> Mientras tanto, pásate por la tienda para probar los productos in situ o escríbenos por WhatsApp para consultar dudas.`,
+    answer: `Todavía no: actualmente la venta de outlet y segunda mano se realiza en nuestra tienda física (${SITE.location.shortStreet}), por orden de llegada, porque el stock rota cada semana. <strong>Estamos desarrollando nuestra tienda web (tienda online) para que ambos canales coexistan pronto.</strong> Mientras tanto, pásate por la tienda física para probar los productos in situ o escríbenos por WhatsApp para consultar dudas.`,
   },
   {
     icon: 'pin_drop',
@@ -54,7 +54,7 @@ const homeFaqs = [
 ];
 ---
 
-<Layout title={`${SITE.brand.name} · ${SITE.location.city} — Paquetería y Outlet Semanal`} currentPage="home">
+<Layout title={`${SITE.brand.name} · Tienda Física, Web y Paquetería`} currentPage="home">
   <div class="flex flex-col w-full">
     <!-- 1. Hero Asimétrico Split (Portal Resumen del Negocio Dual) -->
     <section class="w-full bg-surface-container-lowest min-h-[calc(100svh-6rem)] flex items-center py-10 lg:py-16 border-b border-border-subtle">
@@ -64,7 +64,7 @@ const homeFaqs = [
           <div class="lg:col-span-7 flex flex-col items-start text-left">
             <div class="stagger-item flex flex-wrap items-center gap-3 mb-5" style="--index: 0;">
               <span class="font-mono text-xs font-semibold text-primary uppercase tracking-widest">
-                00 // Alfafar · Paquetería y Outlet
+                00 // Tienda Física · Paquetería y Outlet
               </span>
               <span class="text-border-subtle" aria-hidden="true">·</span>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-alt text-surface-dark font-mono text-[11px] font-semibold border border-border-subtle">
@@ -122,7 +122,7 @@ const homeFaqs = [
               <div class="rounded-3xl overflow-hidden border border-border-subtle bg-surface-dark diffusion-card aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/4.4] group">
                 <img
                   class="w-full h-full object-cover object-[53%_center] transition-transform duration-500 group-hover:scale-[1.02]"
-                  alt={`Fachada y entrada oficial de la tienda ${SITE.brand.name} en Alfafar`}
+                  alt={`Fachada y entrada oficial de la tienda física ${SITE.brand.name}`}
                   src="/fachada-rapido-pack-valencia.webp"
                   fetchpriority="high"
                   width="1142"
@@ -144,7 +144,7 @@ const homeFaqs = [
               01 // Dos Servicios Bajo el Mismo Techo
             </span>
             <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-              Todo lo que puedes hacer al visitarnos en Alfafar.
+              Todo lo que puedes hacer en nuestra tienda física.
             </h2>
           </div>
           <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
@@ -231,7 +231,7 @@ const homeFaqs = [
             </div>
 
             <div class="pt-6 border-t border-white/10 flex items-center justify-between">
-              <span class="font-mono text-xs text-surface-variant">Venta física en tienda</span>
+              <span class="font-mono text-xs text-surface-variant">Tienda física · Web próximamente</span>
               <a
                 href="/outlet"
                 class="inline-flex items-center gap-2 font-label-button text-sm font-semibold text-primary-fixed hover:text-white group transition-colors"
@@ -251,14 +251,14 @@ const homeFaqs = [
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-12">
           <div class="lg:col-span-7">
             <span class="inline-block font-mono text-xs font-semibold text-primary uppercase tracking-widest mb-2">
-              02 // Confianza Física
+              02 // Tienda Física &amp; Web
             </span>
             <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-dark">
-              La ventaja de una tienda física frente a la compra a ciegas en internet.
+              El valor de nuestra tienda física, conviviendo con nuestra próxima tienda web.
             </h2>
           </div>
           <p class="lg:col-span-5 font-sans text-base text-text-muted leading-relaxed">
-            Revisión en el acto, trato personal y total tranquilidad. Sin sorpresas al abrir cajas ni esperas de envíos a domicilio.
+            Revisión en el acto, trato personal y mesas con enchufe en sala como complemento presencial a la comodidad de nuestra futura tienda web.
           </p>
         </div>
 
@@ -295,7 +295,7 @@ const homeFaqs = [
       <FaqAccordion
         badge="03 // Preguntas Frecuentes"
         title="Resolvemos tus dudas sobre Rápido Pack Valencia"
-        subtitle="Conoce el funcionamiento de nuestra tienda física y los servicios integrados en Alfafar."
+        subtitle="Conoce el funcionamiento de nuestra tienda física, su convivencia con nuestra futura tienda web y los servicios integrados."
         items={homeFaqs}
         groupName="home-faq"
       />

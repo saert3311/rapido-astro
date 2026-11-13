@@ -38,7 +38,7 @@ const outletFaqs = [
   {
     icon: 'fact_check',
     question: `¿Qué diferencia hay entre los artículos de segunda mano y los de outlet en ${SITE.brand.name}?`,
-    answer: `En nuestra tienda de ${SITE.location.city} encontrarás tanto <strong>excedentes de stock y cajas abiertas sin uso</strong> como <strong>productos de segunda mano y reacondicionados</strong>. En todos los casos puedes abrirlos y probarlos personalmente en nuestras mesas con enchufe antes de decidir.`,
+    answer: `En nuestra tienda física encontrarás tanto <strong>excedentes de stock y cajas abiertas sin uso</strong> como <strong>productos de segunda mano y reacondicionados</strong>. En todos los casos puedes abrirlos y probarlos personalmente en nuestras mesas con enchufe antes de decidir.`,
   },
   {
     icon: 'calendar_month',
@@ -53,14 +53,14 @@ const outletFaqs = [
   {
     icon: 'storefront',
     question: '¿Publicáis un listado online de cada unidad de segunda mano?',
-    answer: `Aún no. Hoy las unidades se adquieren en nuestra tienda (${SITE.location.street}, ${SITE.location.city}) por orden de llegada. <strong>Nuestra tienda online oficial está en camino</strong> y llegará pronto; hasta entonces, el inventario real y las pruebas con enchufe se realizan en tienda física.`,
+    answer: `Aún no. Hoy las unidades se adquieren en nuestra tienda física (${SITE.location.street}, ${SITE.location.city}) por orden de llegada. <strong>Nuestra tienda web (tienda online oficial) está en camino</strong> y llegará pronto para convivir con el local; hasta entonces, el inventario real y las pruebas con enchufe se realizan en tienda física.`,
   },
 ];
 ---
 
 <Layout
-  title={`Outlet y Segunda Mano en Alfafar · ${SITE.brand.shortName}`}
-  description={`Tienda de outlet y segunda mano en Alfafar con hasta -70% de descuento. Banco de pruebas con enchufe y stock renovado semanalmente. Venta física.`}
+  title={`Outlet y Segunda Mano · Tienda Física ${SITE.brand.shortName}`}
+  description={`Tienda física de outlet y segunda mano con hasta -70% de descuento. Banco de pruebas con enchufe, stock semanal y futura tienda web.`}
   currentPage="outlet"
 >
   <div class="flex flex-col w-full">
@@ -95,7 +95,7 @@ const outletFaqs = [
                 href="/contacto#ubicacion"
               >
                 <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">near_me</span>
-                <span>Visitar Tienda en Alfafar</span>
+                <span>Visitar Tienda Física</span>
               </a>
             </div>
 
@@ -214,7 +214,7 @@ const outletFaqs = [
                 Segunda Mano Seleccionada y Liquidaciones de Marca en Rápido Pack Valencia
               </h3>
               <p class="mt-3 font-sans text-sm sm:text-base text-surface-variant leading-relaxed max-w-[58ch]">
-                Damos una segunda vida a productos de tecnología, electrodomésticos y equipamiento doméstico procedentes de devoluciones logísticas y liquidaciones europeas, revisados en nuestra tienda de Alfafar.
+                Damos una segunda vida a productos de tecnología, electrodomésticos y equipamiento doméstico procedentes de devoluciones logísticas y liquidaciones europeas, revisados en nuestra tienda física.
               </p>
             </div>
 
@@ -231,7 +231,7 @@ const outletFaqs = [
                 />
               </div>
               <figcaption class="mt-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-                <span class="text-surface-variant">Chollos del Día · Alfafar</span>
+                <span class="text-surface-variant">Chollos del Día · Tienda Física</span>
                 <span class="text-primary-fixed font-semibold">Hoy en tienda · Online próximamente</span>
               </figcaption>
             </figure>
