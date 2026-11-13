@@ -43,27 +43,27 @@
     - [x] Se conservan `"Tienda online próximamente"` en `index.astro` y `"Hoy en tienda · Online próximamente"` en `outlet.astro`.
   - **Verification:**
     - [x] Tests pass: `node --test tests/seo.test.mjs tests/online-store-copy.test.mjs`
-    - [ ] Build succeeds: `npm run build`
+    - [x] Build succeeds: `npm run build`
   - **Dependencies:** Task 2
   - **Files likely touched:** `src/pages/index.astro`, `src/pages/outlet.astro`
   - **Estimated scope:** Small (2 files)
 
-- [ ] **Task 4**: Actualizar `src/pages/paqueteria.astro` y `src/pages/contacto.astro`
+- [x] **Task 4**: Actualizar `src/pages/paqueteria.astro` y `src/pages/contacto.astro`
   - **Description:** Sustituir las referencias de servicio `"en Alfafar"` por `"en Tienda Física"` / `"Tienda Física"` en `paqueteria.astro` (title, description, eyebrow, título de FAQ) y en `contacto.astro` (title, description, alt de fachada, título de `StoreLocator`), verificando que las longitudes SEO se mantienen dentro de los rangos exigidos.
   - **Acceptance criteria:**
-    - [ ] `paqueteria.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y sustituye `"Alfafar"` en eyebrow y título de FAQ por referencia a tienda física.
-    - [ ] `contacto.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y actualiza `alt` y título de `StoreLocator` a tienda física.
-    - [ ] `StoreLocator` mantiene intacto el mapa, horario y acceso desde `Estación Alfafar-Benetússer`.
+    - [x] `paqueteria.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y sustituye `"Alfafar"` en eyebrow y título de FAQ por referencia a tienda física.
+    - [x] `contacto.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y actualiza `alt` y título de `StoreLocator` a tienda física.
+    - [x] `StoreLocator` mantiene intacto el mapa, horario y acceso desde `Estación Alfafar-Benetússer`.
   - **Verification:**
-    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/ui-cleanup.test.mjs`
-    - [ ] Build succeeds: `npm run build`
+    - [x] Tests pass: `node --test tests/seo.test.mjs tests/ui-cleanup.test.mjs`
+    - [x] Build succeeds: `npm run build`
   - **Dependencies:** Task 2
   - **Files likely touched:** `src/pages/paqueteria.astro`, `src/pages/contacto.astro`
   - **Estimated scope:** Small (2 files)
 
 ### Checkpoint: Core Pages
-- [ ] `tests/seo.test.mjs`, `tests/online-store-copy.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
-- [ ] `npm run build` compila `./dist/` limpiamente
+- [x] `tests/seo.test.mjs`, `tests/online-store-copy.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
+- [x] `npm run build` compila `./dist/` limpiamente
 
 ---
 
