@@ -81,20 +81,20 @@
   - **Files likely touched:** `src/pages/aviso-legal.astro`, `src/pages/privacidad.astro`, `src/pages/cookies.astro`, `AGENTS.md`
   - **Estimated scope:** Medium (4 files)
 
-- [ ] **Task 6**: Verificación integral y comprobación en navegador
+- [x] **Task 6**: Verificación integral y comprobación en navegador
   - **Description:** Ejecutar la batería completa de tests, compilar producción, levantar `astro preview` y validar visualmente `/`, `/paqueteria`, `/outlet`, `/contacto` y `/aviso-legal` en desktop (`1440×900`) y móvil (`390×844`) asegurando cero errores o advertencias en consola y cero regresiones de diseño.
   - **Acceptance criteria:**
-    - [ ] `npm test` pasa el 100% de las suites sin omisiones ni fallos.
-    - [ ] `npm run build` finaliza con código 0 y genera `./dist/`.
-    - [ ] Verificación en navegador sin errores de consola, sin desbordamiento horizontal y con los textos actualizados visibles.
+    - [x] `npm test` pasa el 100% de las suites sin omisiones ni fallos.
+    - [x] `npm run build` finaliza con código 0 y genera `./dist/`.
+    - [x] Verificación en navegador sin errores de consola, sin desbordamiento horizontal y con los textos actualizados visibles.
   - **Verification:**
-    - [ ] Tests pass: `npm test`
-    - [ ] Build succeeds: `npm run build`
-    - [ ] Manual/browser check: `npx astro preview --host 127.0.0.1 --port 4321` + inspección con Chrome headless (`scripts/verify-browser.mjs` / `scripts/verify-carrier-browser.mjs`)
+    - [x] Tests pass: `npm test`
+    - [x] Build succeeds: `npm run build`
+    - [x] Manual/browser check: `npx astro preview --host 127.0.0.1 --port 4321` + inspección con Chrome headless (`scripts/verify-browser.mjs` / `scripts/verify-carrier-browser.mjs`)
   - **Dependencies:** Task 5
   - **Files likely touched:** None (verificación)
   - **Estimated scope:** Small (verification only)
 
 ### Checkpoint: Complete
-- [ ] Todos los checks de `SPEC-tienda-fisica-y-web.md` cumplidos
-- [ ] Listo para revisión final del usuario
+- [x] Todos los checks de `SPEC-tienda-fisica-y-web.md` cumplidos
+- [x] Listo para revisión final del usuario
