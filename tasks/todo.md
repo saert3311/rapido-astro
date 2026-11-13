@@ -2,7 +2,7 @@
 
 ## Phase 1: Foundation & TDD Guardrail
 
-- [ ] **Task 1**: Crear suite TDD `tests/tienda-fisica-y-web.test.mjs`
+- [x] **Task 1**: Crear suite TDD `tests/tienda-fisica-y-web.test.mjs`
   - **Description:** Implementar pruebas unitarias sobre `src/` que aseguren la eliminación de expresiones tipo `"tienda de/en Alfafar"`, `"establecimiento [comercial] de Alfafar"` y `"compra a ciegas en internet"`, la presencia del concepto de coexistencia `tienda física` + `tienda web`/`tienda online`, y la preservación intacta de la dirección física en Alfafar y `Estación Alfafar-Benetússer`.
   - **Acceptance criteria:**
     - [ ] Escanea recursivamente `src/` buscando cero ocurrencias de `tienda (de |en )?Alfafar`, `establecimiento( comercial)? de Alfafar`, `equipo de Alfafar`, `Chollos del Día · Alfafar` y `compra a ciegas en internet`.
