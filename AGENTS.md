@@ -120,7 +120,7 @@ Manage the background server with `npx astro dev stop`, `npx astro dev status`, 
 5. **Authorized Parcel Carriers (Exactly 4):** Authorized operators are strictly `INPOST`, `GLS`, `SEUR`, and `KANGURO`. Never add deprecated carriers (Amazon, CTT Express).
 6. **No Outbound Carrier External Links:** Do not link carrier cards to external corporate websites; avoid leaking link equity or diverting local parcel customers.
 7. **Business Domain & E-Commerce Boundaries:**
-   - Physical sales in Alfafar: The online store is **in active development** ("próximamente" / coming soon).
+   - Physical store (`tienda física`) & web store (`tienda web` / `tienda online`) coexist: Today's sales run in the physical store while the online store is **in active development** ("próximamente" / coming soon). Frame the physical store as `tienda física` (rather than "tienda Alfafar") and avoid copy that antagonizes online shopping.
    - Do **not** write "no disponemos de tienda online" or prohibitive phrases (tested by `online-store-copy.test.mjs`).
    - Do **not** implement carts, checkout flows, catalog reservations, or promise exact launch dates.
    - Restocks arrive weekly (avoid promising exact Monday 09:30 delivery times).

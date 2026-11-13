@@ -69,14 +69,14 @@
 
 ## Phase 3: Legal Pages, Docs & End-to-End Verification
 
-- [ ] **Task 5**: Actualizar páginas legales (`aviso-legal.astro`, `privacidad.astro`, `cookies.astro`) y `AGENTS.md`
+- [x] **Task 5**: Actualizar páginas legales (`aviso-legal.astro`, `privacidad.astro`, `cookies.astro`) y `AGENTS.md`
   - **Description:** Alinear el objeto y alcance comercial de `aviso-legal.astro` (§2 y §3) con la coexistencia entre tienda física y tienda web en desarrollo (manteniendo el título `"3. Actividad Comercial y Tienda Online en Desarrollo"`), actualizar las menciones `"en Alfafar"` en `privacidad.astro` y `cookies.astro`, y reflejar en `AGENTS.md` (gotcha 7) la convivencia tienda física + tienda web.
   - **Acceptance criteria:**
-    - [ ] `aviso-legal.astro` sustituye `"establecimiento [comercial] de Alfafar"` por `"tienda física"` y describe la coexistencia con la futura tienda web/online.
-    - [ ] `privacidad.astro` y `cookies.astro` actualizan sus descripciones y finalidades a tienda física y web, conservando `LEGAL.address` intacto.
-    - [ ] `AGENTS.md` (gotcha 7) documenta la regla de coexistencia tienda física y web.
+    - [x] `aviso-legal.astro` sustituye `"establecimiento [comercial] de Alfafar"` por `"tienda física"` y describe la coexistencia con la futura tienda web/online.
+    - [x] `privacidad.astro` y `cookies.astro` actualizan sus descripciones y finalidades a tienda física y web, conservando `LEGAL.address` intacto.
+    - [x] `AGENTS.md` (gotcha 7) documenta la regla de coexistencia tienda física y web.
   - **Verification:**
-    - [ ] Tests pass: `npm test` (todas las suites, incluida `tests/tienda-fisica-y-web.test.mjs` en GREEN)
+    - [x] Tests pass: `npm test` (todas las suites, incluida `tests/tienda-fisica-y-web.test.mjs` en GREEN)
   - **Dependencies:** Task 1, Task 3, Task 4
   - **Files likely touched:** `src/pages/aviso-legal.astro`, `src/pages/privacidad.astro`, `src/pages/cookies.astro`, `AGENTS.md`
   - **Estimated scope:** Medium (4 files)
