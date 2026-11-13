@@ -22,7 +22,7 @@ const navLinks = [
   Saltar al contenido principal
 </a>
 
-<header class="fixed top-0 left-0 right-0 w-full z-40 bg-emerald-200/80 backdrop-blur-md border-b border-primary/25 shadow-xs">
+<header class="fixed top-0 left-0 right-0 w-full z-40 bg-white/95 backdrop-blur-md border-t-[3px] border-t-primary border-b border-border-subtle shadow-[0_10px_30px_-14px_rgba(17,24,32,0.12)]">
   <div class="h-28 sm:h-32 lg:h-36 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 lg:gap-6">
     <div class="flex items-center gap-5">
       <a
@@ -42,7 +42,7 @@ const navLinks = [
       <!-- Live Store Status Indicator (Valencia Time) -->
       <div
         id="header-live-status"
-        class="hidden xl:inline-flex items-center gap-2 pl-5 border-l border-primary/20 text-xs font-mono font-medium text-text-muted whitespace-nowrap"
+        class="hidden xl:inline-flex items-center gap-2 pl-5 border-l border-border-subtle text-xs font-mono font-medium text-text-muted whitespace-nowrap"
         aria-live="polite"
         data-weekday-open={SITE.schedule.weekdays.openMinutes}
         data-weekday-close={SITE.schedule.weekdays.closeMinutes}
@@ -66,8 +66,8 @@ const navLinks = [
           class:list={[
             'px-4 py-2.5 rounded-xl font-label-button text-lg font-bold uppercase tracking-wide whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
             link.active
-              ? 'bg-white text-primary shadow-xs border border-primary/20'
-              : 'text-surface-dark/80 hover:text-primary hover:bg-white/60',
+              ? 'bg-mint-wash text-primary-hover border border-primary/25 shadow-2xs'
+              : 'text-surface-dark/85 hover:text-primary-hover hover:bg-surface-alt',
           ]}
         >
           {link.label}
@@ -77,10 +77,10 @@ const navLinks = [
 
     <div class="flex items-center gap-2.5 lg:gap-3 shrink-0 whitespace-nowrap">
       <a
-        class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-primary/20 bg-white/70 hover:bg-white text-surface-dark font-mono text-sm font-bold whitespace-nowrap transition-all active:scale-[0.98]"
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border-subtle bg-surface-alt hover:bg-mint-wash hover:border-primary/30 text-surface-dark font-mono text-sm font-bold whitespace-nowrap transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         href={SITE.contact.phoneHref}
       >
-        <span class="material-symbols-outlined text-[18px] text-primary leading-none" aria-hidden="true">call</span>
+        <span class="material-symbols-outlined text-[18px] text-primary-hover leading-none" aria-hidden="true">call</span>
         <span class="tabular-nums">{SITE.contact.phoneDisplay}</span>
       </a>
 
@@ -88,7 +88,7 @@ const navLinks = [
       <details class="md:hidden relative group">
         <summary
           aria-label="Abrir menú de navegación"
-          class="list-none flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-white/70 text-surface-dark hover:bg-white cursor-pointer transition-transform active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-primary"
+          class="list-none flex items-center justify-center w-12 h-12 rounded-xl border border-border-subtle bg-surface-alt text-surface-dark hover:bg-mint-wash hover:border-primary/30 cursor-pointer transition-all active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
           <span class="material-symbols-outlined text-[26px] group-open:!hidden" aria-hidden="true">menu</span>
           <span class="material-symbols-outlined text-[26px] !hidden group-open:!inline-block" aria-hidden="true">close</span>
@@ -113,9 +113,9 @@ const navLinks = [
               href={link.href}
               aria-current={link.active ? 'page' : undefined}
               class:list={[
-                'px-4 py-3.5 min-h-[48px] flex items-center justify-between rounded-xl font-label-button text-base font-bold uppercase tracking-wide transition-colors active:scale-[0.99]',
+                'px-4 py-3.5 min-h-[48px] flex items-center justify-between rounded-xl font-label-button text-base font-bold uppercase tracking-wide transition-colors active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                 link.active
-                  ? 'bg-mint-wash text-primary font-bold'
+                  ? 'bg-mint-wash text-primary-hover font-bold'
                   : 'text-surface-dark hover:bg-surface-alt font-bold',
               ]}
             >
@@ -127,10 +127,10 @@ const navLinks = [
           ))}
           <div class="pt-2.5 mt-1 border-t border-border-subtle flex flex-col gap-2">
             <a
-              class="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 min-h-[48px] bg-surface-alt text-surface-dark font-mono text-sm font-bold rounded-xl active:scale-[0.99] transition-transform"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-3.5 min-h-[48px] bg-surface-alt hover:bg-mint-wash/60 text-surface-dark font-mono text-sm font-bold rounded-xl active:scale-[0.99] transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               href={SITE.contact.phoneHref}
             >
-              <span class="material-symbols-outlined text-[18px] text-primary" aria-hidden="true">call</span>
+              <span class="material-symbols-outlined text-[18px] text-primary-hover" aria-hidden="true">call</span>
               <span>{SITE.contact.phoneDisplay}</span>
             </a>
             <a

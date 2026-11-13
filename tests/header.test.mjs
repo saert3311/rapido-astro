@@ -122,14 +122,31 @@ describe('Header component - Logo & Typography specifications (TDD)', () => {
     );
   });
 
-  test('Header has highlighted background, uppercase navigation, and no "Cómo llegar" header button', () => {
+  test('Header has clean white surface with emerald top border, diffusion shadow, uppercase nav, and WCAG AA active contrast', () => {
     const headerSource = fs.readFileSync(headerPath, 'utf-8');
 
-    // Header element must have highlighted background
+    // Header element must use clean white surface with top brand accent and bottom hairline separation
     assert.match(
       headerSource,
-      /<header[^>]*bg-(?:mint-wash|emerald-)/,
-      'Header element must have highlighted bg-mint-wash or bg-emerald background'
+      /<header[^>]*bg-white\/95/,
+      'Header element must use clean white bg-white/95 surface for optimal logo contrast'
+    );
+    assert.match(
+      headerSource,
+      /<header[^>]*border-t-\[3px\]\s+border-t-primary/,
+      'Header element must have a 3px top emerald accent bar (border-t-[3px] border-t-primary)'
+    );
+    assert.match(
+      headerSource,
+      /<header[^>]*border-b\s+border-border-subtle/,
+      'Header element must have bottom subtle hairline border (border-b border-border-subtle)'
+    );
+
+    // Active nav links must use WCAG AA compliant primary-hover (#047842) on mint-wash
+    assert.match(
+      headerSource,
+      /bg-mint-wash\s+text-primary-hover/,
+      'Active nav links must use text-primary-hover on bg-mint-wash (>= 4.5:1 WCAG AA contrast)'
     );
 
     // Nav links must be uppercase
