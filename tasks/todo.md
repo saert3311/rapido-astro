@@ -1,30 +1,100 @@
-# Task List: Optimización Ergonómica del Formulario de Contacto y Balance Espacial
+# Task List: Coexistencia Tienda Física y Tienda Web (`SPEC-tienda-fisica-y-web`)
 
-## Phase 1: Test Suite & Regression Checks
-- [x] **Task 1.1**: Revisar y ampliar tests en `tests/contact-api.test.mjs` para verificar la existencia del contenedor de seguridad de Turnstile y la estructura de inputs.
-  - *Verify:* `npm test` ejecutó la fase RED y posteriormente pasó a GREEN al 100% (67 tests passing).
+## Phase 1: Foundation & TDD Guardrail
 
-## Phase 2: Refactorización Ergonómica de ContactForm.astro
-- [x] **Task 2.1**: Reorganizar los campos en cuadrícula 2×2:
-  - Fila 1: `Nombre completo` + `Motivo de la consulta` en `grid grid-cols-1 sm:grid-cols-2 gap-5`.
-  - Fila 2: `Teléfono de contacto` + `Correo electrónico` en `grid grid-cols-1 sm:grid-cols-2 gap-5`.
-  - Fila 3: `Mensaje` a ancho completo.
-  - *Verify:* Selectores, IDs, clases `form-control` y accesibilidad preservados al 100%.
-- [x] **Task 2.2**: Envolver `#turnstile-widget` en el contenedor de seguridad estructurado:
-  - Contenedor con `flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-surface-alt/40 border border-border-subtle/70`.
-  - Insignia derecha con icono `verified_user` y texto `Protección Cloudflare Turnstile · Envío seguro`.
-  - Mantener `#turnstile-error` intacto bajo el contenedor.
-  - *Verify:* `npm test` verde.
+- [ ] **Task 1**: Crear suite TDD `tests/tienda-fisica-y-web.test.mjs`
+  - **Description:** Implementar pruebas unitarias sobre `src/` que aseguren la eliminación de expresiones tipo `"tienda de/en Alfafar"`, `"establecimiento [comercial] de Alfafar"` y `"compra a ciegas en internet"`, la presencia del concepto de coexistencia `tienda física` + `tienda web`/`tienda online`, y la preservación intacta de la dirección física en Alfafar y `Estación Alfafar-Benetússer`.
+  - **Acceptance criteria:**
+    - [ ] Escanea recursivamente `src/` buscando cero ocurrencias de `tienda (de |en )?Alfafar`, `establecimiento( comercial)? de Alfafar`, `equipo de Alfafar`, `Chollos del Día · Alfafar` y `compra a ciegas en internet`.
+    - [ ] Verifica presencia de `tienda física` y convivencia con `tienda web` / `tienda online` en `index.astro`, `outlet.astro`, `aviso-legal.astro` y `Footer.astro`.
+    - [ ] Verifica que `SITE.location` (`site.ts`) y `LEGAL.address` (`legal.ts`) conservan `Carrer del Comte Ronrée` y `Alfafar`.
+  - **Verification:**
+    - [ ] Tests pass (fase RED esperada inicialmente): `node --test tests/tienda-fisica-y-web.test.mjs`
+  - **Dependencies:** None
+  - **Files likely touched:** `tests/tienda-fisica-y-web.test.mjs`
+  - **Estimated scope:** Small (1 file)
 
-## Phase 3: Columna Lateral y Activos Locales en contacto.astro
-- [x] **Task 3.1**: Actualizar la columna `<aside>` en `src/pages/contacto.astro`:
-  - Añadir clases `lg:sticky lg:top-28` al elemento `<aside>`.
-  - Sustituir la imagen externa de Google por `/fachada-rapido-pack-valencia.webp`.
-  - Añadir badge de conexión con Estación Alfafar-Benetússer (`1 min a pie`).
-  - Añadir badge de telemetría de atención en sala activa (`L–V 09:30 – 20:00`).
-  - *Verify:* Cero menciones de aparcamiento y preservación estricta de tokens de diseño.
+- [ ] **Task 2**: Actualizar configuración central y componentes compartidos
+  - **Description:** Actualizar `SITE.brand.tagline` y `SITE.brand.metaDescription` en `src/config/site.ts` (respetando 120–160 chars), la descripción y pie de `src/components/Footer.astro`, el título por defecto de `src/components/StoreLocator.astro` y el mensaje de confirmación de `src/components/ContactForm.astro`.
+  - **Acceptance criteria:**
+    - [ ] `site.ts` refleja tienda física + futura tienda web en `tagline` y `metaDescription` (120–160 chars), conservando `location.*` y `Estación Alfafar-Benetússer`.
+    - [ ] `Footer.astro` describe la convivencia entre tienda física y futura tienda web y sustituye la línea inferior `"en Alfafar"`.
+    - [ ] `StoreLocator.astro` y `ContactForm.astro` sustituyen `"en Alfafar"` / `"de Alfafar"` por referencia a la tienda física.
+  - **Verification:**
+    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/transit-station.test.mjs tests/ui-cleanup.test.mjs`
+    - [ ] Build succeeds: `npm run build`
+  - **Dependencies:** Task 1
+  - **Files likely touched:** `src/config/site.ts`, `src/components/Footer.astro`, `src/components/StoreLocator.astro`, `src/components/ContactForm.astro`
+  - **Estimated scope:** Medium (4 files)
 
-## Phase 4: Verificación Funcional y Visual
-- [x] **Task 4.1**: Ejecutar `npm test` (todos los 67 tests en verde).
-- [x] **Task 4.2**: Ejecutar `npm run build` (compilación estática sin errores en 851ms).
-- [x] **Task 4.3**: Verificación en navegador Chrome Headless (1440×900, 1024×800, 390×844) capturando capturas de pantalla y verificando 0 desbordamientos horizontales ni errores.
+### Checkpoint: Foundation
+- [ ] `tests/seo.test.mjs`, `tests/transit-station.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
+- [ ] `npm run build` compila sin errores
+
+---
+
+## Phase 2: Core Pages (Home, Outlet, Paquetería, Contacto)
+
+- [ ] **Task 3**: Actualizar `src/pages/index.astro` y `src/pages/outlet.astro`
+  - **Description:** Sustituir todas las ocurrencias de `"tienda ... Alfafar"` y `"en Alfafar"` en portada y página de outlet por `"tienda física"`, reformular el bloque `02 // Confianza Física` de `index.astro` para eliminar el contraste negativo contra compras por internet, y ajustar SEO title/description de `outlet.astro` manteniendo los rangos válidos y las cadenas protegidas de `online-store-copy.test.mjs`.
+  - **Acceptance criteria:**
+    - [ ] `index.astro` actualiza eyebrow (`00 // Tienda Física · Paquetería y Outlet`), H2 de servicios, alt de fachada, badge de venta física, sección `02` (coexistencia física + web), FAQs y subtítulo de FAQ sin frases antagónicas hacia internet.
+    - [ ] `outlet.astro` actualiza `title` (35–65 chars), `description` (120–160 chars), CTA (`Visitar Tienda Física`), texto descriptivo, `figcaption` (`Chollos del Día · Tienda Física`) y FAQs.
+    - [ ] Se conservan `"Tienda online próximamente"` en `index.astro` y `"Hoy en tienda · Online próximamente"` en `outlet.astro`.
+  - **Verification:**
+    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/online-store-copy.test.mjs`
+    - [ ] Build succeeds: `npm run build`
+  - **Dependencies:** Task 2
+  - **Files likely touched:** `src/pages/index.astro`, `src/pages/outlet.astro`
+  - **Estimated scope:** Small (2 files)
+
+- [ ] **Task 4**: Actualizar `src/pages/paqueteria.astro` y `src/pages/contacto.astro`
+  - **Description:** Sustituir las referencias de servicio `"en Alfafar"` por `"en Tienda Física"` / `"Tienda Física"` en `paqueteria.astro` (title, description, eyebrow, título de FAQ) y en `contacto.astro` (title, description, alt de fachada, título de `StoreLocator`), verificando que las longitudes SEO se mantienen dentro de los rangos exigidos.
+  - **Acceptance criteria:**
+    - [ ] `paqueteria.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y sustituye `"Alfafar"` en eyebrow y título de FAQ por referencia a tienda física.
+    - [ ] `contacto.astro` tiene `title` de 35–65 chars y `description` de 120–160 chars, y actualiza `alt` y título de `StoreLocator` a tienda física.
+    - [ ] `StoreLocator` mantiene intacto el mapa, horario y acceso desde `Estación Alfafar-Benetússer`.
+  - **Verification:**
+    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/ui-cleanup.test.mjs`
+    - [ ] Build succeeds: `npm run build`
+  - **Dependencies:** Task 2
+  - **Files likely touched:** `src/pages/paqueteria.astro`, `src/pages/contacto.astro`
+  - **Estimated scope:** Small (2 files)
+
+### Checkpoint: Core Pages
+- [ ] `tests/seo.test.mjs`, `tests/online-store-copy.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
+- [ ] `npm run build` compila `./dist/` limpiamente
+
+---
+
+## Phase 3: Legal Pages, Docs & End-to-End Verification
+
+- [ ] **Task 5**: Actualizar páginas legales (`aviso-legal.astro`, `privacidad.astro`, `cookies.astro`) y `AGENTS.md`
+  - **Description:** Alinear el objeto y alcance comercial de `aviso-legal.astro` (§2 y §3) con la coexistencia entre tienda física y tienda web en desarrollo (manteniendo el título `"3. Actividad Comercial y Tienda Online en Desarrollo"`), actualizar las menciones `"en Alfafar"` en `privacidad.astro` y `cookies.astro`, y reflejar en `AGENTS.md` (gotcha 7) la convivencia tienda física + tienda web.
+  - **Acceptance criteria:**
+    - [ ] `aviso-legal.astro` sustituye `"establecimiento [comercial] de Alfafar"` por `"tienda física"` y describe la coexistencia con la futura tienda web/online.
+    - [ ] `privacidad.astro` y `cookies.astro` actualizan sus descripciones y finalidades a tienda física y web, conservando `LEGAL.address` intacto.
+    - [ ] `AGENTS.md` (gotcha 7) documenta la regla de coexistencia tienda física y web.
+  - **Verification:**
+    - [ ] Tests pass: `npm test` (todas las suites, incluida `tests/tienda-fisica-y-web.test.mjs` en GREEN)
+  - **Dependencies:** Task 1, Task 3, Task 4
+  - **Files likely touched:** `src/pages/aviso-legal.astro`, `src/pages/privacidad.astro`, `src/pages/cookies.astro`, `AGENTS.md`
+  - **Estimated scope:** Medium (4 files)
+
+- [ ] **Task 6**: Verificación integral y comprobación en navegador
+  - **Description:** Ejecutar la batería completa de tests, compilar producción, levantar `astro preview` y validar visualmente `/`, `/paqueteria`, `/outlet`, `/contacto` y `/aviso-legal` en desktop (`1440×900`) y móvil (`390×844`) asegurando cero errores o advertencias en consola y cero regresiones de diseño.
+  - **Acceptance criteria:**
+    - [ ] `npm test` pasa el 100% de las suites sin omisiones ni fallos.
+    - [ ] `npm run build` finaliza con código 0 y genera `./dist/`.
+    - [ ] Verificación en navegador sin errores de consola, sin desbordamiento horizontal y con los textos actualizados visibles.
+  - **Verification:**
+    - [ ] Tests pass: `npm test`
+    - [ ] Build succeeds: `npm run build`
+    - [ ] Manual/browser check: `npx astro preview --host 127.0.0.1 --port 4321` + inspección con Chrome headless (`scripts/verify-browser.mjs` / `scripts/verify-carrier-browser.mjs`)
+  - **Dependencies:** Task 5
+  - **Files likely touched:** None (verificación)
+  - **Estimated scope:** Small (verification only)
+
+### Checkpoint: Complete
+- [ ] Todos los checks de `SPEC-tienda-fisica-y-web.md` cumplidos
+- [ ] Listo para revisión final del usuario
