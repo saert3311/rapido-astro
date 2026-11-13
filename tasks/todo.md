@@ -14,22 +14,22 @@
   - **Files likely touched:** `tests/tienda-fisica-y-web.test.mjs`
   - **Estimated scope:** Small (1 file)
 
-- [ ] **Task 2**: Actualizar configuración central y componentes compartidos
+- [x] **Task 2**: Actualizar configuración central y componentes compartidos
   - **Description:** Actualizar `SITE.brand.tagline` y `SITE.brand.metaDescription` en `src/config/site.ts` (respetando 120–160 chars), la descripción y pie de `src/components/Footer.astro`, el título por defecto de `src/components/StoreLocator.astro` y el mensaje de confirmación de `src/components/ContactForm.astro`.
   - **Acceptance criteria:**
-    - [ ] `site.ts` refleja tienda física + futura tienda web en `tagline` y `metaDescription` (120–160 chars), conservando `location.*` y `Estación Alfafar-Benetússer`.
-    - [ ] `Footer.astro` describe la convivencia entre tienda física y futura tienda web y sustituye la línea inferior `"en Alfafar"`.
-    - [ ] `StoreLocator.astro` y `ContactForm.astro` sustituyen `"en Alfafar"` / `"de Alfafar"` por referencia a la tienda física.
+    - [x] `site.ts` refleja tienda física + futura tienda web en `tagline` y `metaDescription` (120–160 chars), conservando `location.*` y `Estación Alfafar-Benetússer`.
+    - [x] `Footer.astro` describe la convivencia entre tienda física y futura tienda web y sustituye la línea inferior `"en Alfafar"`.
+    - [x] `StoreLocator.astro` y `ContactForm.astro` sustituyen `"en Alfafar"` / `"de Alfafar"` por referencia a la tienda física.
   - **Verification:**
-    - [ ] Tests pass: `node --test tests/seo.test.mjs tests/transit-station.test.mjs tests/ui-cleanup.test.mjs`
-    - [ ] Build succeeds: `npm run build`
+    - [x] Tests pass: `node --test tests/seo.test.mjs tests/transit-station.test.mjs tests/ui-cleanup.test.mjs`
+    - [x] Build succeeds: `npm run build`
   - **Dependencies:** Task 1
   - **Files likely touched:** `src/config/site.ts`, `src/components/Footer.astro`, `src/components/StoreLocator.astro`, `src/components/ContactForm.astro`
   - **Estimated scope:** Medium (4 files)
 
 ### Checkpoint: Foundation
-- [ ] `tests/seo.test.mjs`, `tests/transit-station.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
-- [ ] `npm run build` compila sin errores
+- [x] `tests/seo.test.mjs`, `tests/transit-station.test.mjs` y `tests/ui-cleanup.test.mjs` pasan al 100%
+- [x] `npm run build` compila sin errores
 
 ---
 

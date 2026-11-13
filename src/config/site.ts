@@ -30,10 +30,10 @@ export const SITE = {
     shortName: 'Rápido Pack',
     domain: 'https://rapidopackvalencia.es',
     canonicalBase: 'https://rapidopackvalencia.es',
-    cityTag: 'Valencia · Alfafar',
-    tagline: 'Tienda Outlet, Segunda Mano y Punto de Paquetería',
+    cityTag: 'Valencia · Tienda Física y Web',
+    tagline: 'Tienda Física y Web · Outlet, Segunda Mano y Paquetería',
     metaDescription:
-      'Punto oficial de paquetería y tienda outlet de segunda mano en Alfafar (Valencia). Chollos hasta -70% con banco de pruebas. A 1 min de la estación.',
+      'Punto oficial de paquetería y tienda física outlet de segunda mano con próxima tienda web en Valencia. Hasta -70% y banco de pruebas.',
     maxDiscountPct: 70,
     restockFrequency: 'Semanal',
   },
