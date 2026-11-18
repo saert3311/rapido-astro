@@ -130,6 +130,8 @@ import { SITE } from '../config/site';
 <script is:inline>
   (() => {
     const STORAGE_KEY = 'rpv_cookie_consent';
+    const COOKIE_DOMAIN = '.rapidopackvalencia.es';
+    const COOKIE_MAX_AGE_SECONDS = 31536000;
     const banner = document.getElementById('cookie-banner-container');
     const settingsPanel = document.getElementById('cookie-settings-panel');
     const analyticsToggle = document.getElementById('cookie-analytics-toggle');
@@ -138,7 +140,51 @@ import { SITE } from '../config/site';
 
     if (!banner) return;
 
+    const isProductionHost = () => {
+      const host = window.location.hostname;
+      return host === 'rapidopackvalencia.es' || host.endsWith('.rapidopackvalencia.es');
+    };
+
+    const buildCookieAttributes = (maxAge, includeDomain) => {
+      const attrs = ['Path=/', `Max-Age=${maxAge}`, 'SameSite=Lax'];
+      if (maxAge <= 0) {
+        attrs.push('Expires=Thu, 01 Jan 1970 00:00:00 GMT');
+      }
+      if (includeDomain && isProductionHost()) {
+        attrs.push(`Domain=${COOKIE_DOMAIN}`);
+      }
+      if (window.location.protocol === 'https:') {
+        attrs.push('Secure');
+      }
+      return attrs.join('; ');
+    };
+
+    const readCookieConsent = () => {
+      try {
+        const match = document.cookie.match(/(?:^|;\s*)rpv_cookie_consent=([^;]*)/);
+        if (!match || !match[1]) return null;
+        return JSON.parse(decodeURIComponent(match[1]));
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const writeConsentCookie = (state) => {
+      const encoded = encodeURIComponent(JSON.stringify(state));
+      document.cookie = `${STORAGE_KEY}=${encoded}; ${buildCookieAttributes(COOKIE_MAX_AGE_SECONDS, true)}`;
+    };
+
+    const clearConsentCookie = () => {
+      document.cookie = `${STORAGE_KEY}=; ${buildCookieAttributes(0, true)}`;
+      if (isProductionHost()) {
+        // Also expire any legacy host-only cookie so it cannot shadow the shared domain cookie
+        document.cookie = `${STORAGE_KEY}=; ${buildCookieAttributes(0, false)}`;
+      }
+    };
+
     const readStoredConsent = () => {
+      const cookieConsent = readCookieConsent();
+      if (cookieConsent) return cookieConsent;
       try {
         return JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       } catch (e) {
@@ -169,6 +215,7 @@ import { SITE } from '../config/site';
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch (e) {}
+      writeConsentCookie(state);
 
       updateConsentMode(state.analytics);
       banner.classList.add('hidden');
@@ -186,10 +233,22 @@ import { SITE } from '../config/site';
       }
     };
 
-    // Check initial state
-    const existingConsent = readStoredConsent();
+    const clearConsent = () => {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
+      clearConsentCookie();
+      updateConsentMode(false);
+      showBanner(false);
+    };
+
+    // Check initial state and sync legacy localStorage consent into shared domain cookie
+    const cookieConsent = readCookieConsent();
+    const existingConsent = cookieConsent || readStoredConsent();
     if (!existingConsent) {
       showBanner(false);
+    } else if (!cookieConsent) {
+      writeConsentCookie(existingConsent);
     }
 
     // Accept all
@@ -228,9 +287,12 @@ import { SITE } from '../config/site';
       banner.classList.add('hidden');
     });
 
-    // Global listener for reopening settings from Footer or Cookie page
+    // Global listeners for reopening or clearing consent
     window.addEventListener('rpv:open-cookie-settings', () => {
       showBanner(true);
+    });
+    window.addEventListener('rpv:clear-cookie-consent', () => {
+      clearConsent();
     });
   })();
 </script>

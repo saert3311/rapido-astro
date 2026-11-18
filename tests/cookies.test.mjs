@@ -2,6 +2,7 @@ import test, { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import { LEGAL } from '../src/config/legal.ts';
 
 describe('Cookies Consent & Google Analytics Legal Compliance - TDD Suite', () => {
@@ -113,6 +114,188 @@ describe('Cookies Consent & Google Analytics Legal Compliance - TDD Suite', () =
         footerContent.includes('Configurar') || footerContent.includes('cookies') || footerContent.includes('rpv:open-cookie-settings'),
         'Footer.astro must include a button or link to manage cookie preferences'
       );
+    });
+  });
+
+  describe('6. Cross-Subdomain Cookie Persistence (Domain=.rapidopackvalencia.es)', () => {
+    function runCookieBannerScript({ hostname, protocol = 'https:', initialCookie = '', initialStorage = null }) {
+      const bannerSource = fs.readFileSync(path.resolve('src/components/CookieBanner.astro'), 'utf-8');
+      const scriptMatch = bannerSource.match(/<script is:inline>([\s\S]*?)<\/script>/);
+      assert.ok(scriptMatch, 'CookieBanner.astro must contain an inline script');
+
+      const cookieWrites = [];
+      let currentCookie = initialCookie;
+      const storage = new Map();
+      if (initialStorage !== null) {
+        storage.set('rpv_cookie_consent', JSON.stringify(initialStorage));
+      }
+
+      const elements = new Map();
+      const makeEl = (id) => {
+        const classes = new Set(id === 'cookie-banner-container' || id === 'cookie-settings-panel' ? ['hidden'] : []);
+        const listeners = new Map();
+        return {
+          id,
+          checked: false,
+          innerHTML: '',
+          classList: {
+            add: (c) => classes.add(c),
+            remove: (c) => classes.delete(c),
+            contains: (c) => classes.has(c),
+          },
+          addEventListener: (ev, fn) => {
+            if (!listeners.has(ev)) listeners.set(ev, []);
+            listeners.get(ev).push(fn);
+          },
+          click: () => {
+            for (const fn of listeners.get('click') || []) fn();
+          },
+        };
+      };
+
+      for (const id of [
+        'cookie-banner-container',
+        'cookie-settings-panel',
+        'cookie-analytics-toggle',
+        'cookie-toggle-settings-btn',
+        'cookie-quick-close-btn',
+        'cookie-accept-all-btn',
+        'cookie-reject-all-btn',
+        'cookie-save-settings-btn',
+      ]) {
+        elements.set(id, makeEl(id));
+      }
+
+      const windowListeners = new Map();
+      const gtagCalls = [];
+      const windowObj = {
+        location: { hostname, protocol },
+        dataLayer: [],
+        gtag: (...args) => gtagCalls.push(args),
+        addEventListener: (ev, fn) => {
+          if (!windowListeners.has(ev)) windowListeners.set(ev, []);
+          windowListeners.get(ev).push(fn);
+        },
+        dispatchEvent: (ev) => {
+          for (const fn of windowListeners.get(ev.type) || []) fn(ev);
+        },
+      };
+
+      const documentObj = {
+        getElementById: (id) => elements.get(id) || null,
+        get cookie() {
+          return currentCookie;
+        },
+        set cookie(val) {
+          cookieWrites.push(val);
+          const [pair, ...attrs] = val.split(';').map((s) => s.trim());
+          const [name, ...rest] = pair.split('=');
+          const value = rest.join('=');
+          if (attrs.some((a) => a.toLowerCase() === 'max-age=0')) {
+            currentCookie = currentCookie
+              .split(';')
+              .map((s) => s.trim())
+              .filter((s) => s && !s.startsWith(`${name}=`))
+              .join('; ');
+          } else {
+            const others = currentCookie
+              .split(';')
+              .map((s) => s.trim())
+              .filter((s) => s && !s.startsWith(`${name}=`));
+            others.push(`${name}=${value}`);
+            currentCookie = others.join('; ');
+          }
+        },
+      };
+
+      const localStorageObj = {
+        getItem: (k) => (storage.has(k) ? storage.get(k) : null),
+        setItem: (k, v) => storage.set(k, String(v)),
+        removeItem: (k) => storage.delete(k),
+      };
+
+      const sandbox = {
+        window: windowObj,
+        document: documentObj,
+        localStorage: localStorageObj,
+        CustomEvent: class CustomEvent {
+          constructor(type) {
+            this.type = type;
+          }
+        },
+        JSON,
+        Date,
+        Boolean,
+        encodeURIComponent,
+        decodeURIComponent,
+      };
+      sandbox.globalThis = sandbox;
+
+      vm.runInNewContext(scriptMatch[1], sandbox);
+      return { elements, cookieWrites, windowObj, localStorageObj, documentObj, gtagCalls };
+    }
+
+    it('sets and clears rpv_cookie_consent with Domain=.rapidopackvalencia.es on production hosts', () => {
+      const ctx = runCookieBannerScript({ hostname: 'rapidopackvalencia.es', protocol: 'https:' });
+
+      ctx.elements.get('cookie-accept-all-btn').click();
+      assert.equal(ctx.cookieWrites.length, 1);
+      const setWrite = ctx.cookieWrites[0];
+      assert.match(setWrite, /^rpv_cookie_consent=[^;]+/);
+      assert.match(setWrite, /Domain=\.rapidopackvalencia\.es/);
+      assert.match(setWrite, /Path=\//);
+      assert.match(setWrite, /Max-Age=31536000/);
+      assert.match(setWrite, /SameSite=Lax/);
+      assert.match(setWrite, /Secure/);
+
+      const rawValue = setWrite.split(';')[0].split('=')[1];
+      const parsed = JSON.parse(decodeURIComponent(rawValue));
+      assert.equal(parsed.necessary, true);
+      assert.equal(parsed.analytics, true);
+
+      // Clear consent and verify Domain=.rapidopackvalencia.es + Max-Age=0
+      ctx.windowObj.dispatchEvent({ type: 'rpv:clear-cookie-consent' });
+      const clearWrites = ctx.cookieWrites.slice(1);
+      assert.ok(
+        clearWrites.some((w) => w.includes('Domain=.rapidopackvalencia.es') && w.includes('Max-Age=0')),
+        'Clearing consent on production host must expire rpv_cookie_consent with Domain=.rapidopackvalencia.es'
+      );
+      assert.equal(ctx.localStorageObj.getItem('rpv_cookie_consent'), null);
+    });
+
+    it('omits Domain=.rapidopackvalencia.es on localhost when setting and clearing', () => {
+      const ctx = runCookieBannerScript({ hostname: 'localhost', protocol: 'http:' });
+
+      ctx.elements.get('cookie-reject-all-btn').click();
+      assert.equal(ctx.cookieWrites.length, 1);
+      assert.doesNotMatch(ctx.cookieWrites[0], /Domain=/);
+      assert.doesNotMatch(ctx.cookieWrites[0], /Secure/);
+
+      ctx.windowObj.dispatchEvent({ type: 'rpv:clear-cookie-consent' });
+      assert.equal(ctx.cookieWrites.length, 2);
+      assert.match(ctx.cookieWrites[1], /Max-Age=0/);
+      assert.doesNotMatch(ctx.cookieWrites[1], /Domain=/);
+    });
+
+    it('syncs existing localStorage consent into shared domain cookie on production hosts', () => {
+      const ctx = runCookieBannerScript({
+        hostname: 'www.rapidopackvalencia.es',
+        protocol: 'https:',
+        initialStorage: { version: '2026.1', necessary: true, analytics: true },
+      });
+
+      assert.equal(ctx.cookieWrites.length, 1);
+      assert.match(ctx.cookieWrites[0], /Domain=\.rapidopackvalencia\.es/);
+      assert.match(ctx.cookieWrites[0], /rpv_cookie_consent=/);
+    });
+
+    it('GoogleTagManager.astro reads rpv_cookie_consent from document.cookie before localStorage', () => {
+      const gtmContent = fs.readFileSync(path.resolve('src/components/GoogleTagManager.astro'), 'utf-8');
+      const cookieReadIndex = gtmContent.indexOf('document.cookie.match');
+      const localStorageReadIndex = gtmContent.indexOf('localStorage.getItem');
+      assert.ok(cookieReadIndex !== -1, 'GoogleTagManager.astro must read rpv_cookie_consent from document.cookie');
+      assert.ok(localStorageReadIndex !== -1, 'GoogleTagManager.astro must keep localStorage fallback');
+      assert.ok(cookieReadIndex < localStorageReadIndex, 'document.cookie must be checked before localStorage');
     });
   });
 });

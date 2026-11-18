@@ -30,11 +30,19 @@ const shouldRender =
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
 
-      // Google Consent Mode v2: Read stored consent or default to denied
+      // Google Consent Mode v2: Read stored consent (cross-subdomain cookie first, then localStorage) or default to denied
       var storedConsent = null;
       try {
-        storedConsent = JSON.parse(localStorage.getItem('rpv_cookie_consent') || 'null');
+        var cookieMatch = document.cookie.match(/(?:^|;\s*)rpv_cookie_consent=([^;]*)/);
+        if (cookieMatch && cookieMatch[1]) {
+          storedConsent = JSON.parse(decodeURIComponent(cookieMatch[1]));
+        }
       } catch(e) {}
+      if (!storedConsent) {
+        try {
+          storedConsent = JSON.parse(localStorage.getItem('rpv_cookie_consent') || 'null');
+        } catch(e) {}
+      }
 
       var isAnalyticsGranted = storedConsent && storedConsent.analytics === true;
 
