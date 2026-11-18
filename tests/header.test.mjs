@@ -166,4 +166,25 @@ describe('Header component - Logo & Typography specifications (TDD)', () => {
       'Header desktop topbar must not have desktop "Cómo llegar" button'
     );
   });
+
+  test('Header places Tienda link immediately to the right of Outlet and removes live-open indicator', () => {
+    const headerSource = fs.readFileSync(headerPath, 'utf-8');
+
+    assert.equal(
+      headerSource.includes('header-live-status'),
+      false,
+      'Header must not render #header-live-status indicator'
+    );
+    assert.equal(
+      headerSource.includes('header-mobile-live-status'),
+      false,
+      'Header must not render #header-mobile-live-status indicator'
+    );
+
+    assert.match(
+      headerSource,
+      /\{\s*label:\s*'Outlet'[\s\S]*?\},\s*\{\s*label:\s*'Tienda',\s*href:\s*SITE\.brand\.storeUrl/,
+      'Header navLinks must place Tienda immediately after Outlet using SITE.brand.storeUrl'
+    );
+  });
 });

@@ -53,14 +53,14 @@ const outletFaqs = [
   {
     icon: 'storefront',
     question: '¿Publicáis un listado online de cada unidad de segunda mano?',
-    answer: `Aún no. Hoy las unidades se adquieren en nuestra tienda física (${SITE.location.street}, ${SITE.location.city}) por orden de llegada. <strong>Nuestra tienda web (tienda online oficial) está en camino</strong> y llegará pronto para convivir con el local; hasta entonces, el inventario real y las pruebas con enchufe se realizan en tienda física.`,
+    answer: `Sí. Puedes consultar el inventario disponible en nuestra <a href="${SITE.brand.storeUrl}" class="text-primary hover:underline font-semibold">Tienda web</a> y escribirnos por WhatsApp o acceder a los enlaces de marketplaces para consultar cada unidad. Si prefieres ver y probar el producto en nuestras mesas con enchufe, también te esperamos en nuestra tienda física (${SITE.location.street}, ${SITE.location.city}).`,
   },
 ];
 ---
 
 <Layout
   title={`Outlet y Segunda Mano · Tienda Física ${SITE.brand.shortName}`}
-  description={`Tienda física de outlet y segunda mano con hasta -70% de descuento. Banco de pruebas con enchufe, stock semanal y futura tienda web.`}
+  description={`Tienda física de outlet y segunda mano con hasta -70% de descuento. Banco de pruebas con enchufe, stock semanal y tienda web online.`}
   currentPage="outlet"
 >
   <div class="flex flex-col w-full">
@@ -82,12 +82,19 @@ const outletFaqs = [
               En <strong class="text-surface-dark font-semibold">Rápido Pack Valencia</strong> seleccionamos artículos de segunda mano, reacondicionados y liquidaciones de primeras marcas con entrada de mercancía nueva todas las semanas. Abre la caja, conéctalo en nuestras mesas de prueba y llévatelo al instante.
             </p>
 
-            <div class="stagger-item mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 2;">
+            <div class="stagger-item mt-8 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3.5 w-full sm:w-auto" style="--index: 2;">
               <a
                 class="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-primary hover:bg-primary-hover text-on-primary font-label-button text-base rounded-xl shadow-[0_12px_24px_-8px_rgba(5,150,82,0.4)] transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                href={SITE.brand.storeUrl}
+              >
+                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">storefront</span>
+                <span>Ir a la Tienda</span>
+              </a>
+              <a
+                class="inline-flex items-center justify-center gap-2.5 px-6 py-4 bg-surface-container-lowest hover:bg-surface-alt text-surface-dark border border-border-subtle font-label-button text-sm rounded-xl transition-all active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 href="#lineas-producto"
               >
-                <span class="material-symbols-outlined text-[20px]" aria-hidden="true">category</span>
+                <span class="material-symbols-outlined text-[20px] text-primary" aria-hidden="true">category</span>
                 <span>Ver Líneas de Producto</span>
               </a>
               <a
@@ -232,7 +239,7 @@ const outletFaqs = [
               </div>
               <figcaption class="mt-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                 <span class="text-surface-variant">Chollos del Día · Tienda Física</span>
-                <span class="text-primary-fixed font-semibold">Hoy en tienda · Online próximamente</span>
+                <a href={SITE.brand.storeUrl} class="text-primary-fixed hover:underline font-semibold">Hoy en tienda física y Tienda web</a>
               </figcaption>
             </figure>
 

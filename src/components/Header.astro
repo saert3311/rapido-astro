@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Inicio', href: '/', active: currentPage === 'home' },
   { label: 'Paquetería', href: '/paqueteria', active: currentPage === 'paqueteria' },
   { label: 'Outlet', href: '/outlet', active: currentPage === 'outlet' },
+  { label: 'Tienda', href: SITE.brand.storeUrl, active: false },
   { label: 'Contacto', href: '/contacto', active: currentPage === 'contacto' },
 ];
 ---
@@ -24,7 +25,7 @@ const navLinks = [
 
 <header class="fixed top-0 left-0 right-0 w-full z-40 bg-white/95 backdrop-blur-md border-t-[3px] border-t-primary border-b border-border-subtle shadow-[0_10px_30px_-14px_rgba(17,24,32,0.12)]">
   <div class="h-28 sm:h-32 lg:h-36 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 lg:gap-6">
-    <div class="flex items-center gap-5">
+    <div class="flex items-center">
       <a
         class="flex items-center gap-3 group focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary rounded-md py-1"
         href="/"
@@ -38,24 +39,6 @@ const navLinks = [
           class="h-[96px] sm:h-[108px] lg:h-[120px] w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
         />
       </a>
-
-      <!-- Live Store Status Indicator (Valencia Time) -->
-      <div
-        id="header-live-status"
-        class="hidden xl:inline-flex items-center gap-2 pl-5 border-l border-border-subtle text-xs font-mono font-medium text-text-muted whitespace-nowrap"
-        aria-live="polite"
-        data-weekday-open={SITE.schedule.weekdays.openMinutes}
-        data-weekday-close={SITE.schedule.weekdays.closeMinutes}
-        data-sat-open={SITE.schedule.saturday.openMinutes}
-        data-sat-close={SITE.schedule.saturday.closeMinutes}
-        data-weekday-open-label={SITE.schedule.weekdays.open}
-        data-weekday-close-label={SITE.schedule.weekdays.close}
-        data-sat-open-label={SITE.schedule.saturday.open}
-        data-sat-close-label={SITE.schedule.saturday.close}
-      >
-        <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
-        <span data-status-text>{SITE.schedule.summaryBadge}</span>
-      </div>
     </div>
 
     <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-1.5 lg:gap-2.5 whitespace-nowrap">
@@ -97,17 +80,6 @@ const navLinks = [
           aria-label="Navegación móvil"
           class="absolute right-0 mt-3 w-[calc(100vw-2rem)] sm:w-80 max-w-xs bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-2xl p-3 flex flex-col gap-1.5"
         >
-          <!-- Live Store Status for Mobile -->
-          <div
-            id="header-mobile-live-status"
-            class="px-4 py-3 rounded-xl bg-surface-alt/70 border border-border-subtle flex items-center gap-2 text-xs font-mono font-medium text-text-muted mb-1"
-            aria-live="polite"
-            data-mobile-status
-          >
-            <span data-status-dot class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
-            <span data-status-text>{SITE.schedule.summaryBadge}</span>
-          </div>
-
           {navLinks.map((link) => (
             <a
               href={link.href}
@@ -148,74 +120,3 @@ const navLinks = [
     </div>
   </div>
 </header>
-
-<script is:inline>
-  (() => {
-    const desktopContainer = document.getElementById('header-live-status');
-    const mobileContainer = document.getElementById('header-mobile-live-status');
-    const containers = [desktopContainer, mobileContainer].filter(Boolean);
-    if (containers.length === 0) return;
-
-    try {
-      const now = new Date();
-      const parts = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/Madrid',
-        weekday: 'short',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }).formatToParts(now);
-
-      const map = Object.fromEntries(parts.map((p) => [p.type, p.value]));
-      const source = desktopContainer || mobileContainer;
-      const weekdayOpenMins = parseInt(source?.dataset.weekdayOpen || '570', 10);
-      const weekdayCloseMins = parseInt(source?.dataset.weekdayClose || '1200', 10);
-      const satOpenMins = parseInt(source?.dataset.satOpen || '600', 10);
-      const satCloseMins = parseInt(source?.dataset.satClose || '900', 10);
-
-      const weekdayOpenLabel = source?.dataset.weekdayOpenLabel || '09:30';
-      const weekdayCloseLabel = source?.dataset.weekdayCloseLabel || '20:00';
-      const satOpenLabel = source?.dataset.satOpenLabel || '10:00';
-      const satCloseLabel = source?.dataset.satCloseLabel || '15:00';
-
-      const mins = parseInt(map.hour, 10) * 60 + parseInt(map.minute, 10);
-      const day = map.weekday;
-
-      let isOpen = false;
-      let label = `Cerrado · Abre Lunes ${weekdayOpenLabel}`;
-
-      if (['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(day)) {
-        if (mins >= weekdayOpenMins && mins < weekdayCloseMins) {
-          isOpen = true;
-          label = `Abierto ahora · Hasta ${weekdayCloseLabel}`;
-        } else if (mins < weekdayOpenMins) {
-          label = `Abre hoy a las ${weekdayOpenLabel}`;
-        } else {
-          label = day === 'Fri' ? `Abre Sáb a las ${satOpenLabel}` : `Abre mañana ${weekdayOpenLabel}`;
-        }
-      } else if (day === 'Sat') {
-        if (mins >= satOpenMins && mins < satCloseMins) {
-          isOpen = true;
-          label = `Abierto ahora · Hasta ${satCloseLabel}`;
-        } else if (mins < satOpenMins) {
-          label = `Abre hoy a las ${satOpenLabel}`;
-        } else {
-          label = `Cerrado · Abre Lunes ${weekdayOpenLabel}`;
-        }
-      }
-
-      for (const c of containers) {
-        const dot = c.querySelector('[data-status-dot]');
-        const text = c.querySelector('[data-status-text]');
-        if (dot) {
-          dot.className = isOpen
-            ? 'w-2 h-2 rounded-full bg-primary ring-4 ring-primary/15 shrink-0'
-            : 'w-2 h-2 rounded-full bg-amber-500 shrink-0';
-        }
-        if (text) {
-          text.textContent = label;
-        }
-      }
-    } catch {}
-  })();
-</script>

@@ -30,10 +30,11 @@ export const SITE = {
     shortName: 'Rápido Pack',
     domain: 'https://rapidopackvalencia.es',
     canonicalBase: 'https://rapidopackvalencia.es',
+    storeUrl: 'https://tienda.rapidopackvalencia.es',
     cityTag: 'Valencia · Tienda Física y Web',
     tagline: 'Tienda Física y Web · Outlet, Segunda Mano y Paquetería',
     metaDescription:
-      'Punto oficial de paquetería y tienda física outlet de segunda mano con próxima tienda web en Valencia. Hasta -70% y banco de pruebas.',
+      'Punto oficial de paquetería y tienda física outlet de segunda mano con tienda web en Valencia. Hasta -70% y banco de pruebas.',
     maxDiscountPct: 70,
     restockFrequency: 'Semanal',
   },

@@ -27,10 +27,10 @@ test('Mobile navigation menu has responsive width protection against narrow view
   assert.ok(hasResponsiveWidth, 'Mobile menu should use viewport-safe responsive width (e.g. w-[calc(100vw-2rem)] sm:w-72)');
 });
 
-test('Mobile navigation menu includes live store open/closed status badge', () => {
-  // Target: Mobile drawer should surface store open/closed status for mobile users
-  const hasMobileLiveStatus = /header-mobile-live-status|data-mobile-status/.test(headerContent);
-  assert.ok(hasMobileLiveStatus, 'Mobile navigation drawer should include live store status');
+test('Header navigation excludes live open/closed badge and includes Tienda link', () => {
+  const hasLiveStatus = /header-live-status|header-mobile-live-status|data-mobile-status/.test(headerContent);
+  assert.equal(hasLiveStatus, false, 'Header should not include live store open/closed badge');
+  assert.match(headerContent, /label:\s*'Tienda'/, 'Header navLinks must include Tienda');
 });
 
 test('Mobile touch targets adhere to WCAG 44px minimum sizing', () => {

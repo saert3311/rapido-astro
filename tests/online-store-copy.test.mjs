@@ -48,62 +48,65 @@ describe('Online Store Coming Soon - Copy & Policy Specifications (TDD)', () => 
     scanDir(path.join(projectRoot, 'src'));
   });
 
-  test('3. index.astro announces online store coming soon in Hero chip and FAQ', () => {
+  test('3. site.ts, Header.astro, Footer.astro, and index.astro integrate Tienda subdomain links', () => {
+    const siteTs = fs.readFileSync(path.join(projectRoot, 'src/config/site.ts'), 'utf-8');
+    const headerAstro = fs.readFileSync(path.join(projectRoot, 'src/components/Header.astro'), 'utf-8');
+    const footerAstro = fs.readFileSync(path.join(projectRoot, 'src/components/Footer.astro'), 'utf-8');
     const indexPath = path.join(projectRoot, 'src/pages/index.astro');
     const content = fs.readFileSync(indexPath, 'utf-8');
+
+    assert.match(
+      siteTs,
+      /storeUrl:\s*['"]https:\/\/tienda\.rapidopackvalencia\.es['"]/,
+      'site.ts must define storeUrl pointing to https://tienda.rapidopackvalencia.es'
+    );
+    assert.match(headerAstro, /SITE\.brand\.storeUrl/, 'Header.astro must link Tienda to SITE.brand.storeUrl');
+    assert.match(footerAstro, /SITE\.brand\.storeUrl/, 'Footer.astro must link Tienda to SITE.brand.storeUrl');
 
     // Hero chip check
     assert.match(
       content,
-      /Tienda online próximamente/i,
-      'index.astro must display a Hero chip announcing online store coming soon'
+      /SITE\.brand\.storeUrl/,
+      'index.astro must link to SITE.brand.storeUrl'
     );
 
     // FAQ check
     assert.match(
       content,
-      /tienda online/i,
-      'index.astro FAQ must mention tienda online'
-    );
-    assert.match(
-      content,
-      /pronto|próximamente|en desarrollo/i,
-      'index.astro FAQ must state that online store is coming soon or in development'
+      /tienda web|tienda online/i,
+      'index.astro FAQ must mention tienda web/online'
     );
   });
 
-  test('4. outlet.astro announces online store in FAQ and updates image badge', () => {
+  test('4. outlet.astro links to Tienda subdomain in CTA, badge, and FAQ', () => {
     const outletPath = path.join(projectRoot, 'src/pages/outlet.astro');
     const content = fs.readFileSync(outletPath, 'utf-8');
 
-    // Badge check
     assert.match(
       content,
-      /Hoy en tienda · Online próximamente/i,
-      'outlet.astro image badge must say "Hoy en tienda · Online próximamente"'
-    );
-
-    // FAQ check
-    assert.match(
-      content,
-      /tienda online/i,
-      'outlet.astro FAQ must mention tienda online'
+      /SITE\.brand\.storeUrl/,
+      'outlet.astro must link to SITE.brand.storeUrl'
     );
     assert.match(
       content,
-      /en camino|pronto|próximamente|en desarrollo/i,
-      'outlet.astro FAQ must state that online store is coming soon or on the way'
+      /Ir a la Tienda/i,
+      'outlet.astro must include an "Ir a la Tienda" CTA'
+    );
+    assert.match(
+      content,
+      /Hoy en tienda física y Tienda web/i,
+      'outlet.astro image caption must reference tienda física y Tienda web'
     );
   });
 
-  test('5. aviso-legal.astro reflects online store in active development', () => {
+  test('5. aviso-legal.astro reflects active Tienda web catalog and payment gateway in development', () => {
     const legalPath = path.join(projectRoot, 'src/pages/aviso-legal.astro');
     const content = fs.readFileSync(legalPath, 'utf-8');
 
     assert.match(
       content,
-      /Tienda Online en Desarrollo/i,
-      'aviso-legal.astro Section 3 title must mention "Tienda Online en Desarrollo"'
+      /SITE\.brand\.storeUrl/,
+      'aviso-legal.astro must reference SITE.brand.storeUrl'
     );
     assert.match(
       content,
