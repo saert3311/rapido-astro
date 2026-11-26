@@ -208,6 +208,33 @@ Las variables del worker y del frontend se definen en `wrangler.json` y se puede
 
 ---
 
+## 🐳 Docker & CI/CD
+
+El proyecto incluye una configuración Docker multi-etapa (`node:22-alpine`) con servidor HTTP nativo (`server.mjs`) sin dependencias adicionales para servir `./dist/` y el endpoint `POST /api/contact`:
+
+```sh
+# 1. Preparar variables de entorno locales (opcional para probar Mailjet/Turnstile)
+cp .env.example .env
+
+# 2. Construir y arrancar el contenedor en http://localhost:3000
+docker compose up --build
+```
+
+- **Healthcheck y Readiness:** `GET /healthz` devuelve `200 {"ok":true,"status":"healthy"}` (liveness del contenedor); `GET /readyz` verifica `./dist/index.html` y que los secretos de Turnstile/Mailjet estén configurados (`200` o `503`).
+- **Verificación preflight post-despliegue:** `npm run verify:contact` (admite `--url=http://127.0.0.1:3000` y `--check-mailjet` para validar credenciales contra Mailjet sin enviar correo).
+- **Proxy inverso Nginx (`TRUST_PROXY=true`):** Asegúrate de reenviar la IP real del visitante para Turnstile y el rate limiting de `/api/contact`:
+  ```nginx
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  ```
+- **Arranque local sin Docker (tras `npm run build`):** `npm start`.
+- **Pipeline CI/CD (`.github/workflows/ci.yml`):** En cada PR y push a `main` ejecuta `npm ci`, `npm run build`, `npm test`, `npm audit --audit-level=high`, build de la imagen Docker, smoke test contra el contenedor en ejecución y publicación multi-arquitectura (`linux/amd64`, `linux/arm64`) en GHCR al integrar en `main` o crear tags `v*`.
+- **Rollback (`.github/workflows/rollback.yml`):** Permite re-etiquetar manualmente un tag publicado en GHCR como `:latest`.
+
+---
+
 ## 📄 Licencia
 
 © 2026 Rápido Pack Valencia. Todos los derechos reservados.

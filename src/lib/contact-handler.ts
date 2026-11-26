@@ -12,8 +12,81 @@ export interface ContactRequestBody {
   turnstileToken: string;
 }
 
+export interface ContactConfigStatus {
+  ready: boolean;
+  turnstileConfigured: boolean;
+  mailjetConfigured: boolean;
+  mailjetListConfigured: boolean;
+  missing: string[];
+}
+
 const VALID_SUBJECTS = ['lotes', 'paqueteria', 'horarios', 'otro'] as const;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DUMMY_TURNSTILE_SECRET = '1x0000000000000000000000000000000AA';
+
+function isPlaceholderOrEmpty(value: unknown): boolean {
+  const trimmed = typeof value === 'string' ? value.trim() : '';
+  if (!trimmed) return true;
+  const lower = trimmed.toLowerCase();
+  return lower.startsWith('replace-with-') || lower.startsWith('your-') || lower === 'changeme';
+}
+
+function readEnvValue(env: Record<string, any>, key: string): string {
+  if (env && Object.prototype.hasOwnProperty.call(env, key) && typeof env[key] === 'string') {
+    return env[key].trim();
+  }
+  if (typeof process !== 'undefined' && typeof process.env?.[key] === 'string') {
+    return process.env[key]!.trim();
+  }
+  return '';
+}
+
+function logEvent(
+  env: Record<string, any>,
+  level: 'warn' | 'error',
+  event: string,
+  details: Record<string, unknown> = {}
+): void {
+  if (env.__silentLogs === true) return;
+  const line = JSON.stringify({
+    ts: new Date().toISOString(),
+    level,
+    event,
+    ...details,
+  });
+  if (level === 'error') {
+    console.error(line);
+  } else {
+    console.warn(line);
+  }
+}
+
+export function getContactConfigStatus(env: Record<string, any> = {}): ContactConfigStatus {
+  const turnstileSecret = readEnvValue(env, 'TURNSTILE_SECRET_KEY');
+  const mailjetApiKey = readEnvValue(env, 'MAILJET_API_KEY');
+  const mailjetSecretKey = readEnvValue(env, 'MAILJET_SECRET_KEY');
+  const mailjetContactListId = readEnvValue(env, 'MAILJET_CONTACT_LIST_ID');
+
+  const turnstileConfigured =
+    !isPlaceholderOrEmpty(turnstileSecret) && turnstileSecret !== DUMMY_TURNSTILE_SECRET;
+  const mailjetApiKeyConfigured = !isPlaceholderOrEmpty(mailjetApiKey);
+  const mailjetSecretKeyConfigured = !isPlaceholderOrEmpty(mailjetSecretKey);
+  const mailjetConfigured = mailjetApiKeyConfigured && mailjetSecretKeyConfigured;
+  const mailjetListConfigured = !isPlaceholderOrEmpty(mailjetContactListId);
+
+  const missing: string[] = [];
+  if (!turnstileConfigured) missing.push('TURNSTILE_SECRET_KEY');
+  if (!mailjetApiKeyConfigured) missing.push('MAILJET_API_KEY');
+  if (!mailjetSecretKeyConfigured) missing.push('MAILJET_SECRET_KEY');
+
+  return {
+    ready: turnstileConfigured && mailjetConfigured,
+    turnstileConfigured,
+    mailjetConfigured,
+    mailjetListConfigured,
+    missing,
+  };
+}
 
 export async function handleContactRequest(
   request: Request,
@@ -105,21 +178,48 @@ export async function handleContactRequest(
     );
   }
 
+  const nodeEnv = readEnvValue(env, 'NODE_ENV');
+  if (nodeEnv === 'production') {
+    const configStatus = getContactConfigStatus(env);
+    if (!configStatus.ready) {
+      logEvent(env, 'error', 'contact.config_missing', { missing: configStatus.missing });
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          error: {
+            code: 'SERVICE_UNAVAILABLE',
+            message:
+              'El servicio de contacto no está disponible temporalmente. Por favor, llámanos al 640 39 74 34 o escríbenos por WhatsApp.',
+          },
+        }),
+        { status: 503, headers: jsonHeaders }
+      );
+    }
+  }
+
   const fetchFn = env.__mockFetch || globalThis.fetch;
+
+  const remoteIp =
+    (typeof env.__clientIp === 'string' && env.__clientIp.trim()) ||
+    request.headers.get('cf-connecting-ip')?.trim() ||
+    undefined;
 
   // Turnstile verification
   const turnstileSecret =
-    env.TURNSTILE_SECRET_KEY ||
-    (typeof process !== 'undefined' ? process.env?.TURNSTILE_SECRET_KEY : undefined) ||
-    '1x0000000000000000000000000000000AA';
+    readEnvValue(env, 'TURNSTILE_SECRET_KEY') || DUMMY_TURNSTILE_SECRET;
 
   const turnstileResult = await verifyTurnstileToken({
     token: turnstileToken,
     secretKey: turnstileSecret,
+    remoteIp,
     fetchFn,
   });
 
   if (!turnstileResult.success) {
+    logEvent(env, 'warn', 'contact.turnstile_failed', {
+      error: turnstileResult.error,
+      errorCodes: turnstileResult.errorCodes,
+    });
     return new Response(
       JSON.stringify({
         ok: false,
@@ -133,21 +233,11 @@ export async function handleContactRequest(
   }
 
   // Mailjet Send API v3.1 (Transactional Email)
-  const mailjetApiKey =
-    env.MAILJET_API_KEY ||
-    (typeof process !== 'undefined' ? process.env?.MAILJET_API_KEY : undefined) ||
-    '';
-  const mailjetSecretKey =
-    env.MAILJET_SECRET_KEY ||
-    (typeof process !== 'undefined' ? process.env?.MAILJET_SECRET_KEY : undefined) ||
-    '';
-  const mailjetFrom =
-    env.MAILJET_FROM_EMAIL ||
-    (typeof process !== 'undefined' ? process.env?.MAILJET_FROM_EMAIL : undefined) ||
-    'contacto@rapidopackvalencia.es';
+  const mailjetApiKey = readEnvValue(env, 'MAILJET_API_KEY');
+  const mailjetSecretKey = readEnvValue(env, 'MAILJET_SECRET_KEY');
+  const mailjetFrom = readEnvValue(env, 'MAILJET_FROM_EMAIL') || 'contacto@rapidopackvalencia.es';
   const mailjetTo =
-    env.MAILJET_TO_EMAIL ||
-    (typeof process !== 'undefined' ? process.env?.MAILJET_TO_EMAIL : undefined) ||
+    readEnvValue(env, 'MAILJET_TO_EMAIL') ||
     SITE.contact.notificationEmail ||
     'contacto@rapidopackvalencia.es';
 
@@ -165,6 +255,10 @@ export async function handleContactRequest(
       }
     );
     if (!sendResult.ok) {
+      logEvent(env, 'error', 'contact.mailjet_send_failed', {
+        status: sendResult.status,
+        errorCode: sendResult.error ? sendResult.error.split(':')[0] : undefined,
+      });
       sendSuccess = false;
     }
   }
@@ -185,10 +279,7 @@ export async function handleContactRequest(
 
   // Mailjet List API v3 (Subscribe contact to list)
   let contactListSynced = false;
-  const contactListId =
-    env.MAILJET_CONTACT_LIST_ID ||
-    (typeof process !== 'undefined' ? process.env?.MAILJET_CONTACT_LIST_ID : undefined) ||
-    '';
+  const contactListId = readEnvValue(env, 'MAILJET_CONTACT_LIST_ID');
 
   if (mailjetApiKey && mailjetSecretKey && contactListId) {
     const listResult = await subscribeContactToList(
@@ -200,6 +291,12 @@ export async function handleContactRequest(
         fetchFn,
       }
     );
+    if (!listResult.ok) {
+      logEvent(env, 'warn', 'contact.mailjet_list_sync_failed', {
+        status: listResult.status,
+        errorCode: listResult.error ? listResult.error.split(':')[0] : undefined,
+      });
+    }
     contactListSynced = listResult.ok;
   }
 

@@ -151,7 +151,9 @@ describe('Contact Form & Mailjet Integration - TDD Suite', () => {
   });
 
   describe('4. API Handler Integration (handleContactRequest)', async () => {
-    const { handleContactRequest } = await import('../src/lib/contact-handler.ts').catch(() => ({}));
+    const { handleContactRequest, getContactConfigStatus } = await import(
+      '../src/lib/contact-handler.ts'
+    ).catch(() => ({}));
 
     it('handleContactRequest is exported as a function', () => {
       assert.equal(typeof handleContactRequest, 'function');
@@ -236,6 +238,101 @@ describe('Contact Form & Mailjet Integration - TDD Suite', () => {
       const json = await res.json();
       assert.equal(json.ok, true);
       assert.equal(typeof json.message, 'string');
+    });
+
+    it('getContactConfigStatus detects missing, placeholder, and dummy secrets vs valid keys', () => {
+      assert.equal(typeof getContactConfigStatus, 'function');
+      const missingStatus = getContactConfigStatus({
+        TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA',
+        MAILJET_API_KEY: 'replace-with-mailjet-api-key',
+        MAILJET_SECRET_KEY: '',
+        MAILJET_CONTACT_LIST_ID: 'replace-with-mailjet-list-id',
+      });
+      assert.equal(missingStatus.ready, false);
+      assert.equal(missingStatus.turnstileConfigured, false);
+      assert.equal(missingStatus.mailjetConfigured, false);
+      assert.equal(missingStatus.mailjetListConfigured, false);
+      assert.deepEqual(missingStatus.missing, [
+        'TURNSTILE_SECRET_KEY',
+        'MAILJET_API_KEY',
+        'MAILJET_SECRET_KEY',
+      ]);
+
+      const readyStatus = getContactConfigStatus({
+        TURNSTILE_SECRET_KEY: '0x4AAAAAA_prod_secret_key',
+        MAILJET_API_KEY: 'mj_prod_key',
+        MAILJET_SECRET_KEY: 'mj_prod_secret',
+        MAILJET_CONTACT_LIST_ID: '10568949',
+      });
+      assert.equal(readyStatus.ready, true);
+      assert.equal(readyStatus.turnstileConfigured, true);
+      assert.equal(readyStatus.mailjetConfigured, true);
+      assert.equal(readyStatus.mailjetListConfigured, true);
+      assert.deepEqual(readyStatus.missing, []);
+    });
+
+    it('returns 503 SERVICE_UNAVAILABLE in production when secrets are missing or placeholders', async () => {
+      const req = new Request('http://localhost/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Carlos Ruiz',
+          email: 'carlos@ejemplo.es',
+          phone: '640397434',
+          subject: 'paqueteria',
+          message: 'Buenas tardes, quisiera consultar los horarios de entrega.',
+          privacy: true,
+          turnstileToken: 'valid-turnstile-token',
+        }),
+      });
+
+      const res = await handleContactRequest(req, {
+        NODE_ENV: 'production',
+        TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA',
+        MAILJET_API_KEY: 'replace-with-mailjet-api-key',
+        MAILJET_SECRET_KEY: '',
+        __silentLogs: true,
+      });
+      assert.equal(res.status, 503);
+      const json = await res.json();
+      assert.equal(json.ok, false);
+      assert.equal(json.error?.code, 'SERVICE_UNAVAILABLE');
+    });
+
+    it('forwards client IP to Turnstile siteverify remoteip parameter', async () => {
+      let capturedTurnstileBody = '';
+      const mockEnv = {
+        TURNSTILE_SECRET_KEY: '0x4AAAAAA_real_secret_for_test',
+        MAILJET_API_KEY: 'mock-mj-key',
+        MAILJET_SECRET_KEY: 'mock-mj-secret',
+        __clientIp: '203.0.113.42',
+        __mockFetch: async (url, options) => {
+          if (String(url).includes('turnstile')) {
+            capturedTurnstileBody = String(options?.body || '');
+            return { ok: true, status: 200, json: async () => ({ success: true }) };
+          }
+          return { ok: true, status: 200, json: async () => ({ Messages: [{ Status: 'success' }] }) };
+        },
+      };
+
+      const req = new Request('http://localhost/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Carlos Ruiz',
+          email: 'carlos@ejemplo.es',
+          phone: '640397434',
+          subject: 'paqueteria',
+          message: 'Buenas tardes, quisiera consultar los horarios de entrega.',
+          privacy: true,
+          turnstileToken: 'valid-turnstile-token',
+        }),
+      });
+
+      const res = await handleContactRequest(req, mockEnv);
+      assert.equal(res.status, 200);
+      const params = new URLSearchParams(capturedTurnstileBody);
+      assert.equal(params.get('remoteip'), '203.0.113.42');
     });
   });
 
